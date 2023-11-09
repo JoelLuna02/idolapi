@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model VTuber {
+  id        Int     @id @default(autoincrement())
+  fullname  String  @unique
+  fanname   String  @unique
+  branch    String  @default("Hebrew")
+  unit      String
+  graduated Boolean @default(false)
+}
