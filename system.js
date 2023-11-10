@@ -1,9 +1,23 @@
 import express, { json } from 'express' // Express.js
-import path from 'path'
+import path from 'path' // Path for client routes
 import morgan from 'morgan' // Morgan middleware
 import vtuberRoutes from './routes/vtuber.routes.js'
 import agencyRoutes from './routes/agency.routes.js'
 import JWTRoutes from './routes/jwt.routes.js'
+import cors from 'cors'
+
+const idolapiOptions = {
+  origin: [
+    'http://localhost:3000', // Express.js, Next.js and React
+    'http://localhost:4200', // Angular
+    'http://localhost:5000', // Flask
+    'http://localhost:8000', // Django
+    'http://localhost:8080' // Spring boot, Vue.js, tomcat, etc.
+  ],
+  methods: 'GET,POST,DELETE,PUT,PATCH,HEAD,OPTIONS',
+  credentials: true,
+  optionsSuccessStatus: 204
+}
 
 const __filename = new URL(import.meta.url).pathname
 const __dirname = path.dirname(__filename)
@@ -15,6 +29,7 @@ const apli = express()
 
 apli.use(json())
 apli.use(express.static(path.join(__dirname, 'client')))
+apli.use(cors(idolapiOptions))
 apli.use(morgan('dev'))
 apli.use('/api', vtuberRoutes)
 apli.use('/api', agencyRoutes)

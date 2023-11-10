@@ -7,7 +7,7 @@ const router = Router()
 
 /* Get All VTubers */
 
-router.get('/vtuber', async (req, res) => {
+router.get('/vtuber', async (_req, res) => {
   const vtubers = await prisma.vTuber.findMany()
   return res.json(vtubers)
 })

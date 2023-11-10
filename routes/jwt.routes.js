@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
       data: {
         firstname: form.firstname,
         lastname: form.lastname,
-        phone: parseInt(form.phone, 12),
+        phone: parseInt(form.phone, 10),
         email: form.email,
         username: form.username,
         password: hashpass,
