@@ -3,6 +3,7 @@ import path from 'path'
 import morgan from 'morgan' // Morgan middleware
 import vtuberRoutes from './routes/vtuber.routes.js'
 import agencyRoutes from './routes/agency.routes.js'
+import JWTRoutes from './routes/jwt.routes.js'
 
 const __filename = new URL(import.meta.url).pathname
 const __dirname = path.dirname(__filename)
@@ -17,6 +18,7 @@ apli.use(express.static(path.join(__dirname, 'client')))
 apli.use(morgan('dev'))
 apli.use('/api', vtuberRoutes)
 apli.use('/api', agencyRoutes)
+apli.use('/api/auth', JWTRoutes)
 
 /* Main page */
 

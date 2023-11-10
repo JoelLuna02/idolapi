@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 import { Router } from 'express'
 import { prisma } from '../prisma/database.js'
+import { verify_Token } from './jwt.routes.js'
 
 const router = Router()
 
@@ -25,7 +27,7 @@ router.get('/vtuber/:id', async (req, res) => {
   return res.json(vtuber)
 })
 
-router.delete('/vtuber/:id', async (req, res) => {
+router.delete('/vtuber/:id', verify_Token, async (req, res) => {
   const vtid = req.params.id
   try {
     await prisma.vTuber.delete({ where: { id: parseInt(vtid, 10) } })
@@ -38,7 +40,7 @@ router.delete('/vtuber/:id', async (req, res) => {
 
 /* Create a new Vtuber */
 
-router.post('/vtuber/create', async (req, res) => {
+router.post('/vtuber/create', verify_Token, async (req, res) => {
   const form = await req.body
   const newvtuber = await prisma.vTuber.create({
     data: {
@@ -55,7 +57,7 @@ router.post('/vtuber/create', async (req, res) => {
 
 /* Update info of a existent VTuber */
 
-router.put('/vtuber/update/:id', async (req, res) => {
+router.put('/vtuber/update/:id', verify_Token, async (req, res) => {
   const form = await req.body
   const vtid = req.params.id
   try {

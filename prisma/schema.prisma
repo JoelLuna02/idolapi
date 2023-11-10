@@ -15,3 +15,15 @@ model VTuber {
   unit      String
   graduated Boolean @default(false)
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  firstname String
+  lastname  String
+  phone     Int
+  createdAt DateTime @default(now())
+  email     String   @unique
+  username  String   @unique
+  password  String   @unique
+  isAdmin   Boolean  @default(false)
+}
