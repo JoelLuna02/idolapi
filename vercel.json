@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "system.mjs",
+            "src": "system.js",
             "use": "@now/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "system.mjs"
+            "dest": "system.js"
         }
     ]
 }
