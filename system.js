@@ -23,32 +23,31 @@ const __filename = new URL(import.meta.url).pathname
 const __dirname = path.dirname(__filename)
 
 const PORT = process.env.PORT || 3000
-const apli = express()
+const app = express()
 
 /* Express Uses */
 
-apli.use(json())
-apli.use(express.static(path.join(__dirname, 'public')))
-apli.use(cors(idolapiOptions))
-apli.use(morgan('dev'))
-apli.use('/api', vtuberRoutes)
-apli.use('/api', agencyRoutes)
-apli.use('/api/auth', JWTRoutes)
-apli.use((req, res, next) => {
+app.use(json())
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(cors(idolapiOptions))
+app.use(morgan('dev'))
+app.use('/api', vtuberRoutes)
+app.use('/api', agencyRoutes)
+app.use('/api/auth', JWTRoutes)
+app.use((req, res, next) => {
   res.status(404).sendFile(path.join(__dirname, 'public', '404.html'))
 })
 
 /* Main page
 
-apli.get('/', function (req, res) {
+app.get('/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname, 'views/index.html'))
 }) */
 
 /* Listen server */
 
-apli.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`\n Server listening in http://localhost:${PORT}\n`)
 })
 
-// module.exports = apli
-
+export default app

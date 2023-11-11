@@ -3,15 +3,15 @@
     "description": "IdolAPI: A fanmade RESTful API Based In IdolCorp",
     "author": "Hector Joel Luna",
     "version": "0.1.0",
-    "main": "system.mjs",
+    "main": "system.js",
     "type": "module",
     "scripts": {
-        "dev": "nodemon ./system.mjs",
+        "dev": "nodemon ./system.js",
         "start": "node .",
-        "lint": "eslint ./system.mjs",
-        "lintfix": "eslint ./system.mjs --fix",
-        "prettier": "prettier ./system.mjs ",
-        "prettierfix": "prettier ./system.mjs --write"
+        "lint": "eslint ./system.js",
+        "lintfix": "eslint ./system.js --fix",
+        "prettier": "prettier ./system.js ",
+        "prettierfix": "prettier ./system.js --write"
     },
     "engine": {
         "node": ">=16"
