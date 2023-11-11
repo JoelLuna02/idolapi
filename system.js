@@ -13,7 +13,7 @@ const idolapiOptions = {
     'http://localhost:5000', // Flask
     'http://localhost:8000', // Django
     'http://localhost:8080', // Spring boot, Vue.js, tomcat, etc.
-    '.vercel.app' // Vercel
+    '.vercel.apli' // Vercel
   ],
   methods: 'GET,POST,DELETE,PUT,PATCH,HEAD,OPTIONS',
   credentials: true,
@@ -24,29 +24,29 @@ const __filename = new URL(import.meta.url).pathname
 const __dirname = path.dirname(__filename)
 
 const PORT = process.env.PORT || 3000
-const app = express()
+const apli = express()
 
 /* Express Uses */
 
-app.use(json())
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(cors(idolapiOptions))
-app.use(morgan('dev'))
-app.use('/api', vtuberRoutes)
-app.use('/api', agencyRoutes)
-app.use('/api/auth', JWTRoutes)
-app.use((req, res, next) => {
+apli.use(json())
+apli.use(express.static(path.join(__dirname, 'public')))
+apli.use(cors(idolapiOptions))
+apli.use(morgan('dev'))
+apli.use('/api', vtuberRoutes)
+apli.use('/api', agencyRoutes)
+apli.use('/api/auth', JWTRoutes)
+apli.use((req, res, next) => {
   res.status(404).sendFile(path.join(__dirname, 'public', '404.html'))
 })
 
 /* Main page
 
-app.get('/', function (req, res) {
+apli.get('/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname, 'views/index.html'))
 }) */
 
 /* Listen server */
 
-app.listen(PORT, () => {
+apli.listen(PORT, () => {
   console.log(`\n Server listening in http://localhost:${PORT}\n`)
 })
