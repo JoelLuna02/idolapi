@@ -1,14 +1,15 @@
 {
+    "version": 2,
     "builds": [
         {
-            "src": "./system.js",
-            "use": "@vercel/node"
+            "src": "system.mjs",
+            "use": "@now/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "system.mjs"
         }
     ]
 }
