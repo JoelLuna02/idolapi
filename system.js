@@ -20,9 +20,6 @@ const idolapiOptions = {
   optionsSuccessStatus: 204
 }
 
-const __filename = new URL(import.meta.url).pathname
-const __dirname = path.dirname(__filename)
-
 const PORT = process.env.PORT || 3000
 const apli = express()
 
@@ -35,15 +32,10 @@ apli.use(morgan('dev'))
 apli.use('/api', vtuberRoutes)
 apli.use('/api', agencyRoutes)
 apli.use('/api/auth', JWTRoutes)
-apli.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'))
-})
-
-/* Main page
 
 apli.get('/', function (req, res) {
-  res.status(200).sendFile(path.join(__dirname, 'views/index.html'))
-}) */
+  res.status(200).json({ message: 'hello world!' })
+})
 
 /* Listen server */
 
