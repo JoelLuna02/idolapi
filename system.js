@@ -28,18 +28,21 @@ const apli = express()
 /* Express Uses */
 
 apli.use(json())
-apli.use(express.static(path.join(__dirname, 'client')))
+apli.use(express.static(path.join(__dirname, 'public')))
 apli.use(cors(idolapiOptions))
 apli.use(morgan('dev'))
 apli.use('/api', vtuberRoutes)
 apli.use('/api', agencyRoutes)
 apli.use('/api/auth', JWTRoutes)
+apli.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'))
+})
 
-/* Main page */
+/* Main page
 
 apli.get('/', function (req, res) {
   res.status(200).sendFile(path.join(__dirname, 'views/index.html'))
-})
+}) */
 
 /* Listen server */
 
