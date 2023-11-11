@@ -49,3 +49,6 @@ apli.get('/', function (req, res) {
 apli.listen(PORT, () => {
   console.log(`\n Server listening in http://localhost:${PORT}\n`)
 })
+
+// module.exports = apli
+

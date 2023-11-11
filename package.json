@@ -6,12 +6,12 @@
     "main": "system.js",
     "type": "module",
     "scripts": {
-        "dev": "nodemon ./system.js",
+        "dev": "nodemon ./system.mjs",
         "start": "node .",
-        "lint": "eslint ./system.js",
-        "lintfix": "eslint ./system.js --fix",
-        "prettier": "prettier ./system.js ",
-        "prettierfix": "prettier ./system.js --write"
+        "lint": "eslint ./system.mjs",
+        "lintfix": "eslint ./system.mjs --fix",
+        "prettier": "prettier ./system.mjs ",
+        "prettierfix": "prettier ./system.mjs --write"
     },
     "engine": {
         "node": ">=16"
