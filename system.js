@@ -12,7 +12,8 @@ const idolapiOptions = {
     'http://localhost:4200', // Angular
     'http://localhost:5000', // Flask
     'http://localhost:8000', // Django
-    'http://localhost:8080' // Spring boot, Vue.js, tomcat, etc.
+    'http://localhost:8080', // Spring boot, Vue.js, tomcat, etc.
+    '.vercel.app' // Vercel
   ],
   methods: 'GET,POST,DELETE,PUT,PATCH,HEAD,OPTIONS',
   credentials: true,
@@ -49,5 +50,3 @@ app.get('/', function (req, res) {
 app.listen(PORT, () => {
   console.log(`\n Server listening in http://localhost:${PORT}\n`)
 })
-
-export default app
