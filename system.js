@@ -1,5 +1,4 @@
 import express, { json } from 'express' // Express.js
-import path from 'path' // Path for client routes
 import morgan from 'morgan' // Morgan middleware
 import vtuberRoutes from './routes/vtuber.routes.js'
 import agencyRoutes from './routes/agency.routes.js'
@@ -26,7 +25,6 @@ const apli = express()
 /* Express Uses */
 
 apli.use(json())
-apli.use(express.static(path.join(__dirname, 'public')))
 apli.use(cors(idolapiOptions))
 apli.use(morgan('dev'))
 apli.use('/api', vtuberRoutes)
