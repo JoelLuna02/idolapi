@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 const express = require('express')
-const { prisma } = require('../prisma/database.js')
-const verify_Token = require('./jwt.routes.js')
+const prisma = require('../prisma/database.js')
+const { verify_Token } = require('./jwt.routes.js')
 
 const vtrouter = express.Router()
 

@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
-const { Router } = require('express')
-const { prisma } = require('../prisma/database.js')
+const express = require('express')
+const prisma = require('../prisma/database')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const bodyParser = require('body-parser')
 
-const router = Router()
+const authrouter = express.Router()
 const secret = process.env.TOKEN_SECRET
 
 function verify_Token (req, res, next) {
-  // Consider "Bearer Token"
   const token = req.headers.authorization.split(' ')[1]
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized: Token not provided' })
@@ -28,7 +28,9 @@ function verify_Token (req, res, next) {
   })
 }
 
-router.post('/signup', async (req, res) => {
+authrouter.use(bodyParser.json())
+
+authrouter.post('/signup', async (req, res) => {
   const form = req.body
   const hashpass = await bcrypt.hash(form.password, 12)
   try {
@@ -52,7 +54,7 @@ router.post('/signup', async (req, res) => {
   }
 })
 
-router.post('/login', async (req, res) => {
+authrouter.post('/login', async (req, res) => {
   const form = req.body
   try {
     const user = await prisma.user.findUnique({ where: { username: form.username } })
@@ -74,5 +76,4 @@ router.post('/login', async (req, res) => {
   }
 })
 
-module.exports = router
-module.exports = verify_Token
+module.exports = { authrouter, verify_Token }
