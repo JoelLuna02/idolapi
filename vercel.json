@@ -2,20 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "index.js",
+            "src": "system.cjs",
             "use": "@now/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "index.js"
-        }
-    ],
-    "rewrites": [
-        {
-            "source": "/api/(.*)",
-            "destination": "/api"
+            "dest": "system.cjs"
         }
     ]
 }
