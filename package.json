@@ -3,15 +3,15 @@
     "description": "IdolAPI: A fanmade RESTful API Based In IdolCorp",
     "author": "Hector Joel Luna",
     "version": "0.1.0",
-    "main": "system.js",
-    "type": "module",
+    "main": "system.cjs",
+    "type": "commonjs",
     "scripts": {
-        "dev": "nodemon ./system.js",
+        "dev": "nodemon ./system.cjs",
         "start": "node .",
-        "lint": "eslint ./system.js",
-        "lintfix": "eslint ./system.js --fix",
-        "prettier": "prettier ./system.js ",
-        "prettierfix": "prettier ./system.js --write",
+        "lint": "eslint ./system.cjs",
+        "lintfix": "eslint ./system.cjs --fix",
+        "prettier": "prettier ./system.cjs ",
+        "prettierfix": "prettier ./system.cjs --write",
         "postinstall": "prisma generate"
     },
     "engine": {

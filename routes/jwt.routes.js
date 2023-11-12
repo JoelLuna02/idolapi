@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
-import { Router } from 'express'
-import { prisma } from '../prisma/database.js'
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcryptjs'
+const { Router } = require('express')
+const { prisma } = require('../prisma/database.js')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 
 const router = Router()
 const secret = process.env.TOKEN_SECRET
 
-export const verify_Token = (req, res, next) => {
+function verify_Token (req, res, next) {
   // Consider "Bearer Token"
   const token = req.headers.authorization.split(' ')[1]
   if (!token) {
@@ -74,4 +74,5 @@ router.post('/login', async (req, res) => {
   }
 })
 
-export default router
+module.exports = router
+module.exports = verify_Token

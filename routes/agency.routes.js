@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import { prisma } from '../prisma/database.js'
-import { Router } from 'express'
+const { prisma } = require('../prisma/database.js')
+const { Router } = require('express')
 
 const router = Router()
 
-export default router
+module.exports = router

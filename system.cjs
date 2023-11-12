@@ -1,9 +1,9 @@
-import express, { json } from 'express' // Express.js
-import morgan from 'morgan' // Morgan middleware
-import vtuberRoutes from './routes/vtuber.routes.js'
-import agencyRoutes from './routes/agency.routes.js'
-import JWTRoutes from './routes/jwt.routes.js'
-import cors from 'cors'
+const express = require('express') // Express.js
+const morgan = require('morgan') // Morgan middleware
+const vtrouter = require('./routes/vtuber.routes.js')
+const agencyRoutes = require('./routes/agency.routes.js')
+const JWTRoutes = require('./routes/jwt.routes.js')
+const cors = require('cors')
 
 const idolapiOptions = {
   origin: [
@@ -24,10 +24,10 @@ const apli = express()
 
 /* Express Uses */
 
-apli.use(json())
+apli.use(express.json())
 apli.use(cors(idolapiOptions))
 apli.use(morgan('dev'))
-apli.use('/api', vtuberRoutes)
+apli.use('/api', vtrouter)
 apli.use('/api', agencyRoutes)
 apli.use('/api/auth', JWTRoutes)
 
@@ -40,3 +40,5 @@ apli.get('/', function (req, res) {
 apli.listen(PORT, () => {
   console.log(`\n Server listening in http://localhost:${PORT}\n`)
 })
+
+module.exports = apli
