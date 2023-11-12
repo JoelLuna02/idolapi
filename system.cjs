@@ -2,6 +2,7 @@ const express = require('express') // Express.js
 const morgan = require('morgan') // Morgan middleware
 const vtrouter = require('./routes/vtuber.routes.js')
 const agencyRoutes = require('./routes/agency.routes.js')
+const path = require('path')
 const { authrouter } = require('./routes/jwt.routes.js')
 const cors = require('cors')
 
@@ -27,13 +28,14 @@ const apli = express()
 apli.use(express.json())
 apli.use(cors(idolapiOptions))
 apli.use(morgan('dev'))
+apli.use(express.static(path.join(__dirname, 'client')))
 
 apli.use('/api', vtrouter)
 apli.use('/api', agencyRoutes)
 apli.use('/api/auth', authrouter)
 
 apli.get('/', function (req, res) {
-  res.status(200).json({ message: 'hello world!' })
+  res.status(200).sendFile('client/index.html')
 })
 
 /* Listen server */
