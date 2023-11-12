@@ -11,7 +11,7 @@
         "lint": "eslint ./system.js",
         "lintfix": "eslint ./system.js --fix",
         "prettier": "prettier ./system.js ",
-        "prettierfix": "prettier ./system.js --write"
+        "prettierfix": "prettier ./system.js --write",
         "postinstall": "prisma generate"
     },
     "engine": {
