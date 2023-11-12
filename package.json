@@ -2,7 +2,7 @@
     "name": "idolapi",
     "description": "IdolAPI: A fanmade RESTful API Based In IdolCorp",
     "author": "Hector Joel Luna",
-    "version": "0.1.0",
+    "version": "0.5.1",
     "main": "system.cjs",
     "type": "commonjs",
     "scripts": {

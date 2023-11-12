@@ -13,7 +13,7 @@ const idolapiOptions = {
     'http://localhost:5000', // Flask
     'http://localhost:8000', // Django
     'http://localhost:8080', // Spring boot, Vue.js, tomcat, etc.
-    '.vercel.apli' // Vercel
+    '.vercel.app' // Vercel
   ],
   methods: 'GET,POST,DELETE,PUT,PATCH,HEAD,OPTIONS',
   credentials: true,
@@ -28,7 +28,11 @@ const apli = express()
 apli.use(express.json())
 apli.use(cors(idolapiOptions))
 apli.use(morgan('dev'))
+
 apli.use(express.static(path.join(__dirname, 'client')))
+apli.use('/docs', express.static(path.join(__dirname, 'client/docs.html')))
+apli.use('/about', express.static(path.join(__dirname, 'client/about.html')))
+apli.use('/support', express.static(path.join(__dirname, 'client/support.html')))
 
 apli.use('/api', vtrouter)
 apli.use('/api', agencyRoutes)
@@ -37,6 +41,7 @@ apli.use('/api/auth', authrouter)
 apli.get('/', function (req, res) {
   res.status(200).sendFile('client/index.html')
 })
+
 
 /* Listen server */
 
