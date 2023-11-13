@@ -1,0 +1,5 @@
+{
+    "vtuber": "/api/vtuber",
+    "agency": "/api/agency",
+    "auth": "/api/auth"
+}
