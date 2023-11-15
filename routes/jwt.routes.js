@@ -9,23 +9,27 @@ const authrouter = express.Router()
 const secret = process.env.TOKEN_SECRET
 
 function verify_Token (req, res, next) {
-  const token = req.headers.authorization.split(' ')[1]
-  if (!token) {
+  try {
+    const token = req.headers.authorization.split(' ')[1]
+    /* if (!token) {
+      return res.status(401).json({ message: 'Unauthorized: Token not provided' })
+    } */
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: 'Unauthorized', description: `${err}` })
+      }
+      req.user = decoded
+      const isAdmin = req.user.isAdmin || false
+      if (!isAdmin) {
+        return res.status(403).json({
+          message: 'Forbidden: You need administrative privileges to access this resource'
+        })
+      }
+      next()
+    })
+  } catch (error) {
     return res.status(401).json({ message: 'Unauthorized: Token not provided' })
   }
-  jwt.verify(token, secret, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Unauthorized', description: `${err}` })
-    }
-    req.user = decoded
-    const isAdmin = req.user.isAdmin || false
-    if (!isAdmin) {
-      return res.status(403).json({
-        message: 'Forbidden: You need administrative privileges to access this resource'
-      })
-    }
-    next()
-  })
 }
 
 authrouter.use(bodyParser.json())

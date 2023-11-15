@@ -9,6 +9,7 @@ const { authrouter } = require('./routes/jwt.routes.js')
 const cors = require('cors')
 const gradient = require('gradient-string')
 const figlet = require('figlet')
+const assets = require('./routes/assets.routes.js')
 
 const idolapiOptions = {
   origin: [
@@ -24,7 +25,7 @@ const idolapiOptions = {
   optionsSuccessStatus: 204
 }
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8080
 const apli = express()
 
 /* Express Uses */
@@ -41,6 +42,7 @@ apli.use('/support', express.static(path.join(__dirname, 'client/support.html'))
 apli.use('/api', vtrouter)
 apli.use('/api', main_routes)
 apli.use('/api', agencyRoutes)
+apli.use('/api/assets', assets)
 apli.use('/api/auth', authrouter)
 
 apli.get('/', function (req, res) {
