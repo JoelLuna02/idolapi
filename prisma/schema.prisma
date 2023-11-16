@@ -9,32 +9,32 @@ datasource db {
 }
 
 model Hashtag {
-  id      Int    @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
   general String? @unique
   stream  String? @unique
   fanart  String?
   memes   String?
-  vtuber  VTuber @relation(fields: [vtid], references: [id])
-  vtid    Int    @unique // Unique for one to one relationship
+  vtuber  VTuber  @relation(fields: [vtid], references: [id])
+  vtid    Int     @unique // Unique for one to one relationship
 }
 
 model Social {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   application String? @default("Twitter")
   socialurl   String? @unique
-  vtuber      VTuber @relation(fields: [vtid], references: [id])
+  vtuber      VTuber  @relation(fields: [vtid], references: [id])
   vtid        Int
 }
 
 model Song {
-  id          Int    @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String? @unique
   album       String?
   releasedate String?
   compositor  String?
   mixing      String?
   lyrics      String?
-  vtuber      VTuber @relation(fields: [vtid], references: [id])
+  vtuber      VTuber  @relation(fields: [vtid], references: [id])
   vtid        Int
 }
 
