@@ -24,7 +24,7 @@ assets.post('/upload', upload.single('file'), verify_Token, async (req, res) => 
     }
   })
 
-  return res.status(200).json({ new_file: filestorage, message: 'Successfully file stored' })
+  return res.status(200).json({ message: 'Successfully file stored' })
 })
 
 assets.get('/', async (req, res) => {
@@ -50,7 +50,21 @@ assets.get('/:file', async (req, res) => {
     return res.end(file.data)
   } catch (error) {
     console.log(error)
-    return res.status(404).json({ message: 'Error while finding file, see the console for more details' })
+    return res.status(500).json({ message: 'Error while finding file, see the console for more details' })
+  }
+})
+
+assets.delete('/:file', verify_Token, async (req, res) => {
+  const filename = req.params.file
+  try {
+    const file = await prisma.file.delete({ where: { filename } })
+    if (!file) {
+      return res.status(404).json({ message: 'Error: file not found' })
+    }
+    return res.status(204).json()
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: 'Error while finding file, see the console for more details' })
   }
 })
 

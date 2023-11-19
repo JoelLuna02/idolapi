@@ -44,7 +44,7 @@ model VTuber {
   fanname   String   @unique
   phrase    String
   debut     DateTime @default(now())
-  branch    String   @default("Hebrew")
+  branch    String   @default("HE")
   unit      String
   hashtag   Hashtag?
   emoji     String

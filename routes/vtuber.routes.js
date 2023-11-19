@@ -8,8 +8,32 @@ const vtrouter = express.Router()
 
 /* Get All VTubers */
 
-vtrouter.get('/vtuber', async (_req, res) => {
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function shuffleArray(array, numb) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = getRandomInt(0, i);
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array.slice(0, numb);
+}
+
+vtrouter.get('/vtuber', async (req, res) => {
+  const { branch, unit, graduated } = req.query
+  const VTFilter = {} // Filter to search
+  if (branch) {
+    VTFilter.branch = { contains: branch.toString() }
+  }
+  if (unit) {
+    VTFilter.unit = { contains: unit.toString() }
+  }
+  if (graduated !== undefined) {
+    VTFilter.graduated = { equals: (graduated.toLowerCase() === 'true') }
+  }
   const vtubers = await prisma.vTuber.findMany({
+    where: VTFilter,
     orderBy: { id: 'asc' },
     include: {
       hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
@@ -17,7 +41,50 @@ vtrouter.get('/vtuber', async (_req, res) => {
       social: { select: { id: true, application: true, socialurl: true } }
     }
   })
+  if (vtubers.length === 0) {
+    return res.status(204).json()
+  }
   return res.json(vtubers)
+})
+
+/* Get 6 randomly vtubers */
+
+vtrouter.get('/vtuber/random-vtubers', async (req, res) => {
+  try {
+    const vtList = 6;
+    const vtubers = await prisma.vTuber.findMany({
+      include: {
+        hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
+        songs: { select: { id: true, name: true, album: true, releasedate: true, compositor: true, lyrics: true, mixing: true } },
+        social: { select: { id: true, application: true, socialurl: true } }
+      }
+    })
+    if (vtubers.length < vtList) {
+      return res.status(400).json({ error: 'Not enough vtubers available' });
+    }
+    const randomVT = shuffleArray(vtubers, vtList);
+    return res.status(200).json(randomVT)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json(error)
+  }
+})
+
+/* Get a random VTuber */
+
+vtrouter.get('/vtuber/random', async (req, res) => {
+  const vtuber = await prisma.vTuber.findFirst({
+    orderBy: {
+      id: 'asc',
+    },
+    skip: Math.floor(Math.random() * (await prisma.vTuber.count())),
+    include: {
+      hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
+      songs: { select: { id: true, name: true, album: true, releasedate: true, compositor: true, lyrics: true, mixing: true } },
+      social: { select: { id: true, application: true, socialurl: true } }
+    }
+  })
+  return res.status(200).json(vtuber)
 })
 
 /* Get and Delete VTuber by id */
@@ -83,7 +150,7 @@ vtrouter.post('/vtuber/create', verify_Token, async (req, res) => {
       gender: form.gender,
       age: parseInt(form.age, 10),
       birthday: form.birthday,
-      zodiac: form.birthday,
+      zodiac: form.zodiac,
       height: parseFloat(form.height)
     }
   })
@@ -150,7 +217,7 @@ vtrouter.put('/vtuber/update/:id', verify_Token, async (req, res) => {
         gender: form.gender,
         age: parseInt(form.age, 10),
         birthday: form.birthday,
-        zodiac: form.birthday,
+        zodiac: form.zodiac,
         height: parseFloat(form.height)
       }
     })
