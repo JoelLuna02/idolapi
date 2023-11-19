@@ -6,7 +6,7 @@ export default function HeaderNav() {
             <header>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow border border-0">
                     <div className="container-fluid container">
-                        <Link className="navbar-brand" href="/">IdolAPI</Link>
+                        <Link className="navbar-brand fw-bold" href="/">IdolAPI</Link>
                         <button
                             className="navbar-toggler"
                             type="button"

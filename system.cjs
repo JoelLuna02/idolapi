@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-const express = require('express') // Express.js
-const next = require('next')
+const express = require('express') // Express.JS
+const next = require('next') // Next.JS
 
 const morgan = require('morgan') // Morgan middleware
 const vtrouter = require('./routes/vtuber.routes.js')

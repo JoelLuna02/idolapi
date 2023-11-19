@@ -3,10 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 import "@fortawesome/fontawesome-free/css/all.min.css"
 import { useEffect } from 'react'
-import { Roboto } from "next/font/google";
+import { Manrope } from "next/font/google";
 import '../globals.css'
 
-const roboto = Roboto({ weight: "400", subsets: ["latin"] });
+const roboto = Manrope({ weight: "400", subsets: ["latin"] });
 
 export default function RootLayout({children, }: { children: React.ReactNode }) {
   useEffect(() => {
