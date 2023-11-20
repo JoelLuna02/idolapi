@@ -1,3 +1,81 @@
-# Documentation works!
+# Documentation
+---
 
-export default ({children}) => <div className='pt-1'>{children}</div>
+In this section you will be able to see the functionality of each and every one of the available
+resources. To exemplify its operation, we use JavaScript and Python for its consumption. You can
+use any other programming language or client to return data.
+
+### **JavaScript**
+
+```javascript
+fetch('https://idolapi.vercel.app/api/vtuber')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+### **Python**
+
+```python
+import requests
+
+def fetchapi():
+    baseurl = 'https://idolapi.vercel.app/api/vtuber'
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            print(data)
+        else:
+            print('Error While fetching data')
+    except Exception as e:
+        print(f'{e}')
+
+if __name__ == '__main__':
+    fetchapi()
+```
+
+### Output
+
+```json
+[
+  {
+    "id": 1,
+    "fullname": "Pochi Wanmaru",
+    "fanname": "Sheebs",
+    "phrase": "hello i am puppy",
+    "debut": "2023-11-17T19:15:29.825Z",
+    "branch": "EN",
+    "unit": "E-Sekai",
+    "emoji": "🎮",
+    "youtube": "https://www.youtube.com/@PochiWanmaru",
+    "avatarurl": "/api/assets/PochiWanmaru.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -3,
+    "birthday": "26 August",
+    "zodiac": "26 August",
+    "height": 1.52,
+    "hashtag": {
+      "general": "#PochiWanmaru",
+      "stream": "#PochiLIVE",
+      "fanart": "#Sheebart",
+      "memes": "#Pogchi"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 1,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/pochiwanmaru"
+      },
+      {
+        "id": 2,
+        "application": "TikTok",
+        "socialurl": "https://www.tiktok.com/@pochiwanmaru"
+      }
+    ]
+  }, { ... }
+]
+```
+
+export default ({children}) => <div className='p-5'>{children}</div>

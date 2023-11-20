@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-const withMDX = require('@next/mdx')()
+const withMDX = require('@next/mdx')(
+)
 
 const nextConfig = {
     output: 'export',

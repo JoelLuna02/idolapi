@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     node: true
   },
-  extends: 'standard',
+  extends: 'next/core-web-vitals',
   overrides: [
     {
       env: {

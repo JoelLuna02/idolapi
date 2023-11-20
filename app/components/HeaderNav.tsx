@@ -1,9 +1,12 @@
 import Link from "next/link";
+import { Jost } from "next/font/google";
+
+const jost = Jost({ subsets:['latin'], weight:['400', '600']})
 
 export default function HeaderNav() {
     return (
         <>
-            <header>
+            <header className={jost.className}>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow border border-0">
                     <div className="container-fluid container">
                         <Link className="navbar-brand fw-bold" href="/">IdolAPI</Link>
