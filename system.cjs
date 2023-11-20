@@ -12,6 +12,34 @@ const gradient = require('gradient-string')
 const figlet = require('figlet')
 const assets = require('./routes/assets.routes.js')
 const nextConfig = require('./next.config.js');
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc")
+
+const options = {
+    definition: {
+        openapi: '3.1.0',
+        info: {
+            title: "IdolAPI - A fanmade RESTful API based in Idol Corp",
+            version: "0.6.5",
+            description:
+                "This is a simple CRUD API application made with Express and documented with Swagger",
+            contact: {
+                name: "LogRocket",
+                url: "https://logrocket.com",
+                email: "info@email.com",
+            },
+        },
+        servers: [
+            {
+                url: "http://localhost:3000",
+                description: 'Development server',
+            },
+        ]
+    },
+    apis: ["./routes/*.js"],
+}
+
+const specs = swaggerJsdoc(options)
 
 const idolapiOptions = {
   origin: [
@@ -44,6 +72,7 @@ app.prepare().then(() => {
   apli.use('/api', agencyRoutes)
   apli.use('/api/assets', assets)
   apli.use('/api/auth', authrouter)
+  apli.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }))
   apli.get('*', (req, res) => {
     return handle(req, res)
   })

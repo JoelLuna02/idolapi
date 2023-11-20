@@ -41,7 +41,7 @@ export default async function VTubers() {
           <div className="divider d-flex align-items-center my-4">
             <h1 className="text-center fw-bold mx-3 mb-0">Try it now!</h1>
           </div>
-          <div className="row gx-2 row-cols-1 row-cols-md-3 g-4">
+          <div className="row gx-2 g-4">
             {vtubers.map((vtuber: any) => {
               return (
                 <>

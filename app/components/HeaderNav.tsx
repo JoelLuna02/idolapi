@@ -45,6 +45,9 @@ export default function HeaderNav() {
                                     <li className="nav-item col-6 col-lg-auto">
                                         <Link className="nav-link py-2 px-0 px-lg-2" href="/support">Support</Link>
                                     </li>
+                                    <li className="nav-item col-6 col-lg-auto">
+                                        <Link className="nav-link py-2 px-0 px-lg-2" href="/swagger-ui">Try it Now</Link>
+                                    </li>
                                 </ul>
 
                                 <hr className="d-lg-none text-dark-50"></hr>
