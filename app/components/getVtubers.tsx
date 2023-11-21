@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import '../divider.css'
 import { format } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
 import { Ubuntu_Mono } from "next/font/google";
 
 const ubuntumono = Ubuntu_Mono({ subsets: ['latin'], weight: ['400']})
@@ -80,7 +81,10 @@ export default async function VTubers() {
                             </div>
                             <p style={{ lineHeight: 1.3, fontSize: '0.95rem' }}>
                               <span className="fw-bold">Debut date: </span>
-                              { format(new Date(`${vtuber.debut}`), 'EEEE d MMMM yyyy HH:mm:ss') }
+                              { format(
+                                utcToZonedTime(new Date(`${vtuber.debut}`), 'UTC'), 
+                                'EEEE, MMMM d, yyyy HH:mm') + ' (UTC)'
+                              }
                               <br></br>
                               <span className="fw-bold">Branch</span>: {vtuber.branch}<br></br>
                               <span className="fw-bold">Unit</span>: {vtuber.unit}<br></br>
