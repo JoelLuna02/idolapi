@@ -14,6 +14,12 @@ export default async function Home() {
         <>
             <HeaderNav></HeaderNav>
             <main className="">
+                <div className="container-xxl p-2 text-center">
+                    <h1 className="fw-bold display-4 pt-5">
+                        IdolAPI - A RESTful API based in Idol Corp.
+                    </h1>
+                    <p>The new site of your Favorite vtubers</p>
+                </div>
                 <VTubers></VTubers>
             </main>
             <Footer></Footer>

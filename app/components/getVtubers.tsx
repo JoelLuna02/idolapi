@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import '../divider.css'
+import { format } from 'date-fns'
 import { Ubuntu_Mono } from "next/font/google";
 
 const ubuntumono = Ubuntu_Mono({ subsets: ['latin'], weight: ['400']})
@@ -40,7 +41,7 @@ export default async function VTubers() {
         </div>
         <div className="container-xxl p-5">
           <div className="divider d-flex align-items-center my-4">
-            <h1 className="text-center fw-bold mx-3 mb-0">Try it now!</h1>
+            <h1 className="text-center fw-bold mx-3 mb-0">Idol VTubers</h1>
           </div>
           <div className="row gx-2 g-4">
             {vtubers.map((vtuber: any) => {
@@ -77,7 +78,10 @@ export default async function VTubers() {
                               }
                               <br></br>
                             </div>
-                            <p style={{ lineHeight: 1, fontSize: '0.95rem' }}>
+                            <p style={{ lineHeight: 1.3, fontSize: '0.95rem' }}>
+                              <span className="fw-bold">Debut date: </span>
+                              { format(new Date(`${vtuber.debut}`), 'EEEE d MMMM HH:mm:ss') }
+                              <br></br>
                               <span className="fw-bold">Branch</span>: {vtuber.branch}<br></br>
                               <span className="fw-bold">Unit</span>: {vtuber.unit}<br></br>
                               <span className="fw-bold">Fanname</span>: {vtuber.fanname}<br></br>
@@ -94,6 +98,10 @@ export default async function VTubers() {
                 </>
               )
             })}
+          </div>
+          <div className="p-4 alert alert-primary" role="alert">
+            <strong>Tip:</strong>
+            You can reload the page to get more results.
           </div>
           <div className="text-center pt-3">
             <Link role="button" className="btn btn-dark" href='http://localhost:3000/api/vtuber' target="_blank">View Full list in JSON</Link>

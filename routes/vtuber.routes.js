@@ -52,7 +52,7 @@ vtrouter.get('/vtuber', async (req, res) => {
   }
   const vtubers = await prisma.vTuber.findMany({
     where: VTFilter,
-    orderBy: { id: 'asc' },
+    orderBy: { debut: 'asc' },
     include: {
       hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
       songs: { select: { id: true, name: true, album: true, releasedate: true, compositor: true, lyrics: true, mixing: true } },
