@@ -80,3 +80,11 @@ model File {
   createdAt DateTime @default(now())
   data      Bytes
 }
+
+model Staff {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  roles      String[]
+  profileurl String
+  twitter    String   @unique
+}

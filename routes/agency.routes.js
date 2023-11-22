@@ -2,11 +2,43 @@
 const { prisma } = require('../prisma/database.js')
 const { Router } = require('express')
 const agencyjson = require('../api/agencydata.json')
+const { verify_Token } = require('./jwt.routes.js')
 
 const router = Router()
 
-router.get('/agency', (req, res) => {
-  return res.status(200).json({ agency: agencyjson })
+router.get('/agency', async (req, res) => {
+  const staff = await prisma.staff.findMany({})
+  return res.status(200).json({ agency: agencyjson, staff: staff})
+})
+
+router.post('/agency/addstaff', verify_Token, async (req, res) => {
+  const form = await req.body
+  try {
+    const newstaff = prisma.staff.create({
+      data: {
+        name: form.name,
+        roles: form.roles,
+        profileurl: form.profileurl,
+        twitter: form.twitter
+      }
+    })
+    return res.status(201).json({ new_staff: newstaff, message: "Successfully created staff" })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ error: "Error while creating staff entity" })
+  }
+})
+
+router.delete('/agency/:id', verify_Token, async (req, res) => {
+  const vtid = req.params.id
+  const form = await req.body
+  try {
+    await prisma.staff.delete({ where: { id: parseInt(vtid, 10) }})
+    return res.status(204).json({})
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ error: "Error while deleting staff entity" })
+  }
 })
 
 module.exports = router
