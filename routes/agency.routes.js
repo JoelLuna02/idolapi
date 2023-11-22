@@ -29,6 +29,20 @@ router.post('/agency/addstaff', verify_Token, async (req, res) => {
   }
 })
 
+router.get('/agency/:id', async (req, res) => {
+  const vtid = req.params.id
+  try {
+    const staff = await prisma.staff.findUnique({ where: { id: parseInt(vtid, 10) }})
+    if (!staff) {
+      return res.status(404).json({ message: "Staff not found" })
+    }
+    return res.status(200).json(staff)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ error: "Error while getting staff entity" })
+  }
+})
+
 router.delete('/agency/:id', verify_Token, async (req, res) => {
   const vtid = req.params.id
   const form = await req.body
