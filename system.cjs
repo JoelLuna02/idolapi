@@ -20,7 +20,7 @@ const options = {
         openapi: '3.1.0',
         info: {
             title: "IdolAPI - A fanmade RESTful API based in Idol Corp",
-            version: "0.6.5",
+            version: "0.7.0",
             description:
                 "This is a simple CRUD API application made with Express and documented with Swagger",
             contact: {

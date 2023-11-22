@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const { prisma } = require('../prisma/database.js')
+const prisma = require('../prisma/database.js')
 const { Router } = require('express')
 const agencyjson = require('../api/agencydata.json')
 const { verify_Token } = require('./jwt.routes.js')
@@ -7,8 +7,8 @@ const { verify_Token } = require('./jwt.routes.js')
 const router = Router()
 
 router.get('/agency', async (req, res) => {
-  const staff = await prisma.staff.findMany({})
-  return res.status(200).json({ agency: agencyjson, staff: staff})
+  const staff = await prisma.staff.findMany()
+  return res.status(200).json({ agency: agencyjson, staffs: staff})
 })
 
 router.post('/agency/addstaff', verify_Token, async (req, res) => {

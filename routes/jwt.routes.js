@@ -4,6 +4,7 @@ const prisma = require('../prisma/database')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const bodyParser = require('body-parser')
+const authdata = require("../api/authdata.json")
 
 const authrouter = express.Router()
 const secret = process.env.TOKEN_SECRET
@@ -33,6 +34,10 @@ function verify_Token (req, res, next) {
 }
 
 authrouter.use(bodyParser.json())
+
+authrouter.get('/', (req, res) => {
+  return res.status(200).json(authdata)
+})
 
 authrouter.post('/signup', async (req, res) => {
   const form = req.body
