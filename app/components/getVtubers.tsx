@@ -83,7 +83,7 @@ export default async function VTubers() {
                               <span className="fw-bold">Debut date: </span>
                               { format(
                                 utcToZonedTime(new Date(`${vtuber.debut}`), 'UTC'), 
-                                'EEEE, MMMM d, yyyy HH:mm') + ' (UTC)'
+                                'EEEE, MMMM d, yyyy HH:mm (zzz)')
                               }
                               <br></br>
                               <span className="fw-bold">Branch</span>: {vtuber.branch}<br></br>
