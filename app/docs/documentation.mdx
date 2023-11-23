@@ -139,4 +139,113 @@ if __name__ == '__main__':
 ]
 ```
 
+Before continuing, we must take into account each and every one of the attributes that
+each VTuber object has.
+
+<div className="card m-3">
+<div className="table-responsive">
+  <table className="table table-striped table-borderless border-light">
+    <thead>
+      <tr className="fw-bold">
+        <th scope="col"><h5>Attribute</h5></th>
+        <th scope="col"><h5>Type</h5></th>
+        <th scope="col"><h5>Description</h5></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">`id`</th>
+        <td>`Integer`</td>
+        <td>The VTuber's id</td>
+      </tr>
+      <tr>
+        <th scope="row">`fullname`</th>
+        <td>`String`</td>
+        <td>The VTuber's full name</td>
+      </tr>
+      <tr>
+        <th scope="row">`fanname`</th>
+        <td>`String`</td>
+        <td>The VTuber's fanname</td>
+      </tr>
+      <tr>
+        <th scope="row">`phrase`</th>
+        <td>`String`</td>
+        <td>The phrase or quote from the VTuber</td>
+      </tr>
+      <tr>
+        <th scope="row">`debut`</th>
+        <td>`Datetime`</td>
+        <td>The date and time of the debut of the Vtuber (ISO-8601 format)</td>
+      </tr>
+      <tr>
+        <th scope="row">`branch`</th>
+        <td>`String`</td>
+        <td>The VTuber's branch</td>
+      </tr>
+      <tr>
+        <th scope="row">`unit`</th>
+        <td>`String`</td>
+        <td>The VTuber's unit</td>
+      </tr>
+      <tr>
+        <th scope="row">`emoji`</th>
+        <td>`String`</td>
+        <td>The VTuber's emoji</td>
+      </tr>
+      <tr>
+        <th scope="row">`youtube`</th>
+        <td>`String (url)`</td>
+        <td>The VTuber's youtube channel url</td>
+      </tr>
+      <tr>
+        <th scope="row">`avatarurl`</th>
+        <td>`String (url)`</td>
+        <td>The VTuber's avatar url</td>
+      </tr>
+      <tr>
+        <th scope="row">`graduated`</th>
+        <td>`Boolean`</td>
+        <td>The VTuber's current status (false: active, true: graduated)</td>
+      </tr>
+      <tr>
+        <th scope="row">`age`</th>
+        <td>`Integer`</td>
+        <td>The VTuber's age (< -2: Other, -1: Unknown, irrelevant or forgotten, 0: not defined, > 1: Years old)</td>
+      </tr>
+      <tr>
+        <th scope="row">`birthday`</th>
+        <td>`String`</td>
+        <td>The VTuber's birthday</td>
+      </tr>
+      <tr>
+        <th scope="row">`zodiac`</th>
+        <td>`String`</td>
+        <td>The VTuber's zodiac sign</td>
+      </tr>
+      <tr>
+        <th scope="row">`height`</th>
+        <td>`Float`</td>
+        <td>The VTuber's height (in meters)</td>
+      </tr>
+      <tr>
+        <th scope="row">`hashtag`</th>
+        <td>`Object`</td>
+        <td>The VTuber's main hashtags</td>
+      </tr>
+      <tr>
+        <th scope="row">`songs`</th>
+        <td>`Array[Object]`</td>
+        <td>The VTuber's original songs</td>
+      </tr>
+      <tr>
+        <th scope="row">`social`</th>
+        <td>`Array[Object]`</td>
+        <td>The VTuber's social networks</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
 export default ({children}) => <div className='p-3'>{children}</div>
