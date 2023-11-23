@@ -55,4 +55,27 @@ router.delete('/agency/:id', verify_Token, async (req, res) => {
   }
 })
 
+router.put('/agency/update/:id', verify_Token, async (req, res) => {
+  const vtid = req.params.id
+  const form = await req.body
+  try {
+    const staff = prisma.staff.update({
+      where: { id: parseInt(vtid, 10) },
+      data: {
+        name: form.name,
+        roles: form.roles,
+        profileurl: form.profileurl,
+        twitter: form.twitter
+      }
+    })
+    if (!staff) {
+      return res.status(404).json({ message: "Staff not found" })
+    }
+    return res.status(201).json({ update_staff: staff, message: "Successfully updated staff" })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ error: "Error while creating staff entity" })
+  }
+})
+
 module.exports = router

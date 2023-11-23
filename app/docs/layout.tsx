@@ -1,7 +1,7 @@
 "use client"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css'
-import 'node_modules/highlight.js/styles/vs2015.css'
+import 'node_modules/highlight.js/styles/monokai.css'
 import "@fortawesome/fontawesome-free/css/all.min.css"
 import { useEffect } from 'react'
 import { Manrope } from "next/font/google";

@@ -40,16 +40,16 @@ export default async function VTubers() {
             <code>A message from the developers :P</code>
           </div>
         </div>
-        <div className="container-xxl p-5">
+        <div className="container-xxl p-4">
           <div className="divider d-flex align-items-center my-4">
             <h1 className="text-center fw-bold mx-3 mb-0">Idol VTubers</h1>
           </div>
-          <div className="row gx-2 g-4">
+          <div className="row g-4">
             {vtubers.map((vtuber: any) => {
               return (
                 <>
                   <div className="col-md-6" key={vtuber.id}>
-                    <div className="card mb-3 mt-3 shadow rounded-fill">
+                    <div className="card mb-1 mt-1 shadow rounded-fill">
                       <div className="row g-0">
                         <div className="col-md-6">
                           <Image
@@ -65,7 +65,7 @@ export default async function VTubers() {
                           </div>
                           <div className="card-body">
                             {vtuber.phrase === '' ? (
-                              <p>No description</p>
+                              <p><strong>No description</strong></p>
                             ) : (
                               <p style={{ lineHeight: 1, fontSize: '0.9rem' }}>{vtuber.phrase}</p>
                             )}
@@ -79,7 +79,7 @@ export default async function VTubers() {
                               }
                               <br></br>
                             </div>
-                            <p style={{ lineHeight: 1.3, fontSize: '0.95rem' }}>
+                            <p style={{ lineHeight: 1.3, fontSize: '0.9rem' }}>
                               <span className="fw-bold">Debut date: </span>
                               { format(
                                 utcToZonedTime(new Date(`${vtuber.debut}`), 'UTC'), 
@@ -91,8 +91,6 @@ export default async function VTubers() {
                               <span className="fw-bold">Fanname</span>: {vtuber.fanname}<br></br>
                               <span className="fw-bold">Zodiac sign</span>: {vtuber.zodiac}
                             </p>
-                          </div>
-                          <div className="card-footer">
                             <Link role="button" className="btn btn-dark" href={`http://localhost:3000/api/vtuber/${vtuber.id}`} target="_blank">View in JSON</Link>
                           </div>
                         </div>
