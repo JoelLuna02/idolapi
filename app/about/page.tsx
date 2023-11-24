@@ -5,6 +5,7 @@ import About from "./about.mdx";
 export const metadata = {
   title: "About this project - Comming soon!",
   description: "IdolAPI - A Fanmade RESTful API based in IdolCorp",
+  themeColor: "#111213",
   author: "Hector Joel Luna",
   charset: "utf-8",
 };

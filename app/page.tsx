@@ -5,6 +5,7 @@ import VTubers from "./components/getVtubers";
 export const metadata = {
     title: "Comming soon!",
     description: "IdolAPI - A Fanmade RESTful API based in IdolCorp",
+    themeColor: "#111213",
     author: "Hector Joel Luna",
     charset: "utf-8",
 };

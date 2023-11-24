@@ -7,7 +7,7 @@ export default function HeaderNav() {
     return (
         <>
             <header className={jost.className}>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow border border-0">
+                <nav className="navbar navbar-expand-lg navbar-dark fixed-top shadow border border-0" style={{ backgroundColor: "#111213"}}>
                     <div className="container-fluid container">
                         <Link className="navbar-brand fw-bold" href="/">IdolAPI</Link>
                         <button
@@ -22,13 +22,13 @@ export default function HeaderNav() {
                         </button>
 
                         <div
-                            className="offcanvas offcanvas-end"
+                            className="offcanvas offcanvas-end bg-dark"
                             tabIndex={-1}
                             id="offcanvasNavbar"
                             aria-labelledby="offcanvasNavbarLabel"
                         >
                             <div className="offcanvas-header">
-                                <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Main menu</h5>
+                                <h5 className="offcanvas-title text-white" id="offcanvasNavbarLabel">Main menu</h5>
                                 <button type="button" className="btn btn-danger btn-floating" data-bs-dismiss="offcanvas" aria-label="Close">
                                     <i className="fa-solid fa-xmark"></i>
                                 </button>
