@@ -28,7 +28,7 @@ export default function HeaderNav() {
                             aria-labelledby="offcanvasNavbarLabel"
                         >
                             <div className="offcanvas-header">
-                                <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                                <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Main menu</h5>
                                 <button type="button" className="btn btn-danger btn-floating" data-bs-dismiss="offcanvas" aria-label="Close">
                                     <i className="fa-solid fa-xmark"></i>
                                 </button>

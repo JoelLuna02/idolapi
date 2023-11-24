@@ -2,7 +2,7 @@
 ---
 
 In this section you will be able to see the functionality of each and every one of the available
-resources. To exemplify its operation, we use JavaScript and Python for its consumption. You can
+resources. To exemplify its operation, we use JavaScript for its consumption. You can
 use any other programming language or client to return data.
 
 ## **Base url**
@@ -10,30 +10,10 @@ use any other programming language or client to return data.
 We have defined the base url as [`/api`](/api), which contains information about the available API resources.
 The requests are made with the `GET` method and its response will return information in `json` format.
 
-### **JavaScript**
-
 ```javascript
 fetch('https://idolapi.vercel.app/api')
   .then((response) => response.json())
   .then((json) => console.log(json));
-```
-
-### **Python**
-
-```python
-import requests
-
-def fetchapi():
-    baseurl = 'https://idolapi.vercel.app/api'
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        print(data)
-    else:
-        print('Error While fetching data')
-
-if __name__ == '__main__':
-    fetchapi()
 ```
 
 **The output it will return is this:**
@@ -66,36 +46,13 @@ VTubers stored in `json` format.
 
 Here we show you ac example of how you can send the request:
 
-### **JavaScript**
-
 ```javascript
 fetch('https://idolapi.vercel.app/api/vtuber')
   .then((response) => response.json())
   .then((json) => console.log(json));
 ```
 
-### **Python**
-
-```python
-import requests
-
-def fetchapi():
-    baseurl = 'https://idolapi.vercel.app/api/vtuber'
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            print(data)
-        else:
-            print('Error While fetching data')
-    except Exception as e:
-        print(f'{e}')
-
-if __name__ == '__main__':
-    fetchapi()
-```
-
-### **Output:**
+**Output:**
 
 ```jsonc
 [
@@ -247,5 +204,110 @@ each VTuber object has.
   </table>
 </div>
 </div>
+
+You can even perform a search by parameters. We have defined branch, unit and graduated as
+optional parameters to perform the query. For example, if you want to obtain all the Vtubers
+from the English branch and the E-Sekai unit, you can do the following:
+
+```javascript
+fetch('https://idolapi.vercel.app/api/vtuber?branch=EN&unit=E-Sekai')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+**Output**
+
+```json
+[
+  {
+    // id's, fullname, etc.
+    "branch": "EN",
+    "unit": "E-Sekai"
+    //..
+  },
+  {
+    // id's, fullname, etc.
+    "branch": "EN",
+    "unit": "E-Sekai"
+    //..
+  }
+]
+```
+
+**_You can make all the queries you want, taking into account the established parameters._**
+
+### Fetching vtuber by id
+
+When you send a GET request to the `/api/vtuber` resource declaring an id of type Integer, it will
+return a VTuber object in `json` format. If a non-existent Vtuber id is declared, a 404 error message
+will be returned. For example, if we want to see the information about Fuyo Cloverfield,
+we can make the request: [`/api/vtuber/2`](/api/vtuber/2)
+
+```javascript
+fetch('https://idolapi.vercel.app/api/vtuber/2')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+**Output**
+
+```json
+{
+  "id": 2,
+  "fullname": "Fuyo Cloverfield",
+  "fanname": "Lucky Charms",
+  "phrase": "It's so hard to control two [_] at the same time! I'm struggling",
+  "debut": "2022-11-20T19:16:21.405Z",
+  "branch": "EN",
+  "unit": "E-Sekai",
+  "emoji": "🍀",
+  "youtube": "https://www.youtube.com/@FuyoCloverfield",
+  "avatarurl": "/api/assets/FuyoCloverfield.jpg",
+  "graduated": false,
+  "gender": "Female",
+  "age": 0,
+  "birthday": "16 March",
+  "zodiac": "16 March",
+  "height": 1.35,
+  "hashtag": {
+    "general": "#FuyoCloverfield",
+    "stream": "#FuyOnline",
+    "fanart": "#Fartistic",
+    "memes": "#Fwahaha"
+  },
+  "songs": [],
+  "social": [
+    {
+      "id": 3,
+      "application": "Twitter",
+      "socialurl": "https://twitter.com/FuyoCloverfield"
+    }
+  ]
+}
+```
+
+### Fetching a random Vtuber
+
+A VTuber can also be returned randomly. For this you can access the resource:
+[`/api/vtuber/random`](/api/vtuber/random)
+
+
+```javascript
+fetch('https://idolapi.vercel.app/api/vtuber/random')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+### In summary
+
+In conclusion, we take into account the following available methods:
+
+- **/api/vtuber**: Get a complete list of Vtubers
+- **/api/vtuber/:id**: Get a VTuber by id
+- **/api/vtuber/random**: Get a VTuber randomly
+
+---
+
+## **We will bring more things soon!**
 
 export default ({children}) => <div className='p-3'>{children}</div>
