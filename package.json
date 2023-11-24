@@ -6,9 +6,10 @@
     "main": "system.js",
     "type": "commonjs",
     "scripts": {
-        "dev": "nodemon ./system.js",
-        "start": "node system.js",
-        "lint": "eslint ./system.js",
+        "build": "next build",
+        "dev": "node system.js",
+        "start": "NODE_ENV=production node system.js",
+        "lint": "eslint system.js",
         "postinstall": "prisma generate"
     },
     "engine": {

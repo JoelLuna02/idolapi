@@ -7,64 +7,20 @@ const vtrouter = require('./routes/vtuber.routes.js')
 const agencyRoutes = require('./routes/agency.routes.js')
 const main_routes = require('./routes/api.routes.js')
 const { authrouter } = require('./routes/jwt.routes.js')
-const cors = require('cors')
 const gradient = require('gradient-string')
 const figlet = require('figlet')
 const assets = require('./routes/assets.routes.js')
-const nextConfig = require('./next.config.js');
-const swaggerUi = require("swagger-ui-express");
-const swaggerJsdoc = require("swagger-jsdoc")
+// const nextConfig = require('./next.config.js');
 
-const options = {
-    definition: {
-        openapi: '3.1.0',
-        info: {
-            title: "IdolAPI - A fanmade RESTful API based in Idol Corp",
-            version: "0.7.0",
-            description:
-                "This is a simple CRUD API application made with Express and documented with Swagger",
-            contact: {
-                name: "LogRocket",
-                url: "https://logrocket.com",
-                email: "info@email.com",
-            },
-        },
-        servers: [
-            {
-                url: "http://localhost:3000",
-                description: 'Development server',
-            },
-        ]
-    },
-    apis: ["./routes/*.js"],
-}
-
-const specs = swaggerJsdoc(options)
-
-const idolapiOptions = {
-  origin: [
-    'http://localhost:3000', // Express.js, Next.js and React
-    'http://localhost:4200', // Angular
-    'http://localhost:5000', // Flask
-    'http://localhost:8000', // Django
-    'http://localhost:8080', // Spring boot, Vue.js, tomcat, etc.
-    '.vercel.app' // Vercel
-  ],
-  methods: 'GET,POST,DELETE,PUT,PATCH,HEAD,OPTIONS',
-  credentials: true,
-  optionsSuccessStatus: 204
-}
 const dev = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 3000
-const apli = express()
-const app = next({ dev, conf: nextConfig })
+const app = next({ dev })
 const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
   /* Express Uses */
-
+  const apli = express()
   apli.use(express.json())
-  apli.use(cors(idolapiOptions))
   apli.use(morgan('dev'))
 
   apli.use('/api', vtrouter)
@@ -72,7 +28,6 @@ app.prepare().then(() => {
   apli.use('/api', agencyRoutes)
   apli.use('/api/assets', assets)
   apli.use('/api/auth', authrouter)
-  apli.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }))
   apli.get('*', (req, res) => {
     return handle(req, res)
   })
@@ -87,6 +42,9 @@ app.prepare().then(() => {
       '\n IdolAPI Version: ' + gradient.summer('BETA 0.5.1'),
       info + gradient(['#00ff00', '#00ff00'])(`http://localhost:${PORT}`))
   })
+}).catch((ex) => {
+  console.error(ex.stack)
+  process.exit(1)
 })
 
 module.exports = app
