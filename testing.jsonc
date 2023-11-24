@@ -1,0 +1,584 @@
+[
+  {
+    "id": 2,
+    "fullname": "Neo Sparkles",
+    "fanname": "Sparks",
+    "phrase": "",
+    "debut": "2022-05-10T12:00:00.000Z",
+    "branch": "HE",
+    "unit": "Origin",
+    "emoji": "🦊",
+    "youtube": "https://www.youtube.com/@NeoSparkles",
+    "avatarurl": "/api/assets/NeoSparkles.jpg",
+    "graduated": true,
+    "gender": "Female",
+    "age": 749,
+    "birthday": "18 May 1272",
+    "zodiac": "Taurus",
+    "height": 1.37,
+    "hashtag": {
+      "general": "#NeoSparklez",
+      "stream": "#SparklezLive",
+      "fanart": "#SparklezGallery",
+      "memes": "#SparklezMemes"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 3,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/NeoSparkles"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "fullname": "Emi Suika",
+    "fanname": "Watermelons",
+    "phrase": "",
+    "debut": "2022-05-10T12:45:00.000Z",
+    "branch": "HE",
+    "unit": "Origin",
+    "emoji": "🍉",
+    "youtube": "https://www.youtube.com/@EmiSuika",
+    "avatarurl": "/api/assets/EmiSuika.jpg",
+    "graduated": true,
+    "gender": "Female",
+    "age": 0,
+    "birthday": "1 February",
+    "zodiac": "Aquarius",
+    "height": 1.35,
+    "hashtag": {
+      "general": "#suikaemi",
+      "stream": "#SuikaEmiLIVE",
+      "fanart": "#suemiart",
+      "memes": "#emimemes"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 6,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/suikaemi"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "fullname": "Kattarina Qutie",
+    "fanname": "Quties",
+    "phrase": "Join the Mafia!",
+    "debut": "2022-05-10T13:30:00.000Z",
+    "branch": "HE",
+    "unit": "Origin",
+    "emoji": "🤍",
+    "youtube": "https://www.youtube.com/@kattarina_qutie",
+    "avatarurl": "/api/assets/KattarinaQutie.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": 0,
+    "birthday": "7 August",
+    "zodiac": "Leo",
+    "height": 1.55,
+    "hashtag": {
+      "general": "#KattarinaQutie",
+      "stream": "#qtlive",
+      "fanart": "#qtart",
+      "memes": "#qtmeme"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 1,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/kattarina_qutie"
+      },
+      {
+        "id": 2,
+        "application": "Instagram",
+        "socialurl": "https://www.instagram.com/kattarina_qutie/"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "fullname": "Nikki Rei",
+    "fanname": "Bonkers",
+    "phrase": "Bonk!",
+    "debut": "2022-05-10T14:15:00.000Z",
+    "branch": "HE",
+    "unit": "Origin",
+    "emoji": "🌞",
+    "youtube": "https://www.youtube.com/@NikkiRei",
+    "avatarurl": "/api/assets/NikkiRei.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": 0,
+    "birthday": "29 August",
+    "zodiac": "Virgo",
+    "height": 1.6,
+    "hashtag": {
+      "general": "#NikkiRei",
+      "stream": "#NikkiReiLIVE",
+      "fanart": "#NikkiReiART",
+      "memes": "#NikkiReiMEME"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 5,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/nikki_rei_idol"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "fullname": "Lily Sin",
+    "fanname": "Sinners",
+    "phrase": "CHAAAAAAAAAT",
+    "debut": "2022-05-10T15:00:00.000Z",
+    "branch": "HE",
+    "unit": "Origin",
+    "emoji": "😈",
+    "youtube": "https://www.youtube.com/@LilySin",
+    "avatarurl": "/api/assets/LilySin.jpg",
+    "graduated": true,
+    "gender": "Female",
+    "age": 0,
+    "birthday": "13 January",
+    "zodiac": "Capricorns",
+    "height": 1.4,
+    "hashtag": {
+      "general": "#LilySin",
+      "stream": "#LilyLive",
+      "fanart": "#LilyRT",
+      "memes": null
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 4,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/Lily_Sin_idol"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "fullname": "Pochi Wanmaru",
+    "fanname": "Sheebs",
+    "phrase": "hello i am puppy",
+    "debut": "2022-11-20T19:15:29.825Z",
+    "branch": "EN",
+    "unit": "E-Sekai",
+    "emoji": "🎮",
+    "youtube": "https://www.youtube.com/@PochiWanmaru",
+    "avatarurl": "/api/assets/PochiWanmaru.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -3,
+    "birthday": "26 August",
+    "zodiac": "Virgo",
+    "height": 1.52,
+    "hashtag": {
+      "general": "#PochiWanmaru",
+      "stream": "#PochiLIVE",
+      "fanart": "#Sheebart",
+      "memes": "#Pogchi"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 7,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/pochiwanmaru"
+      },
+      {
+        "id": 8,
+        "application": "TikTok",
+        "socialurl": "https://www.tiktok.com/@pochiwanmaru"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "fullname": "Fuyo Cloverfield",
+    "fanname": "Lucky Charms",
+    "phrase": "It's so hard to control two [_] at the same time! I'm struggling",
+    "debut": "2022-11-20T19:16:21.405Z",
+    "branch": "EN",
+    "unit": "E-Sekai",
+    "emoji": "🍀",
+    "youtube": "https://www.youtube.com/@FuyoCloverfield",
+    "avatarurl": "/api/assets/FuyoCloverfield.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": 0,
+    "birthday": "16 March",
+    "zodiac": "Fish",
+    "height": 1.35,
+    "hashtag": {
+      "general": "#FuyoCloverfield",
+      "stream": "#FuyOnline",
+      "fanart": "#Fartistic",
+      "memes": "#Fwahaha"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 9,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/FuyoCloverfield"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "fullname": "Yuko Yurei",
+    "fanname": "Boo Bros",
+    "phrase": "Did I scare you?",
+    "debut": "2022-11-20T19:16:45.446Z",
+    "branch": "EN",
+    "unit": "E-Sekai",
+    "emoji": "👻",
+    "youtube": "https://www.youtube.com/@yukoyurei",
+    "avatarurl": "/api/assets/YukoYurei.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -1,
+    "birthday": "1 October",
+    "zodiac": "Balance",
+    "height": 1.4,
+    "hashtag": {
+      "general": "#YukoYurei",
+      "stream": "#YukoLive",
+      "fanart": "#YUYUtiful",
+      "memes": "#SpookedSheetless"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 10,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/YureiYuko"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "fullname": "Rin Penrose",
+    "fanname": "Princedom",
+    "phrase": "I'm free. I'm cringe, but I'm free.",
+    "debut": "2022-11-20T19:17:13.280Z",
+    "branch": "EN",
+    "unit": "E-Sekai",
+    "emoji": "👑",
+    "youtube": "https://www.youtube.com/@rinpenrose",
+    "avatarurl": "/api/assets/RinPenrose.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -1,
+    "birthday": "4 February",
+    "zodiac": "Aquarius",
+    "height": 1.55,
+    "hashtag": {
+      "general": "#RinPenrose",
+      "stream": "#rintellectualproperty",
+      "fanart": "#inkpaintrose",
+      "memes": "#painrose"
+    },
+    "songs": [
+      {
+        "id": 1,
+        "name": "Golden Age",
+        "album": "Golden Age",
+        "releasedate": "2022-11-20",
+        "compositor": "Feris",
+        "lyrics": "Rin Penrose",
+        "mixing": "Feris, HaiDL"
+      }
+    ],
+    "social": [
+      {
+        "id": 11,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/rinpenrose"
+      },
+      {
+        "id": 12,
+        "application": "Marshmallow",
+        "socialurl": "https://marshmallow-qa.com/rinpenrose"
+      },
+      {
+        "id": 13,
+        "application": "Tumblr",
+        "socialurl": "https://rinpenrose1900.tumblr.com/"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "fullname": "Juna Unagi",
+    "fanname": "Fameely",
+    "phrase": "Slay",
+    "debut": "2022-11-20T19:17:38.979Z",
+    "branch": "EN",
+    "unit": "E-Sekai",
+    "emoji": "⚠️",
+    "youtube": "https://www.youtube.com/@JunaUnagi",
+    "avatarurl": "/api/assets/Juna_Unagi.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -1,
+    "birthday": "24 June",
+    "zodiac": "Cancer",
+    "height": 2.13,
+    "hashtag": {
+      "general": "#JunaUnagi",
+      "stream": "#UnagiLive",
+      "fanart": "#EELustration",
+      "memes": "#Unagimeme"
+    },
+    "songs": [
+      {
+        "id": 2,
+        "name": "HOMEOSTASIS",
+        "album": "HOMEOSTASIS",
+        "releasedate": "2023-10-11",
+        "compositor": "不眠症",
+        "lyrics": "Juna Unagi",
+        "mixing": "TETSUYA KAZUNE"
+      }
+    ],
+    "social": [
+      {
+        "id": 14,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/JunaUnagi"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "fullname": "Riro Ron",
+    "fanname": "Starchads",
+    "phrase": "",
+    "debut": "2023-02-16T07:00:00.000Z",
+    "branch": "EN",
+    "unit": "Project: STAR",
+    "emoji": "⭐",
+    "youtube": "https://www.youtube.com/@riroron",
+    "avatarurl": "/api/assets/RiroRon.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": 0,
+    "birthday": "10 April",
+    "zodiac": "10 April",
+    "height": 1.35,
+    "hashtag": {
+      "general": "#RiroRon",
+      "stream": "#rirolive",
+      "fanart": "#idrewriro",
+      "memes": "#hilarirous"
+    },
+    "songs": [
+      {
+        "id": 3,
+        "name": "CYBER",
+        "album": "CYBER",
+        "releasedate": "2023-02-16",
+        "compositor": "ATOLS",
+        "lyrics": "Riro Ron",
+        "mixing": "Epistafy"
+      }
+    ],
+    "social": [
+      {
+        "id": 15,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/RiroRonSTAR"
+      },
+      {
+        "id": 16,
+        "application": "TikTok",
+        "socialurl": "https://www.tiktok.com/@riroron"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "fullname": "Roca Rourin",
+    "fanname": "JamStones",
+    "phrase": "Did you like it?",
+    "debut": "2023-06-14T00:02:53.831Z",
+    "branch": "EN",
+    "unit": "Endless",
+    "emoji": "⚡️",
+    "youtube": "https://www.youtube.com/@rourinroca",
+    "avatarurl": "/api/assets/RocaRourin.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -1,
+    "birthday": "10 December",
+    "zodiac": "Sagittarius",
+    "height": 1.4,
+    "hashtag": {
+      "general": "#RocaRourin",
+      "stream": null,
+      "fanart": "#ArtRoc",
+      "memes": "#RocaLoca"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 18,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/RocaRourin"
+      },
+      {
+        "id": 19,
+        "application": "Marshmallow",
+        "socialurl": "https://marshmallow-qa.com/rocarourin"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "fullname": "Poko Rakun",
+    "fanname": "Fandits",
+    "phrase": "It wasn't me! thieving raccoon of idol corp 🦝",
+    "debut": "2023-06-14T04:46:08.463Z",
+    "branch": "EN",
+    "unit": "Endless",
+    "emoji": "🔑",
+    "youtube": "https://www.youtube.com/@rakunpoko",
+    "avatarurl": "/api/assets/PokoRakun.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -1,
+    "birthday": "18 February",
+    "zodiac": "Aquarius",
+    "height": 1.36,
+    "hashtag": {
+      "general": "#PokoRakun",
+      "stream": "#RakunLive",
+      "fanart": "#DrawKun",
+      "memes": "#WantedRakun"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 17,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/PokoRakun"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "fullname": "Coni Confetti",
+    "fanname": "Carnies",
+    "phrase": "Why do people think I'm weird?",
+    "debut": "2023-06-14T04:46:37.906Z",
+    "branch": "EN",
+    "unit": "Endless",
+    "emoji": "🎉",
+    "youtube": "https://www.youtube.com/@ConfettiConi",
+    "avatarurl": "/api/assets/ConiConfeti.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": 0,
+    "birthday": "6 October",
+    "zodiac": "Libra",
+    "height": 1.29,
+    "hashtag": {
+      "general": "#floofstoof",
+      "stream": "#clipfetti",
+      "fanart": "#confetticanvas",
+      "memes": null
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 21,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/coni_confetti"
+      },
+      {
+        "id": 22,
+        "application": "Twitch",
+        "socialurl": "https://www.twitch.tv/coni_confetti"
+      },
+      {
+        "id": 23,
+        "application": "Marshmallow",
+        "socialurl": "https://marshmallow-qa.com/coniconfetti"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "fullname": "Kai Saikota",
+    "fanname": "Kamisitos",
+    "phrase": "You're here to give your god an offering, right?! 🐉",
+    "debut": "2023-06-14T05:13:12.514Z",
+    "branch": "EN",
+    "unit": "Endless",
+    "emoji": "☁️",
+    "youtube": "https://www.youtube.com/@SaikotaKai",
+    "avatarurl": "/api/assets/KaiSaikota.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": 101,
+    "birthday": "13 September",
+    "zodiac": "Virgo",
+    "height": 1.7,
+    "hashtag": {
+      "general": "#KaiSaikota",
+      "stream": "#KaiCast",
+      "fanart": "#KaiColors",
+      "memes": "#KaiCursed"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 20,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/KaiSaikota"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "fullname": "Momo Otako",
+    "fanname": "Dumdums",
+    "phrase": "🍥 it me dumdums! the cutest otaku of @idol_corp 🐙",
+    "debut": "2023-06-14T05:16:18.194Z",
+    "branch": "EN",
+    "unit": "Endless",
+    "emoji": "🍥",
+    "youtube": "https://www.youtube.com/@OtakoMomo",
+    "avatarurl": "/api/assets/MomoOtako.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -3,
+    "birthday": "8 October",
+    "zodiac": "Libra",
+    "height": 1.35,
+    "hashtag": {
+      "general": "#MomoOtako",
+      "stream": "#TAKOLIVE",
+      "fanart": "#takodoodles",
+      "memes": "#takoKEK"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 24,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/MomoOtako"
+      }
+    ]
+  }
+]
