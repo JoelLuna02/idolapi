@@ -8,6 +8,7 @@ const nextConfig = {
         domains: ['localhost', '127.0.0.1'],
         unoptimized: true
     },
+    webpack5: false,
     //distDir: 'dist',
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
     /*useFileSystemPublicRoutes: false,
