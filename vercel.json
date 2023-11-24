@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "system.cjs",
+            "src": "system.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "system.cjs"
+            "dest": "system.js"
         }
     ]
 }
