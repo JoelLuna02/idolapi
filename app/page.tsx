@@ -21,7 +21,6 @@ export default async function Home() {
                     </h1>
                     <p>The new site of your Favorite vtubers</p>
                 </div>
-                <VTubers></VTubers>
             </main>
             <Footer></Footer>
         </>
