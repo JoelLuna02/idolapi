@@ -8,8 +8,8 @@ import { Ubuntu_Mono } from "next/font/google";
 
 const ubuntumono = Ubuntu_Mono({ subsets: ['latin'], weight: ['400']})
 
-const getVTubers = async () => {
-  const res = await fetch('http://localhost:3000/api/vtuber/random-vtubers', { cache: 'no-cache' })
+async function getVTubers() {
+  const res = await fetch(process.env.URL+'/api/vtuber/random-vtubers', { cache: 'no-cache' })
   if (!res.ok) { throw new Error('Failed to fetch data') }
   const data = await res.json()
   return data
@@ -53,7 +53,7 @@ export default async function VTubers() {
                       <div className="row g-0">
                         <div className="col-md-6">
                           <Image
-                            src={`http://localhost:3000${vtuber.avatarurl}`}
+                            src={`${process.env.URL}${vtuber.avatarurl}`}
                             alt="" width={730} height={730}
                             className="w-100 h-100 img-fluid rounded-start"
                             style={{ objectFit: "cover", objectPosition: "center" }}>
@@ -91,7 +91,7 @@ export default async function VTubers() {
                               <span className="fw-bold">Fanname</span>: {vtuber.fanname}<br></br>
                               <span className="fw-bold">Zodiac sign</span>: {vtuber.zodiac}
                             </p>
-                            <Link role="button" className="btn btn-light" href={`http://localhost:3000/api/vtuber/${vtuber.id}`} target="_blank">View in JSON</Link>
+                            <Link role="button" className="btn btn-light" href={`${process.env.URL}/api/vtuber/${vtuber.id}`} target="_blank">View in JSON</Link>
                           </div>
                         </div>
                       </div>
@@ -107,7 +107,7 @@ export default async function VTubers() {
             You can reload the page to get more results.
           </div>
           <div className="text-center pt-3">
-            <Link role="button" className="btn btn-dark" href='http://localhost:3000/api/vtuber' target="_blank">View Full list in JSON</Link>
+            <Link role="button" className="btn btn-dark" href={`${process.env.URL}/api/vtuber`} target="_blank">View Full list in JSON</Link>
           </div>
         </div>
       </section>

@@ -18,12 +18,10 @@ const nextConfig = {
         }
     }*/
     future: {
-        webpack5: true
+        webpack5: false
     },
-    webpack: function (config, options) {
-        console.log(options.webpack.version); // 5.18.0
-        config.experiments = {};
-        return config;
+    experiments: {
+        layers: true,
     }
 }
 
