@@ -27,12 +27,12 @@
                     </div>
 
                     <div class="row gx-3">
-                        <% vtlst.forEach(vtuber=> { %>
+                        <% vtlst.forEach(vtuber => { %>
                             <div class="col-md-6">
                                 <div class="card mb-1 mt-1 shadow rounded-fill bg-dark text-white">
                                     <div class="row g-0">
                                         <div class="col-md-6">
-                                            <img src="<%= vtuber.avatarurl %>" width=730 height=730 class="w-100 h-100 img-fluid rounded-start" id="fit" />
+                                            <img src=<%= vtuber.avatarurl %> width=730 height=730 class="w-100 h-100 img-fluid rounded-start" id="fit" />
                                         </div>
                                         <div class="col-md-6">
                                             <div class="card-header">
@@ -72,7 +72,7 @@
                             <% }); %>
                     </div>
                     <div class="text-center pt-3">
-                        <a role="button" class="btn btn-dark" href="/api/vtuber`" target="_blank">View Full list in JSON</a>
+                        <a role="button" class="btn btn-dark" href="/api/vtuber" target="_blank">View Full list in JSON</a>
                     </div>
                 </div>
             </section>
