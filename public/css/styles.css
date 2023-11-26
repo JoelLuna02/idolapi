@@ -1,3 +1,15 @@
+body {
+    background-color: #fdfeff;
+}
+
+.font02 {
+    font-family: 'Manrope', sans-serif;
+}
+
+.font01 {
+    font-family: 'Jost', sans-serif;
+}
+
 .divider:after,
 .divider:before {
     content: "";
