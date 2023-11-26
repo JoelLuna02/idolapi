@@ -10,6 +10,9 @@ const { authrouter } = require('./routes/jwt.routes.js');
 const gradient = require('gradient-string');
 const figlet = require('figlet');
 const assets = require('./routes/assets.routes.js');
+const { marked } = require('marked');
+const highlight = require('highlight.js');
+const fs = require('fs');
 
 const PORT = process.env.PORT || 3000;
 
@@ -27,6 +30,13 @@ apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
 apli.use(express.static('public'));
 apli.use('/favicon.ico', express.static('public/favicon.ico'));
+
+marked.setOptions({
+	highlight: function (code, language) {
+		const validLanguage = highlight.getLanguage(language) ? language : 'plaintext';
+		return highlight.highlight(validLanguage, code).value;
+	}
+});
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -62,13 +72,19 @@ apli.get('/', async (req, res) => {
 });
 
 apli.get('/docs', (req, res) => {
-	return res.render('docs', { title: 'Documentation - IdolAPI' });
+	const mdfile = fs.readFileSync('views/mdxs/documentation.md', 'utf-8');
+	const markdownContent = marked(mdfile);
+	return res.render('docs', { title: 'Documentation - IdolAPI', doc: markdownContent });
 });
 apli.get('/about', (req, res) => {
-	return res.render('about', { title: 'About this project - IdolAPI' });
+	const mdfile = fs.readFileSync('views/mdxs/about.md', 'utf-8');
+	const markdownContent = marked(mdfile);
+	return res.render('about', { title: 'About this project - IdolAPI', about: markdownContent });
 });
 apli.get('/support-us', (req, res) => {
-	return res.render('support', { title: 'Support us - IdolAPI' });
+	const mdfile = fs.readFileSync('views/mdxs/support.md', 'utf-8');
+	const markdownContent = marked(mdfile);
+	return res.render('support', { title: 'Support us - IdolAPI', support: markdownContent  });
 });
 
 apli.listen(PORT, () => {
