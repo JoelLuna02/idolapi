@@ -30,7 +30,6 @@ apli.use('/api', agencyRoutes);
 apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
 apli.use(express.static('public'));
-apli.use('/favicon.ico', express.static('public/favicon.ico'));
 
 marked.setOptions({
 	highlight: function (code, language) {
