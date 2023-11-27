@@ -11,6 +11,7 @@ const gradient = require('gradient-string');
 const figlet = require('figlet');
 const assets = require('./routes/assets.routes.js');
 const { marked } = require('marked');
+const cheerio = require('cheerio');
 const highlight = require('highlight.js');
 const fs = require('fs');
 
@@ -35,7 +36,8 @@ marked.setOptions({
 	highlight: function (code, language) {
 		const validLanguage = highlight.getLanguage(language) ? language : 'plaintext';
 		return highlight.highlight(validLanguage, code).value;
-	}
+	},
+	renderer: new marked.Renderer()
 });
 
 function getRandomInt(min, max) {
@@ -73,8 +75,19 @@ apli.get('/', async (req, res) => {
 
 apli.get('/docs', (req, res) => {
 	const mdfile = fs.readFileSync('views/mdxs/documentation.md', 'utf-8');
-	const markdownContent = marked(mdfile);
-	return res.render('docs', { title: 'Documentation - IdolAPI', doc: markdownContent });
+	const $ = cheerio.load(marked(mdfile));
+	const headers = [];
+
+	$(':header:not([id])').each((index, element) => {
+		$(element).attr('id', $(element).text().toLowerCase().replace(/\s+/g, '-'));
+	});
+
+	$(':header').each((index, element) => {
+		const id = $(element).attr('id');
+		const text = $(element).text();
+		headers.push({ id, text });
+	});
+	return res.render('docs', { title: 'Documentation - IdolAPI', doc: $.html(), headers });
 });
 apli.get('/about', (req, res) => {
 	const mdfile = fs.readFileSync('views/mdxs/about.md', 'utf-8');
