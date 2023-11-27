@@ -29,7 +29,6 @@ apli.use('/api', main_routes);
 apli.use('/api', agencyRoutes);
 apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
-apli.use(express.static('public'));
 
 marked.setOptions({
 	highlight: function (code, language) {
