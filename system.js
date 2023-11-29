@@ -98,7 +98,7 @@ apli.get('/support-us', (req, res) => {
 	return res.render('support', { title: 'Support us - IdolAPI', support: markdownContent  });
 });
 apli.get('/code-of-conduct', (req, res) => {
-	const mdfile = fs.readFileSync('./CODE_OF_CONDUCT.md', 'utf-8');
+	const mdfile = fs.readFileSync('views/mdxs/conduct.md', 'utf-8');
 	const $ = cheerio.load(marked(mdfile));
 	const headers = [];
 
