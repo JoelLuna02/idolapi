@@ -49,6 +49,10 @@ conditions. If there is any irregularity, contact the administrator. Its use for
 
 **Remember to follow the creator**:
 
-![X (formerly Twitter) Follow](https://img.shields.io/twitter/follow/JoelLuna20302?style=flat-square&label=Follow+me+on+Twitter)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/hector-joel-luna-984b6224b)
-![GitHub](https://img.shields.io/github/followers/JoelLuna02?label=My+Profile)
+![X (formerly Twitter) Follow](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)
+![Instagram (Follow me)](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)
+![LinkedIn (View profile)](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)
+
+**Contact**
+![Vía Outlook](https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white)
+![Vía Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)
