@@ -97,6 +97,22 @@ apli.get('/support-us', (req, res) => {
 	const markdownContent = marked(mdfile);
 	return res.render('support', { title: 'Support us - IdolAPI', support: markdownContent  });
 });
+apli.get('/code-of-conduct', (req, res) => {
+	const mdfile = fs.readFileSync('CODE_OF_CONDUCT.md', 'utf-8');
+	const $ = cheerio.load(marked(mdfile));
+	const headers = [];
+
+	$(':header:not([id])').each((index, element) => {
+		$(element).attr('id', $(element).text().toLowerCase().replace(/\s+/g, '-'));
+	});
+
+	$(':header').each((index, element) => {
+		const id = $(element).attr('id');
+		const text = $(element).text();
+		headers.push({ id, text });
+	});
+	return res.render('conduct', { title: 'Code of conduct - IdolAPI', code: $.html(), headers });
+});
 
 apli.listen(PORT, () => {
 	const banner = figlet.textSync(' IdolAPI', { font: 'Colossal' });
