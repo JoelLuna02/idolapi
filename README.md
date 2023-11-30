@@ -2,10 +2,10 @@
 
 [![IdolAPI](https://idolapi.vercel.app/api/assets/Screenshot_20231129_000020.png)](https://idolapi.vercel.app)
 
-![GitHub forks](https://img.shields.io/github/forks/JoelLuna02/idolapi)
-![GitHub Repo stars](https://img.shields.io/github/stars/JoelLuna02/idolapi?color=00ff00)
-![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/JoelLuna02/idolapi/IdolServer)
-![GitHub License](https://img.shields.io/github/license/JoelLuna02/idolapi)
+![GitHub forks](https://img.shields.io/github/forks/JoelLuna02/idolapi.svg)
+![GitHub Repo stars](https://img.shields.io/github/stars/JoelLuna02/idolapi.svg?color=00ff00)
+![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/JoelLuna02/idolapi/IdolServer.svg)
+![GitHub License](https://img.shields.io/github/license/JoelLuna02/idolapi.svg)
 
 
 IdolAPI is a RESTful API based on the VTuber agency Isrealí Idol Corp. Here you will have access
