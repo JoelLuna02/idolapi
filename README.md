@@ -38,12 +38,23 @@ how this API works and its available methods.
     npm run start
     ```
 
-### Copyright
+    You can see the REST API documentation from [here](https://idolapi.vercel.app/docs).
+
+## Copyright
 
 **© 2020 Copyright: IdolAPI, created by Hector Joel Luna**. Idol and all images, characters and names are trademarks of [Idol Virtual Talents Ltd](https://www.idol-company.com/).
 This project follows the [derivative works guidelines](https://www.idol-company.com/tos) set out in the terms and
 conditions. If there is any irregularity, contact the administrator. Its use for commercial purposes is prohibited.
 ​
+## Support this project ![Ko-fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)
+
+ Please consider supporting us, no matter how big or small the contribution is. It would help us a lot to continue keeping this API with its data updated and protected from any malicious attack.
+
+ <a href="https://ko-fi.com/G2G7M1GBM" target="_blank" style="padding-left: 1rem">
+    <img height="56" style="border: 0px; height: 56px" src="https://storage.ko-fi.com/cdn/kofi5.png?v=3" border="0" alt="Buy Me a Coffee at ko-fi.com" />
+</a>
+
+---
 
 **Remember to follow the creator**:
 
