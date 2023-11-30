@@ -54,5 +54,5 @@ conditions. If there is any irregularity, contact the administrator. Its use for
 
 **Contact**
 
-[![Vía Outlook](https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white)](mail:hectorjoelluna@outlook.com.ar)
-[![Vía Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mail:hectorjoelluna1234@gmail.com)
+[![Outlook](https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white)](mailto:hectorjoelluna@outlook.com.ar)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:hectorjoelluna1234@gmail.com)
