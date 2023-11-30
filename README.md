@@ -7,13 +7,12 @@
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/JoelLuna02/idolapi/IdolServer.svg)
 ![GitHub License](https://img.shields.io/github/license/JoelLuna02/idolapi.svg)
 
-
 IdolAPI is a RESTful API based on the VTuber agency Isrealí Idol Corp. Here you will have access
 to information about your favorite vtubers, staff, songs, etc., in addition to having access to
 images. Remember that for more information you can consult the documentation, where you can access
 how this API works and its available methods.
 
-## Setup local project ![Node.js](https://img.shields.io/badge/Node.js-v18.16.5-brightgreen) ![npm](https://img.shields.io/badge/npm-v9.5.1-blue)
+## Setup local project ![Node.js](https://img.shields.io/badge/Node.js-v18.16.5-brightgreen.svg) ![npm](https://img.shields.io/badge/npm-v9.5.1-blue.svg)
 
 - Once the repository is cloned, install the packages using npm. 
     ```bash
