@@ -83,3 +83,10 @@ Community Impact Guidelines were inspired by Mozilla's code of conduct enforceme
 For answers to common questions about this code of conduct, see the FAQ at
 [FAQ](https://www.contributor-covenant.org/faq). Translations are available 
 at [translations](https://www.contributor-covenant.org/translations).
+
+---
+
+**Administrator contact via Email**
+
+[![Outlook](https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white)](mailto:hectorjoelluna@outlook.com.ar)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:hectorjoelluna1234@gmail.com)
