@@ -5,7 +5,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/JoelLuna02/idolapi.svg)
 ![GitHub Repo stars](https://img.shields.io/github/stars/JoelLuna02/idolapi.svg?color=00ff00)
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/JoelLuna02/idolapi/IdolServer.svg)
-![GitHub License](https://img.shields.io/github/license/JoelLuna02/idolapi.svg)
+[![GitHub License](https://img.shields.io/github/license/JoelLuna02/idolapi.svg)](https://github.com/JoelLuna02/idolapi/blob/IdolServer/LICENSE)
 
 IdolAPI is a RESTful API based on the VTuber agency Isrealí Idol Corp. Here you will have access
 to information about your favorite vtubers, staff, songs, etc., in addition to having access to
