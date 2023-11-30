@@ -8,7 +8,6 @@
 ![GitHub License](https://img.shields.io/github/license/JoelLuna02/idolapi)
 
 
-
 IdolAPI is a RESTful API based on the VTuber agency Isrealí Idol Corp. Here you will have access
 to information about your favorite vtubers, staff, songs, etc., in addition to having access to
 images. Remember that for more information you can consult the documentation, where you can access
@@ -42,18 +41,18 @@ how this API works and its available methods.
 
 ### Copyright
 
-Idol and all images, characters and names are trademarks of [Idol Virtual Talents Ltd](https://www.idol-company.com/).
+**© 2020 Copyright: IdolAPI, created by Hector Joel Luna**. Idol and all images, characters and names are trademarks of [Idol Virtual Talents Ltd](https://www.idol-company.com/).
 This project follows the [derivative works guidelines](https://www.idol-company.com/tos) set out in the terms and
 conditions. If there is any irregularity, contact the administrator. Its use for commercial purposes is prohibited.
 ​
 
 **Remember to follow the creator**:
 
-![X (formerly Twitter) Follow](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)
-![Instagram (Follow me)](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)
-![LinkedIn (View profile)](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)
+[![X (formerly Twitter) Follow](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/JoelLuna20302)
+[![Instagram (Follow me)](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/joelluna_2002)
+[![LinkedIn (View profile)](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hector-joel-luna-984b6224b/)
 
 **Contact**
 
-![Vía Outlook](https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white)
-![Vía Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)
+[![Vía Outlook](https://img.shields.io/badge/Microsoft_Outlook-0078D4?style=for-the-badge&logo=microsoft-outlook&logoColor=white)](mail:hectorjoelluna@outlook.com.ar)
+[![Vía Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mail:hectorjoelluna1234@gmail.com)
