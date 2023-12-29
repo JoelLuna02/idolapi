@@ -13,6 +13,7 @@ const assets = require('./routes/assets.routes.js');
 const { marked } = require('marked');
 const cheerio = require('cheerio');
 const highlight = require('highlight.js');
+const { inject } = require('@vercel/analytics');
 const fs = require('fs');
 
 const PORT = process.env.PORT || 3000;
@@ -29,6 +30,8 @@ apli.use('/api', main_routes);
 apli.use('/api', agencyRoutes);
 apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
+
+inject({ debug: false });
 
 marked.setOptions({
 	highlight: function (code, language) {
