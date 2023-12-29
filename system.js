@@ -31,7 +31,7 @@ apli.use('/api', agencyRoutes);
 apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
 
-inject({ debug: false });
+const analytics = inject({ debug: false });
 
 marked.setOptions({
 	highlight: function (code, language) {
@@ -67,7 +67,7 @@ apli.get('/', async (req, res) => {
 			return res.status(400).json({ error: 'Not enough vtubers available' });
 		}
 		const randomVT = shuffleArray(vtubers, vtList);
-		return res.render('index', { vtlst: randomVT, title: 'IdolAPI' });
+		return res.render('index', { vtlst: randomVT, title: 'IdolAPI', analytics });
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json(error);
