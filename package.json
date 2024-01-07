@@ -9,8 +9,7 @@
         "build": "next build",
         "dev": "nodemon system.js",
         "start": "NODE_ENV=production node system.js",
-        "lint": "eslint system.js",
-        "postinstall": "prisma generate"
+        "lint": "eslint system.js"
     },
     "engine": {
         "node": ">=18"
