@@ -1,26 +1,34 @@
-/* eslint-disable camelcase */
 const express = require('express'); // Express.JS
 
 const morgan = require('morgan'); // Morgan middleware
-const prisma = require('./prisma/database.js');
 const vtrouter = require('./routes/vtuber.routes.js');
+const myCustomFormat = require('./settings.js');
+const { bold, whiteBright, green, greenBright, redBright, magentaBright } = require('colorette');
 const agencyRoutes = require('./routes/agency.routes.js');
 const main_routes = require('./routes/api.routes.js');
 const { authrouter } = require('./routes/jwt.routes.js');
-const gradient = require('gradient-string');
-const figlet = require('figlet');
 const assets = require('./routes/assets.routes.js');
 const { marked } = require('marked');
-const cheerio = require('cheerio');
+// const cheerio = require('cheerio');
 const highlight = require('highlight.js');
-const { inject } = require('@vercel/analytics');
-const fs = require('fs');
+require('dotenv').config();
+// const fs = require('fs');
+
+const sequelize = require('./database/sequelize');
+require('./models/VTuber.js');
+require('./models/Hashtag.js');
+require('./models/Social.js');
+require('./models/Song.js');
+require('./models/File.js');
+require('./models/User.js');
 
 const PORT = process.env.PORT || 3000;
-
+const startTime = new Date();
 const apli = express();
 apli.use(express.json());
-apli.use(morgan('dev'));
+
+apli.use(morgan(myCustomFormat));
+
 
 apli.set('view engine', 'ejs');
 apli.set('views', __dirname + '/views');
@@ -31,7 +39,6 @@ apli.use('/api', agencyRoutes);
 apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
 
-const analytics = inject({ debug: false });
 
 marked.setOptions({
 	highlight: function (code, language) {
@@ -41,6 +48,15 @@ marked.setOptions({
 	renderer: new marked.Renderer()
 });
 
+apli.get('*', (req, res) => {
+	return res.status(503).send(
+		'<title>IdolAPI under maintenance</title>\n' +
+		'<h1>IdolAPI under maintenance</h1><hr>' +
+		'We are sorry, but IdolAPI is temporarily down for maintenance.'
+	);
+});
+
+/* 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -115,17 +131,32 @@ apli.get('/code-of-conduct', (req, res) => {
 		headers.push({ id, text });
 	});
 	return res.render('conduct', { title: 'Code of conduct - IdolAPI', code: $.html(), headers });
-});
+}); */
 
-apli.listen(PORT, () => {
-	const banner = figlet.textSync(' IdolAPI', { font: 'Colossal' });
-	const info = '\n Server listening in ';
+const initialize = async () => {
+	try {
+		await sequelize.sync();
+		console.log(`\n${greenBright('[INFO]')}:\t ${green('Sucess!')} Connection has been established successfully`);
+		apli.listen(PORT, (err) => {
+			if (err) { console.error(err); }
+			console.log(`${greenBright('[INFO]')}:\t Server listening on ${bold(whiteBright(`http://localhost:${PORT}`))}`);
+		}); 
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+process.on('SIGINT', () => {
+	const endTime = new Date();
+	const executionTime = endTime - startTime;
 	console.log(
-		gradient.fruit('\n' + banner + '\n\t\t A fanmade RESTful API based in Idol\n'),
-		'\n Express.js Version: ' + gradient.cristal('4.18.2'),
-		'\n IdolAPI Version: ' + gradient.summer('BETA 0.5.1'),
-		info + gradient(['#00ff00', '#00ff00'])(`http://localhost:${PORT}`)
+		`${greenBright('[INFO]')}:\t Server ${redBright('Terminated!')}\n`+
+		`${greenBright('[INFO]')}:\t Execution time: ${magentaBright(executionTime)} ms\n`+
+		`${greenBright('[INFO]')}:\t Have a nice day!\n`
 	);
+	// eslint-disable-next-line no-process-exit
+	process.exit();
 });
 
+initialize();
 module.exports = apli;
