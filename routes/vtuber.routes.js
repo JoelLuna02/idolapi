@@ -1,13 +1,12 @@
-
-/* eslint-disable no-unused-vars */
-/* eslint-disable camelcase */
 const express = require('express');
-const prisma = require('../prisma/database.js');
-const { verify_Token } = require('./jwt.routes.js');
+const {Op} = require('sequelize');
+const VTuber = require('../models/VTuber');
+const Social = require('../models/Social');
+const Hashtag = require('../models/Hashtag');
+const Song = require('../models/Song');
+const { verify_Token } = require('./jwt.routes');
 
 const vtrouter = express.Router();
-
-/* Get All VTubers */
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -20,44 +19,21 @@ function shuffleArray(array, numb) {
 	}
 	return array.slice(0, numb);
 }
-/**
- * @swagger
- * /api/vtuber:
- *   get:
- *     summary: Retrieve a list of JSONPlaceholder users
- *     description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
- *     responses:
- *       200:
- *         description: A list of users.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 type: array
- *                 items:
- *                   type: object
-*/
+
 vtrouter.get('/vtuber', async (req, res) => {
 	const { branch, unit, graduated } = req.query;
-	const VTFilter = {}; // Filter to search
-	if (branch) {
-		VTFilter.branch = { contains: branch.toString() };
-	}
-	if (unit) {
-		VTFilter.unit = { contains: unit.toString() };
-	}
-	if (graduated !== undefined) {
-		VTFilter.graduated = { equals: (graduated.toLowerCase() === 'true') };
-	}
-	const vtubers = await prisma.vTuber.findMany({
-		where: VTFilter,
-		orderBy: { debut: 'asc' },
-		include: {
-			hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
-			songs: { select: { id: true, name: true, album: true, releasedate: true, compositor: true, lyrics: true, mixing: true } },
-			social: { select: { id: true, application: true, socialurl: true } }
-		}
+	const VTFilter = {};
+	if (branch) { VTFilter.branch = { [Op.iLike]: `%${branch.toString()}%` }; }
+	if (unit) { VTFilter.unit = { [Op.iLike]: `%${unit.toString()}%` }; }
+	if (graduated !== undefined) { VTFilter.graduated = { [Op.eq]: (graduated.toLowerCase() === 'true') };}
+	
+	const vtubers = await VTuber.findAll({
+		where: VTFilter, orderBy: { id: 'asc' },
+		include: [
+			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
+			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
+			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
+		]
 	});
 	if (vtubers.length === 0) {
 		return res.status(204).json();
@@ -70,12 +46,12 @@ vtrouter.get('/vtuber', async (req, res) => {
 vtrouter.get('/vtuber/random-vtubers', async (req, res) => {
 	try {
 		const vtList = 6;
-		const vtubers = await prisma.vTuber.findMany({
-			include: {
-				hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
-				songs: { select: { id: true, name: true, album: true, releasedate: true, compositor: true, lyrics: true, mixing: true } },
-				social: { select: { id: true, application: true, socialurl: true } }
-			}
+		const vtubers = await VTuber.findAll({
+			include: [
+				{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
+				{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
+				{ model: Social,  attributes: ['id', 'application', 'socialurl']}
+			]
 		});
 		if (vtubers.length < vtList) {
 			return res.status(400).json({ error: 'Not enough vtubers available' });
@@ -91,31 +67,27 @@ vtrouter.get('/vtuber/random-vtubers', async (req, res) => {
 /* Get a random VTuber */
 
 vtrouter.get('/vtuber/random', async (req, res) => {
-	const vtuber = await prisma.vTuber.findFirst({
-		orderBy: {
-			id: 'asc',
-		},
-		skip: Math.floor(Math.random() * (await prisma.vTuber.count())),
-		include: {
-			hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
-			songs: { select: { id: true, name: true, album: true, releasedate: true, compositor: true, lyrics: true, mixing: true } },
-			social: { select: { id: true, application: true, socialurl: true } }
-		}
+	const vtuber = await VTuber.findOne({
+		orderBy: { id: 'asc', },
+		skip: Math.floor(Math.random() * (await VTuber.count())),
+		include: [
+			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
+			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
+			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
+		]
 	});
 	return res.status(200).json(vtuber);
 });
 
-/* Get and Delete VTuber by id */
-
 vtrouter.get('/vtuber/:id', async (req, res) => {
 	const vtid = req.params.id;
-	const vtuber = await prisma.vTuber.findUnique({
+	const vtuber = await VTuber.findOne({
 		where: { id: parseInt(vtid, 10) },
-		include: {
-			hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
-			songs: { select: { id: true, name: true, album: true, releasedate: true, compositor: true, lyrics: true, mixing: true } },
-			social: { select: { id: true, application: true, socialurl: true } }
-		}
+		include: [
+			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
+			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
+			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
+		]
 	});
 	if (vtuber === null) {
 		res.status(404);
@@ -128,14 +100,14 @@ vtrouter.get('/vtuber/:id', async (req, res) => {
 vtrouter.delete('/vtuber/:id', verify_Token, async (req, res) => {
 	const vtid = req.params.id;
 	try {
-		await prisma.social.deleteMany({ where: { vtid: parseInt(vtid, 10) } });
-		await prisma.song.deleteMany({ where: { vtid: parseInt(vtid, 10) } });
-		await prisma.hashtag.delete({ where: { vtid: parseInt(vtid, 10) } });
-		await prisma.vTuber.delete({ where: { id: parseInt(vtid, 10) } });
+		await Song.destroy({ where: { vtid: parseInt(vtid, 10)}});
+		await Social.destroy({ where: { vtid: parseInt(vtid, 10)} });
+		await Hashtag.destroy({ where: { vtid: parseInt(vtid, 10)} });
+		await VTuber.destroy({ where: { id: parseInt(vtid, 10) } });
 		return res.status(204).json({ message: 'Successfully deleted VTuber!' });
 	} catch (error) {
-		res.status(404);
-		return res.json({ message: 'Error: Vtuber not found' });
+		console.log(error);
+		res.status(500).json({ message: 'Unable to delete VTuber. See the console for more information'});
 	}
 });
 
@@ -145,55 +117,33 @@ vtrouter.post('/vtuber/create', verify_Token, async (req, res) => {
 	let cont_songs = 0;
 	let social_media = 0;
 	const form = await req.body;
-	const newvtuber = await prisma.vTuber.create({
-		data: {
-			fullname: form.fullname,
-			fanname: form.fanname,
-			phrase: form.phrase,
-			debut: form.debut,
-			branch: form.branch,
-			unit: form.unit,
-			hashtag: {
-				create: {
-					general: form.hashtag.general,
-					stream: form.hashtag.stream,
-					fanart: form.hashtag.fanart,
-					memes: form.hashtag.memes
-				}
-			},
-			emoji: form.emoji,
-			youtube: form.youtube,
-			avatarurl: form.avatarurl,
-			graduated: form.graduated || false,
-			gender: form.gender,
-			age: parseInt(form.age, 10),
-			birthday: form.birthday,
-			zodiac: form.zodiac,
-			height: parseFloat(form.height)
-		}
+	const newvtuber = await VTuber.create({
+		fullname: form.fullname,   fanname: form.fanname,    phrase: form.phrase,
+		debut: form.debut,         branch: form.branch,      unit: form.unit,
+		aliases: form.aliases,     likes: form.likes,        dislikes: form.dislikes,
+		emoji: form.emoji,         youtube: form.youtube,    avatarurl: form.avatarurl,
+		graduated: form.graduated || false,  gender: form.gender, age: parseInt(form.age, 10),
+		birthday: form.birthday, zodiac: form.zodiac,        height: parseFloat(form.height)
+	});
+	await Hashtag.create({
+		general: form.hashtag.general,
+		stream: form.hashtag.stream,
+		fanart: form.hashtag.fanart,
+		memes: form.hashtag.memes,
+		vtid: newvtuber.id
 	});
 	for (const song of form.songs) {
-		await prisma.song.create({
-			data: {
-				name: song.name,
-				album: song.album,
-				releasedate: song.releasedate,
-				compositor: song.compositor,
-				mixing: song.mixing,
-				lyrics: song.lyrics,
-				vtid: newvtuber.id
-			}
+		await Song.create({
+			name: song.name,  album: song.album,
+			releasedate: song.releasedate,
+			compositor: song.compositor,
+			mixing: song.mixing, lyrics: song.lyrics,
+			vtid: newvtuber.id
 		});
 		cont_songs += 1;
 	}
 	for (const social of form.social) {
-		await prisma.social.create({
-			data: {
-				application: social.application,
-				socialurl: social.socialurl,
-				vtid: newvtuber.id
-			}
-		});
+		await Social.create({ application: social.application, socialurl: social.socialurl, vtid: newvtuber.id });
 		social_media += 1;
 	}
 	res.status(201);
@@ -205,97 +155,56 @@ vtrouter.post('/vtuber/create', verify_Token, async (req, res) => {
 	});
 });
 
-/* Update info of a existent VTuber */
 
-vtrouter.put('/vtuber/update/:id', verify_Token, async (req, res) => {
+vtrouter.patch('/vtuber/update/:id', verify_Token, async (req, res) => {
 	const form = await req.body;
 	const vtid = req.params.id;
 	try {
-		const updatevtuber = await prisma.vTuber.update({
-			where: { id: parseInt(vtid, 10) },
-			data: {
-				fullname: form.fullname,
-				fanname: form.fanname,
-				phrase: form.phrase,
-				debut: form.debut,
-				branch: form.branch,
-				unit: form.unit,
-				hashtag: {
-					update: {
-						general: form.hashtag.general,
-						stream: form.hashtag.stream,
-						fanart: form.hashtag.fanart,
-						memes: form.hashtag.memes
-					}
-				},
-				emoji: form.emoji,
-				youtube: form.youtube,
-				avatarurl: form.avatarurl,
-				graduated: form.graduated || false,
-				gender: form.gender,
-				age: parseInt(form.age, 10),
-				birthday: form.birthday,
-				zodiac: form.zodiac,
-				height: parseFloat(form.height)
-			}
-		});
-		for (const song of form.songs) {
-			if (song.id) {
-				await prisma.song.update({
-					where: { id: parseInt(song.id, 10) },
-					data: {
-						name: song.name,
-						album: song.album,
-						releasedate: song.releasedate,
-						compositor: song.compositor,
-						mixing: song.mixing,
-						lyrics: song.lyrics
-					}
-				});
+		const updatevtuber = await VTuber.findByPk(vtid);
+		if (!updatevtuber) { return res.status(404).json({ message: 'VTuber not found'}); }
+		updatevtuber.fullname = form.fullname || updatevtuber.fullname;
+		updatevtuber.fanname = form.fanname || updatevtuber.fanname;
+		updatevtuber.phrase = form.phrase || updatevtuber.phrase;
+		updatevtuber.aliases = form.aliases || updatevtuber.aliases;
+		updatevtuber.likes = form.likes || updatevtuber.likes;
+		updatevtuber.dislikes = form.dislikes || updatevtuber.dislikes;
+		updatevtuber.debut = form.debut || updatevtuber.debut;
+		updatevtuber.branch = form.branch || updatevtuber.branch;
+		updatevtuber.unit = form.unit || updatevtuber.unit;
+		updatevtuber.emoji = form.emoji || updatevtuber.emoji;
+		updatevtuber.youtube = form.youtube || updatevtuber.youtube;
+		updatevtuber.avatarurl = form.avatarurl || updatevtuber.avatarurl;
+		updatevtuber.graduated = form.graduated || updatevtuber.graduated;
+		updatevtuber.gender = form.gender || updatevtuber.gender;
+		updatevtuber.age = parseInt(form.age) || updatevtuber.age;
+		updatevtuber.birthday = form.birthday || updatevtuber.birthday;
+		updatevtuber.zodiac = form.zodiac || updatevtuber.zodiac;
+		updatevtuber.height = parseFloat(form.height) || updatevtuber.height;
+
+		if (form.hashtag) {
+			let hashtag = await Hashtag.findOne({ where: { vtid: parseInt(vtid)} });
+			if (hashtag) {
+				hashtag.general = form.hashtag.general || hashtag.general;
+				hashtag.stream = form.hashtag.stream || hashtag.stream;
+				hashtag.fanart = form.hashtag.fanart || hashtag.fanart;
+				hashtag.memes = form.hashtag.memes || hashtag.memes;
 			} else {
-				await prisma.song.create({
-					data: {
-						name: song.name,
-						album: song.album,
-						releasedate: song.releasedate,
-						compositor: song.compositor,
-						mixing: song.mixing,
-						lyrics: song.lyrics,
-						vtid: updatevtuber.id
-					}
+				hashtag = await Hashtag.create({
+					general: form.hashtag.general,
+					stream: form.hashtag.stream,
+					fanart: form.hashtag.fanart,
+					memes: form.hashtag.memes,
+					vtid: updatevtuber.id
 				});
 			}
+			await hashtag.save();
 		}
-		for (const social of form.social) {
-			if (social.id) {
-				await prisma.social.update({
-					where: { id: parseInt(social.id, 10) },
-					data: {
-						application: social.application,
-						socialurl: social.socialurl,
-						vtid: updatevtuber.id
-					}
-				});
-			} else {
-				await prisma.social.create({
-					data: {
-						application: social.application,
-						socialurl: social.socialurl,
-						vtid: updatevtuber.id
-					}
-				});
-			}
-		}
-		res.status(200);
-		return res.json({
-			updated_vtuber: updatevtuber,
-			songs: updatevtuber.songs,
-			social: updatevtuber.social,
-			message: 'Successfully updated Vtuber!'
-		});
+		await updatevtuber.save();
+		return res.status(200).json({ message: 'Successfully updated vtuber!' });
 	} catch (error) {
-		res.status(404);
-		return res.json({ message: 'Error: Vtuber not found' });
+		res.status(500);
+		console.log(error);
+		return res.json({ message: 'Unable to update vtuber. See the console for more information' });
 	}
 });
 
