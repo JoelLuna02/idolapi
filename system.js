@@ -4,7 +4,6 @@ const morgan = require('morgan'); // Morgan middleware
 const vtrouter = require('./routes/vtuber.routes.js');
 const myCustomFormat = require('./settings.js');
 const { bold, whiteBright, green, greenBright, redBright, magentaBright } = require('colorette');
-const agencyRoutes = require('./routes/agency.routes.js');
 const main_routes = require('./routes/api.routes.js');
 const { authrouter } = require('./routes/jwt.routes.js');
 const assets = require('./routes/assets.routes.js');
@@ -29,13 +28,11 @@ apli.use(express.json());
 
 apli.use(morgan(myCustomFormat));
 
-
 apli.set('view engine', 'ejs');
 apli.set('views', __dirname + '/views');
 
 apli.use('/api', vtrouter);
 apli.use('/api', main_routes);
-apli.use('/api', agencyRoutes);
 apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
 
@@ -134,9 +131,10 @@ apli.get('/code-of-conduct', (req, res) => {
 }); */
 
 const initialize = async () => {
+	console.log(`\n${greenBright('[INFO]')}:\t Starting server...`);
 	try {
 		await sequelize.sync();
-		console.log(`\n${greenBright('[INFO]')}:\t ${green('Sucess!')} Connection has been established successfully`);
+		console.log(`${greenBright('[INFO]')}:\t ${green('Sucess!')} Connection has been established successfully`);
 		apli.listen(PORT, (err) => {
 			if (err) { console.error(err); }
 			console.log(`${greenBright('[INFO]')}:\t Server listening on ${bold(whiteBright(`http://localhost:${PORT}`))}`);
