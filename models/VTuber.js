@@ -27,7 +27,7 @@ const VTuber = sequelize.define('VTuber', {
 	height:    { type: DataTypes.DOUBLE,                   defaultValue: 1.66 }
 }, {
 	timestamps: false,
-	modelName: 'VTuber'
+	tableName: 'VTuber'
 });
 
 VTuber.hasOne(Hashtag, { foreignKey: 'vtid', sourceKey: 'id' });

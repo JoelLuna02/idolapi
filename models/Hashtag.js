@@ -9,7 +9,7 @@ const Hashtag = sequelize.define('Hashtag', {
 	memes:    { type: DataTypes.STRING },
 }, {
 	timestamps: false,
-	modelName: 'Hashtag'
+	tableName: 'Hashtag'
 });
 
 module.exports = Hashtag;

@@ -9,7 +9,7 @@ const File = sequelize.define('File', {
 	data: { type: DataTypes.BLOB('medium') }
 }, {
 	timestamps: true,
-	modelName: 'File'
+	tableName: 'File'
 });
 
 module.exports = File;

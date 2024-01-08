@@ -7,7 +7,7 @@ const Social = sequelize.define('Social', {
 	socialurl:    { type: DataTypes.STRING,    unique: true },
 }, {
 	timestamps: false,
-	modelName: 'Social',
+	tableName: 'Social',
 });
 
 module.exports = Social;

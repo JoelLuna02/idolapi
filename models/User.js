@@ -12,7 +12,7 @@ const User = sequelize.define('User', {
 	isAdmin: { type: DataTypes.BOOLEAN, defaultValue: false }
 }, {
 	timestamps: true,
-	modelName: 'User',
+	tableName: 'User',
 });
 
 module.exports = User;

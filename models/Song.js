@@ -11,7 +11,7 @@ const Song = sequelize.define('Song', {
 	lyrics:       { type: DataTypes.STRING },
 }, {
 	timestamps: false,
-	modelName: 'Song'
+	tableName: 'Song'
 });
 
 module.exports = Song;
