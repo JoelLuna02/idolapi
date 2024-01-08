@@ -83,7 +83,7 @@ apli.get('/', async (req, res) => {
 });
 
 apli.get('/docs', (req, res) => {
-	const mdfile = fs.readFileSync('views/mdxs/documentation.md', 'utf-8');
+	const mdfile = fs.readFileSync('views/mdxs/documentation.mdx', 'utf-8');
 	const $ = cheerio.load(marked(mdfile));
 	const headers = [];
 
@@ -99,17 +99,17 @@ apli.get('/docs', (req, res) => {
 	return res.render('docs', { title: 'Documentation - IdolAPI', doc: $.html(), headers });
 });
 apli.get('/about', (req, res) => {
-	const mdfile = fs.readFileSync('views/mdxs/about.md', 'utf-8');
+	const mdfile = fs.readFileSync('views/mdxs/about.mdx', 'utf-8');
 	const markdownContent = marked(mdfile);
 	return res.render('about', { title: 'About this project - IdolAPI', about: markdownContent });
 });
 apli.get('/support-us', (req, res) => {
-	const mdfile = fs.readFileSync('views/mdxs/support.md', 'utf-8');
+	const mdfile = fs.readFileSync('views/mdxs/support.mdx', 'utf-8');
 	const markdownContent = marked(mdfile);
 	return res.render('support', { title: 'Support us - IdolAPI', support: markdownContent  });
 });
 apli.get('/code-of-conduct', (req, res) => {
-	const mdfile = fs.readFileSync('views/mdxs/conduct.md', 'utf-8');
+	const mdfile = fs.readFileSync('views/mdxs/conduct.mdx', 'utf-8');
 	const $ = cheerio.load(marked(mdfile));
 	const headers = [];
 
