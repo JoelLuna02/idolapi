@@ -26,7 +26,8 @@ const VTuber = sequelize.define('VTuber', {
 	zodiac:    { type: DataTypes.STRING },
 	height:    { type: DataTypes.DOUBLE,                   defaultValue: 1.66 }
 }, {
-	timestamps: false
+	timestamps: false,
+	modelName: 'VTuber'
 });
 
 VTuber.hasOne(Hashtag, { foreignKey: 'vtid', sourceKey: 'id' });

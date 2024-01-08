@@ -8,7 +8,8 @@ const Hashtag = sequelize.define('Hashtag', {
 	fanart:   { type: DataTypes.STRING },
 	memes:    { type: DataTypes.STRING },
 }, {
-	timestamps: false
+	timestamps: false,
+	modelName: 'Hashtag'
 });
 
 module.exports = Hashtag;

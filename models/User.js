@@ -11,7 +11,8 @@ const User = sequelize.define('User', {
 	password: { type: DataTypes.STRING },
 	isAdmin: { type: DataTypes.BOOLEAN, defaultValue: false }
 }, {
-	timestamps: true
+	timestamps: true,
+	modelName: 'User',
 });
 
 module.exports = User;

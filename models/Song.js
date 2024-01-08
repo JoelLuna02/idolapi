@@ -10,7 +10,8 @@ const Song = sequelize.define('Song', {
 	mixing:       { type: DataTypes.STRING },
 	lyrics:       { type: DataTypes.STRING },
 }, {
-	timestamps: false
+	timestamps: false,
+	modelName: 'Song'
 });
 
 module.exports = Song;

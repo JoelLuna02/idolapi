@@ -8,7 +8,8 @@ const File = sequelize.define('File', {
 	size: { type: DataTypes.INTEGER, allowNull: false },
 	data: { type: DataTypes.BLOB('medium') }
 }, {
-	timestamps: true
+	timestamps: true,
+	modelName: 'File'
 });
 
 module.exports = File;
