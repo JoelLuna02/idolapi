@@ -3,17 +3,21 @@ const express = require('express'); // Express.JS
 const morgan = require('morgan'); // Morgan middleware
 const vtrouter = require('./routes/vtuber.routes.js');
 const myCustomFormat = require('./settings.js');
-const { bold, whiteBright, green, greenBright, redBright, magentaBright } = require('colorette');
+const { bold, whiteBright, green, greenBright, redBright, magentaBright, yellowBright } = require('colorette');
 const main_routes = require('./routes/api.routes.js');
 const { authrouter } = require('./routes/jwt.routes.js');
 const assets = require('./routes/assets.routes.js');
 const { marked } = require('marked');
-// const cheerio = require('cheerio');
+const cheerio = require('cheerio');
 const highlight = require('highlight.js');
 require('dotenv').config();
-// const fs = require('fs');
+const fs = require('fs');
 
 const sequelize = require('./database/sequelize');
+const VTuber = require('./models/VTuber.js');
+const Hashtag = require('./models/Hashtag.js');
+const Song = require('./models/Song.js');
+const Social = require('./models/Social.js');
 require('./models/VTuber.js');
 require('./models/Hashtag.js');
 require('./models/Social.js');
@@ -44,16 +48,7 @@ marked.setOptions({
 	},
 	renderer: new marked.Renderer()
 });
-
-apli.get('*', (req, res) => {
-	return res.status(503).send(
-		'<title>IdolAPI under maintenance</title>\n' +
-		'<h1>IdolAPI under maintenance</h1><hr>' +
-		'We are sorry, but IdolAPI is temporarily down for maintenance.'
-	);
-});
-
-/* 
+ 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -69,18 +64,18 @@ function shuffleArray(array, numb) {
 apli.get('/', async (req, res) => {
 	try {
 		const vtList = 6;
-		const vtubers = await prisma.vTuber.findMany({
-			include: {
-				hashtag: { select: { general: true, stream: true, fanart: true, memes: true } },
-				songs: { select: { id: true, name: true, album: true, releasedate: true, compositor: true, lyrics: true, mixing: true } },
-				social: { select: { id: true, application: true, socialurl: true } }
-			}
+		const vtubers = await VTuber.findAll({
+			include: [
+				{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
+				{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
+				{ model: Social,  attributes: ['id', 'application', 'socialurl']}
+			]
 		});
 		if (vtubers.length < vtList) {
 			return res.status(400).json({ error: 'Not enough vtubers available' });
 		}
 		const randomVT = shuffleArray(vtubers, vtList);
-		return res.render('index', { vtlst: randomVT, title: 'IdolAPI', analytics });
+		return res.render('index', { vtlst: randomVT, title: 'IdolAPI'});
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json(error);
@@ -128,10 +123,14 @@ apli.get('/code-of-conduct', (req, res) => {
 		headers.push({ id, text });
 	});
 	return res.render('conduct', { title: 'Code of conduct - IdolAPI', code: $.html(), headers });
-}); */
+});
 
 const initialize = async () => {
-	console.log(`\n${greenBright('[INFO]')}:\t Starting server...`);
+	if (process.env.NODE_ENV) {
+		console.log(`${greenBright('[INFO]')}:\t Starting server in ${redBright('Production')} mode...`);
+	} else {
+		console.log(`\n${greenBright('[INFO]')}:\t Starting server in ${yellowBright('Developer')} mode...`);
+	}
 	try {
 		await sequelize.sync();
 		console.log(`${greenBright('[INFO]')}:\t ${green('Sucess!')} Connection has been established successfully`);
