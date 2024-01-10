@@ -62,12 +62,11 @@ authrouter.post('/signup', async (req, res) => {
 authrouter.post('/login', async (req, res) => {
 	const form = req.body;
 	try {
-		const user = await User.findOne({ where: { username: form.username } });
+		const user = await User.findOne({where: { username: form.username } });
+		if (!user) { return res.status(401).json({ message: 'Access denied: The username does not exists'}); }
 		const passwd = await bcrypt.compare(form.password, user.password);
 		if (!user || !passwd) {
-			return res.status(401).json({
-				message: 'Access denied: incorrect username or password. please try again'
-			});
+			return res.status(401).json({message: 'Access denied: incorrect password. please try again'});
 		}
 		const token = jwt.sign({ id: user.id, username: user.username, isAdmin: user.isAdmin }, secret,
 			{ expiresIn: '1h' }

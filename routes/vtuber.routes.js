@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 const express = require('express');
 const {Op} = require('sequelize');
 const VTuber = require('../models/VTuber');
@@ -162,6 +163,7 @@ vtrouter.patch('/vtuber/update/:id', verify_Token, async (req, res) => {
 	try {
 		const updatevtuber = await VTuber.findByPk(vtid);
 		if (!updatevtuber) { return res.status(404).json({ message: 'VTuber not found'}); }
+		const vtbefore = updatevtuber;
 		updatevtuber.fullname = form.fullname || updatevtuber.fullname;
 		updatevtuber.fanname = form.fanname || updatevtuber.fanname;
 		updatevtuber.phrase = form.phrase || updatevtuber.phrase;
@@ -174,7 +176,7 @@ vtrouter.patch('/vtuber/update/:id', verify_Token, async (req, res) => {
 		updatevtuber.emoji = form.emoji || updatevtuber.emoji;
 		updatevtuber.youtube = form.youtube || updatevtuber.youtube;
 		updatevtuber.avatarurl = form.avatarurl || updatevtuber.avatarurl;
-		updatevtuber.graduated = form.graduated || updatevtuber.graduated;
+		if (form.graduated !== undefined) { updatevtuber.graduated = form.graduated; }
 		updatevtuber.gender = form.gender || updatevtuber.gender;
 		updatevtuber.age = parseInt(form.age) || updatevtuber.age;
 		updatevtuber.birthday = form.birthday || updatevtuber.birthday;
@@ -200,7 +202,12 @@ vtrouter.patch('/vtuber/update/:id', verify_Token, async (req, res) => {
 			await hashtag.save();
 		}
 		await updatevtuber.save();
-		return res.status(200).json({ message: 'Successfully updated vtuber!' });
+		const vtafter = updatevtuber;
+		if (JSON.stringify(vtbefore) === JSON.stringify(vtafter)) {
+			return res.status(200).json({ update_vtuber: updatevtuber, message: 'Successfully updated vtuber!' });
+		} else {
+			return res.status(304).json({ vtuber: updatevtuber, message: 'Nothing to change' });
+		}
 	} catch (error) {
 		res.status(500);
 		console.log(error);
