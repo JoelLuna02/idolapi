@@ -3,6 +3,7 @@ const express = require('express'); // Express.JS
 const morgan = require('morgan'); // Morgan middleware
 const vtrouter = require('./routes/vtuber.routes.js');
 const myCustomFormat = require('./settings.js');
+const versions = require('./lib_info.js');
 const { bold, whiteBright, green, greenBright, redBright, magentaBright, yellowBright } = require('colorette');
 const main_routes = require('./routes/api.routes.js');
 const { authrouter } = require('./routes/jwt.routes.js');
@@ -126,10 +127,11 @@ apli.get('/code-of-conduct', (req, res) => {
 });
 
 const initialize = async () => {
+	await versions();
 	if (process.env.NODE_ENV) {
 		console.log(`${greenBright('[INFO]')}:\t Starting server in ${redBright('Production')} mode...`);
 	} else {
-		console.log(`\n${greenBright('[INFO]')}:\t Starting server in ${yellowBright('Developer')} mode...`);
+		console.log(`${greenBright('[INFO]')}:\t Starting server in ${yellowBright('Developer')} mode...`);
 	}
 	try {
 		await sequelize.sync();
