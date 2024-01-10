@@ -44,6 +44,7 @@
         "cross-env": "^7.0.3",
         "eslint": "^8.56.0",
         "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-ejs-js": "^0.1.0",
         "eslint-plugin-node": "^11.1.0",
         "nodemon": "^3.0.1",
         "prettier": "^3.1.1"
