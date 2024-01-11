@@ -1,25 +1,25 @@
 const express = require('express'); // Express.JS
 
 const morgan = require('morgan'); // Morgan middleware
-const vtrouter = require('./routes/vtuber.routes.js');
+//const vtrouter = require('./routes/vtuber.routes.js');
 const myCustomFormat = require('./settings.js');
 const versions = require('./lib_info.js');
 const { bold, whiteBright, green, greenBright, redBright, magentaBright, yellowBright } = require('colorette');
-const main_routes = require('./routes/api.routes.js');
-const { authrouter } = require('./routes/jwt.routes.js');
-const assets = require('./routes/assets.routes.js');
-const covers = require('./routes/cover.routes.js');
+// const main_routes = require('./routes/api.routes.js');
+// const { authrouter } = require('./routes/jwt.routes.js');
+// const assets = require('./routes/assets.routes.js');
+// const covers = require('./routes/cover.routes.js');
 const { marked } = require('marked');
-const cheerio = require('cheerio');
+//const cheerio = require('cheerio');
 const highlight = require('highlight.js');
 require('dotenv').config();
-const fs = require('fs');
+//const fs = require('fs');
 
 const sequelize = require('./database/sequelize');
-const VTuber = require('./models/VTuber.js');
-const Hashtag = require('./models/Hashtag.js');
-const Song = require('./models/Song.js');
-const Social = require('./models/Social.js');
+//const VTuber = require('./models/VTuber.js');
+//const Hashtag = require('./models/Hashtag.js');
+//const Song = require('./models/Song.js');
+//const Social = require('./models/Social.js');
 require('./models/VTuber.js');
 require('./models/Hashtag.js');
 require('./models/Social.js');
@@ -39,11 +39,11 @@ apli.use(morgan(myCustomFormat));
 apli.set('view engine', 'ejs');
 apli.set('views', __dirname + '/views');
 apli.use(express.static('./views/public'));
-apli.use('/api', vtrouter);
+/* apli.use('/api', vtrouter);
 apli.use('/api', main_routes);
 apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
-apli.use('/api/cover', covers);
+apli.use('/api/cover', covers); */
 
 marked.setOptions({
 	highlight: function (code, language) {
@@ -52,7 +52,8 @@ marked.setOptions({
 	},
 	renderer: new marked.Renderer()
 });
- 
+
+/* 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -65,7 +66,7 @@ function shuffleArray(array, numb) {
 	return array.slice(0, numb);
 }
 
-apli.get('/', async (req, res) => {
+ apli.get('/', async (req, res) => {
 	try {
 		const vtList = 6;
 		const vtubers = await VTuber.findAll({
@@ -127,6 +128,10 @@ apli.get('/code-of-conduct', (req, res) => {
 		headers.push({ id, text });
 	});
 	return res.render('conduct', { title: 'Code of conduct - IdolAPI', code: $.html(), headers });
+}); */
+
+apli.get('*', (req, res) => {
+	return res.status(503).render('503');
 });
 
 const initialize = async () => {
