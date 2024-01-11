@@ -1,6 +1,0 @@
-{
-    "vtuber": "/api/vtuber",
-    "agency": "/api/agency",
-    "assets": "/api/assets",
-    "auth": "/api/auth"
-}
