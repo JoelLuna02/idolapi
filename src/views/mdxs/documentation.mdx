@@ -1,0 +1,227 @@
+# Documentation
+---
+
+In this section you will be able to see the functionality of each and every one of the available
+resources. To exemplify its operation, we use JavaScript for its consumption. You can
+use any other programming language or client to return data.
+
+## **Base url**
+
+We have defined the base url as [`/api`](/api), which contains information about the available API resources.
+The requests are made with the `GET` method and its response will return information in `json` format.
+
+```javascript
+fetch('https://idolapi.vercel.app/api')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+**The output it will return is this:**
+```json
+{
+    "vtuber": "/api/vtuber",
+    "agency": "/api/agency",
+    "assets": "/api/assets",
+    "auth": "/api/auth"
+}
+```
+
+Next, we are going to explain the function of each of the resources:
+
+- [vtuber](/api/vtuber): This resource is used to obtain a list of all Vtubers
+- [agency](/api/agency): This resource is used to obtain detailed information from the Idol Agency.
+- [assets](/api/assets): This resource is used to obtain a list of all the images stored in the database.
+- [auth](/api/auth): This resource is used to register and log in to manage protected resources.
+
+---
+
+## **Vtubers**
+
+Right now we are going to explain how each and every one of the VTuber resources works
+
+### Fetching all vtubers
+
+By sending a GET request to the `/api/vtuber` resource, it will return a complete list of all
+VTubers stored in `json` format.
+
+Here we show you ac example of how you can send the request:
+
+```javascript
+fetch('https://idolapi.vercel.app/api/vtuber')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+**Output:**
+
+```json
+[
+  {
+    "id": 1,
+    "fullname": "Pochi Wanmaru",
+    "fanname": "Sheebs",
+    "phrase": "hello i am puppy",
+    "debut": "2023-11-17T19:15:29.825Z",
+    "branch": "EN",
+    "unit": "E-Sekai",
+    "emoji": "🎮",
+    "youtube": "https://www.youtube.com/@PochiWanmaru",
+    "avatarurl": "/api/assets/PochiWanmaru.jpg",
+    "graduated": false,
+    "gender": "Female",
+    "age": -3,
+    "birthday": "26 August",
+    "zodiac": "26 August",
+    "height": 1.52,
+    "hashtag": {
+      "general": "#PochiWanmaru",
+      "stream": "#PochiLIVE",
+      "fanart": "#Sheebart",
+      "memes": "#Pogchi"
+    },
+    "songs": [],
+    "social": [
+      {
+        "id": 1,
+        "application": "Twitter",
+        "socialurl": "https://twitter.com/pochiwanmaru"
+      },
+      {
+        "id": 2,
+        "application": "TikTok",
+        "socialurl": "https://www.tiktok.com/@pochiwanmaru"
+      }
+    ]
+  }, // {...}
+]
+```
+
+Before continuing, we must take into account each and every one of the attributes that
+each VTuber object has.
+
+
+| Attribute | Type | Description |
+|--- | --- | --- |
+|`id` | `Integer` | The VTuber's id
+| `fullname` | `String`  | The VTuber's full name
+| `fanname` | `String`  | The VTuber's fanname
+| `phrase` | `String` | The phrase or quote from the VTuber
+| `debut` | `Datetime`  | The date and time of the debut of the Vtuber (ISO-8601 format)
+| `branch` |`String` | The VTuber's branch
+| `unit` | `String` | The VTuber's unit
+| `emoji` | `String` | The VTuber's emoji
+| `youtube` | `String (url)` | The VTuber's youtube channel url
+| `avatarurl` | `String (url)` | The VTuber's avatar url
+| `graduated` | `Boolean` | The VTuber's current status (false: active, true: graduated)
+| `age` | `Integer` | The VTuber's age (< -2: Other, -1: Unknown, irrelevant or forgotten, 0: not defined, > 1: Years old)
+| `birthday` | `String` | The VTuber's birthday
+| `zodiac` | `String` | The VTuber's zodiac sign
+| `height` | `Float` | The VTuber's height (in meters)
+| `hashtag` | `Object` | The VTuber's main hashtags
+| `songs` | `Array[Object]` | The VTuber's original songs
+| `social` | `Array[Object]` | The VTuber's social networks
+
+You can even perform a search by parameters. We have defined branch, unit and graduated as
+optional parameters to perform the query. For example, if you want to obtain all the Vtubers
+from the English branch and the E-Sekai unit, you can do the following:
+
+```javascript
+fetch('https://idolapi.vercel.app/api/vtuber?branch=EN&unit=E-Sekai')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+**Output**
+
+```json
+[
+  {
+    // id's, fullname, etc.
+    "branch": "EN",
+    "unit": "E-Sekai"
+    //..
+  },
+  {
+    // id's, fullname, etc.
+    "branch": "EN",
+    "unit": "E-Sekai"
+    //..
+  }
+]
+```
+
+**_You can make all the queries you want, taking into account the established parameters._**
+
+### Fetching vtuber by id
+
+When you send a GET request to the `/api/vtuber` resource declaring an id of type Integer, it will
+return a VTuber object in `json` format. If a non-existent Vtuber id is declared, a 404 error message
+will be returned. For example, if we want to see the information about Fuyo Cloverfield,
+we can make the request: [`/api/vtuber/2`](/api/vtuber/2)
+
+```javascript
+fetch('https://idolapi.vercel.app/api/vtuber/2')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+**Output**
+
+```json
+{
+  "id": 2,
+  "fullname": "Fuyo Cloverfield",
+  "fanname": "Lucky Charms",
+  "phrase": "It's so hard to control two [_] at the same time! I'm struggling",
+  "debut": "2022-11-20T19:16:21.405Z",
+  "branch": "EN",
+  "unit": "E-Sekai",
+  "emoji": "🍀",
+  "youtube": "https://www.youtube.com/@FuyoCloverfield",
+  "avatarurl": "/api/assets/FuyoCloverfield.jpg",
+  "graduated": false,
+  "gender": "Female",
+  "age": 0,
+  "birthday": "16 March",
+  "zodiac": "16 March",
+  "height": 1.35,
+  "hashtag": {
+    "general": "#FuyoCloverfield",
+    "stream": "#FuyOnline",
+    "fanart": "#Fartistic",
+    "memes": "#Fwahaha"
+  },
+  "songs": [],
+  "social": [
+    {
+      "id": 3,
+      "application": "Twitter",
+      "socialurl": "https://twitter.com/FuyoCloverfield"
+    }
+  ]
+}
+```
+
+### Fetching a random Vtuber
+
+A VTuber can also be returned randomly. For this you can access the resource:
+[`/api/vtuber/random`](/api/vtuber/random)
+
+
+```javascript
+fetch('https://idolapi.vercel.app/api/vtuber/random')
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+```
+
+### In summary
+
+In conclusion, we take into account the following available methods:
+
+- **/api/vtuber**: Get a complete list of Vtubers
+- **/api/vtuber/:id**: Get a VTuber by id
+- **/api/vtuber/random**: Get a VTuber randomly
+
+---
+
+## **We will bring more things soon!**
