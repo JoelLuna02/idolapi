@@ -3,7 +3,7 @@
     "description": "IdolAPI: A fanmade RESTful API Based In IdolCorp",
     "author": "Hector Joel Luna",
     "version": "0.9.0",
-    "main": "system.js",
+    "main": "system.ts",
     "type": "commonjs",
     "scripts": {
         "dev": "ts-node-dev src/system.ts",
