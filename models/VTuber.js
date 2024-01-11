@@ -4,6 +4,7 @@ const { DataTypes } = require('sequelize');
 const Hashtag = require('./Hashtag');
 const Social = require('./Social');
 const Song = require('./Song');
+const Cover = require('./Cover');
 
 const VTuber = sequelize.define('VTuber', {
 	id:        { type: DataTypes.INTEGER,                  primaryKey: true, autoIncrement: true },
@@ -29,6 +30,9 @@ const VTuber = sequelize.define('VTuber', {
 	timestamps: false,
 	tableName: 'VTuber'
 });
+
+VTuber.hasMany(Cover, { foreignKey: 'vtid', sourceKey: 'id' });
+Cover.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id'});
 
 VTuber.hasOne(Hashtag, { foreignKey: 'vtid', sourceKey: 'id' });
 Hashtag.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
