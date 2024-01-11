@@ -35,8 +35,8 @@ apli.use(express.json());
 apli.use(morgan(myCustomFormat));
 
 apli.set('view engine', 'ejs');
-apli.set('views', __dirname + '../views');
-apli.use(express.static('../views/public'));
+apli.set('views', __dirname + '/views');
+apli.use(express.static('./views/public'));
 /* apli.use('/api', vtrouter);
 apli.use('/api', main_routes);
 apli.use('/api/assets', assets);
