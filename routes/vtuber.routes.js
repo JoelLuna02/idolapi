@@ -6,6 +6,8 @@ const Social = require('../models/Social');
 const Hashtag = require('../models/Hashtag');
 const Song = require('../models/Song');
 const { verify_Token } = require('./jwt.routes');
+const Cover = require('../models/Cover');
+const OriginalSong = require('../models/OriginalSong');
 
 const vtrouter = express.Router();
 
@@ -31,6 +33,9 @@ vtrouter.get('/vtuber', async (req, res) => {
 	const vtubers = await VTuber.findAll({
 		where: VTFilter, orderBy: { id: 'asc' },
 		include: [
+			{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
+				model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
+			}},
 			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
 			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
 			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
@@ -49,6 +54,9 @@ vtrouter.get('/vtuber/random-vtubers', async (req, res) => {
 		const vtList = 6;
 		const vtubers = await VTuber.findAll({
 			include: [
+				{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
+					model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
+				}},
 				{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
 				{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
 				{ model: Social,  attributes: ['id', 'application', 'socialurl']}
@@ -72,6 +80,9 @@ vtrouter.get('/vtuber/random', async (req, res) => {
 		orderBy: { id: 'asc', },
 		skip: Math.floor(Math.random() * (await VTuber.count())),
 		include: [
+			{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
+				model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
+			}},
 			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
 			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
 			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
@@ -85,6 +96,9 @@ vtrouter.get('/vtuber/:id', async (req, res) => {
 	const vtuber = await VTuber.findOne({
 		where: { id: parseInt(vtid, 10) },
 		include: [
+			{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
+				model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
+			}},
 			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
 			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
 			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
