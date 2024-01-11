@@ -8,6 +8,7 @@ const { bold, whiteBright, green, greenBright, redBright, magentaBright, yellowB
 const main_routes = require('./routes/api.routes.js');
 const { authrouter } = require('./routes/jwt.routes.js');
 const assets = require('./routes/assets.routes.js');
+const covers = require('./routes/cover.routes.js');
 const { marked } = require('marked');
 const cheerio = require('cheerio');
 const highlight = require('highlight.js');
@@ -25,6 +26,8 @@ require('./models/Social.js');
 require('./models/Song.js');
 require('./models/File.js');
 require('./models/User.js');
+require('./models/Cover.js');
+require('./models/OriginalSong.js');
 
 const PORT = process.env.PORT || 3000;
 const startTime = new Date();
@@ -40,7 +43,7 @@ apli.use('/api', vtrouter);
 apli.use('/api', main_routes);
 apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
-
+apli.use('/api/cover', covers);
 
 marked.setOptions({
 	highlight: function (code, language) {
