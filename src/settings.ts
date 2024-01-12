@@ -1,4 +1,4 @@
-import { yellowBright, bold, greenBright, whiteBright } from 'colorette';
+import { yellowBright, bold, cyan, whiteBright } from 'colorette';
 import http from 'http';
 
 function myCustomFormat(tokens:any, req:any, res:any): any {
@@ -9,7 +9,7 @@ function myCustomFormat(tokens:any, req:any, res:any): any {
 			status >= 300 ? `\x1b[36m${status} ${statusdesc}\x1b[0m` :
 				`\x1b[32m${status} ${statusdesc}\x1b[0m`;
 	return [
-		`${greenBright('[INFO]')}:\t`,
+		`[${cyan('INFO')}]\t`,
 		whiteBright(`"${tokens.method(req, res)} ${tokens.url(req, res)}"`), 
 		'-', bold(colorizedStatus),
 		tokens.res(req, res, 'content-length'), '-',

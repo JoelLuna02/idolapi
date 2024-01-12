@@ -2,13 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "./src/system.ts",
-            "use": "@vercel/node"
+            "src": "dist/system.js",
+            "use": "@vercel/node",
+            "config": { "includeFiles": ["dist/**"] }
         }
     ],
     "routes": [
         { "handle": "filesystem" },
-        { "src": "/public/(.*)", "dest": "/public/$1" },
-        { "src": "/(.*)", "dest": "/system.js" }
+        { "src": "src/views/public/(.*)", "dest": "src/views/public/$1" },
+        { "src": "/(.*)", "dest": "dist/system.js" }
     ]
 }

@@ -127,15 +127,15 @@ apli.get('*', (_req: Request, res: Response) => {
 async function initialize(): Promise<void> {
 	await versions();
 	if (process.env.NODE_ENV) {
-		console.log(`${greenBright('[INFO]')}:\t Starting server in ${redBright('Production')} mode...`);
+		console.log(`[${greenBright('INFO')}]\t Starting server in ${redBright('Production')} mode...`);
 	} else {
-		console.log(`${greenBright('[INFO]')}:\t Starting server in ${yellowBright('Developer')} mode...`);
+		console.log(`[${greenBright('INFO')}]\t Starting server in ${yellowBright('Developer')} mode...`);
 	}
 	try {
 		await sequelize.sync();
-		console.log(`${greenBright('[INFO]')}:\t ${green('Sucess!')} Connection has been established successfully`);
+		console.log(`[${greenBright('INFO')}]\t ${green('Sucess!')} Connection has been established successfully`);
 		apli.listen(PORT, () =>{
-			console.log(`${greenBright('[INFO]')}:\t Server listening on ${bold(whiteBright(`http://localhost:${PORT}`))}`);
+			console.log(`[${greenBright('INFO')}]\t Server listening on ${bold(whiteBright(`http://localhost:${PORT}`))}`);
 		}); 
 	} catch (error) {
 		console.error(error);
@@ -144,8 +144,8 @@ async function initialize(): Promise<void> {
 
 process.on('SIGINT', () => {
 	console.log(
-		`${greenBright('[INFO]')}:\t Server ${redBright('Terminated!')}\n`+
-		`${greenBright('[INFO]')}:\t Have a nice day!\n`
+		`[${greenBright('INFO')}]\t Server ${redBright('Terminated!')}\n`+
+		`[${greenBright('INFO')}]\t Have a nice day!\n`
 	);
 	// eslint-disable-next-line no-process-exit
 	process.exit();
