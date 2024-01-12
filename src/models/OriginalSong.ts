@@ -11,5 +11,4 @@ const OriginalSong = sequelize.define('OriginalSong', {
 	timestamps: true,
 	modelName: 'OriginalSong'
 });
-
-export default OriginalSong;
+module.exports = OriginalSong;

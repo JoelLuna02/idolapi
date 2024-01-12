@@ -1,6 +1,6 @@
 import sequelize from '../database/sequelize';
 import { DataTypes } from 'sequelize';
-import OriginalSong from './OriginalSong.ts';
+const OriginalSong = require('./OriginalSong');
 
 const Cover = sequelize.define('Cover', {
 	id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
@@ -16,4 +16,4 @@ const Cover = sequelize.define('Cover', {
 Cover.hasOne(OriginalSong, { foreignKey: 'cover_id', sourceKey: 'id' });
 OriginalSong.belongsTo(Cover, { foreignKey: 'cover_id', targetKey: 'id'});
 
-export default Cover;
+module.exports = Cover;

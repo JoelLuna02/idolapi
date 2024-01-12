@@ -10,4 +10,4 @@ const Social = sequelize.define('Social', {
 	tableName: 'Social',
 });
 
-export default Social;
+module.exports = Social;

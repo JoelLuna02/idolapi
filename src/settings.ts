@@ -1,7 +1,7 @@
-import { yellowBright, bold, cyan, whiteBright } from 'colorette';
-import http from 'http';
+const { yellowBright, bold, cyan, whiteBright } = require('colorette');
+const http = require('http');
 
-function myCustomFormat(tokens:any, req:any, res:any): any {
+const myCustomFormat = (tokens, req, res) => {
 	const status = tokens.status(req, res);
 	const statusdesc = http.STATUS_CODES[status] || 'Unknown';
 	const colorizedStatus = status >= 500 ? `\x1b[31m${status} ${statusdesc}\x1b[0m` :
@@ -17,4 +17,4 @@ function myCustomFormat(tokens:any, req:any, res:any): any {
 	].join(' ');
 };
 
-export default myCustomFormat;
+module.exports = myCustomFormat;

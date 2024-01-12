@@ -1,9 +1,10 @@
 import express, {Express, Request, Response} from 'express'; // Express.JS
 
+import path from 'path';
 import morgan from 'morgan'; // Morgan middleware
 //const vtrouter = require('./routes/vtuber.routes.js');
-import myCustomFormat from '../src/settings.ts';
-import versions from '../src/lib_info.ts';
+const myCustomFormat = require('./settings');
+const versions = require('./lib_info');
 import { bold, whiteBright, green, greenBright, redBright, yellowBright } from 'colorette';
 // const main_routes = require('./routes/api.routes.js');
 // const { authrouter } = require('./routes/jwt.routes.js');
@@ -14,19 +15,19 @@ import { config } from 'dotenv';
 //const fs = require('fs');
 config()
 
-import sequelize from './database/sequelize.ts';
+import sequelize from './database/sequelize';
 //const VTuber = require('./models/VTuber.js');
 //const Hashtag = require('./models/Hashtag.js');
 //const Song = require('./models/Song.js');
 //const Social = require('./models/Social.js');
-import './models/VTuber.ts';
-import './models/Hashtag.ts';
-import './models/Social.ts';
-import './models/Song.ts';
-import './models/File.ts';
-import './models/User.ts';
-import './models/Cover.ts';
-import './models/OriginalSong.ts';
+require('./models/VTuber');
+require('./models/Hashtag');
+require('./models/Social');
+require('./models/Song');
+require('./models/File');
+require('./models/User');
+require('./models/Cover');
+require('./models/OriginalSong');
 
 const PORT = process.env.PORT || 3000;
 const apli: Express = express();
@@ -35,7 +36,7 @@ apli.use(express.json());
 apli.use(morgan(myCustomFormat));
 
 apli.set('view engine', 'ejs');
-apli.set('views', __dirname + '/views');
+apli.set('views', path.join(__dirname, 'views'));
 apli.use(express.static('./views/public'));
 /* apli.use('/api', vtrouter);
 apli.use('/api', main_routes);

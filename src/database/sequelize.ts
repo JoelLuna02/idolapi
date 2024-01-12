@@ -4,7 +4,7 @@ import { config } from 'dotenv';
 
 config();
 
-const sequelize = new Sequelize({
+export const sequelize = new Sequelize({
 	dialect: 'postgres',
 	protocol: 'postgres',
 	database: process.env.POSTGRES_DATABASE,
