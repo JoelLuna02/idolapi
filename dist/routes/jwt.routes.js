@@ -18,11 +18,11 @@ const express_1 = require("express");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const authdata = require('../api/authdata.json');
+const authdata_json_1 = __importDefault(require("../api/authdata.json"));
 const User_1 = __importDefault(require("../models/User"));
+const dotenv_1 = require("dotenv");
 const authrouter = (0, express_1.Router)();
 exports.authrouter = authrouter;
-const dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 const secret = process.env.TOKEN_SECRET;
 function verify_Token(req, res, next) {
@@ -48,7 +48,7 @@ function verify_Token(req, res, next) {
 }
 authrouter.use(body_parser_1.default.json());
 authrouter.get('/', (req, res) => {
-    return res.status(200).json(authdata);
+    return res.status(200).json(authdata_json_1.default);
 });
 authrouter.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const form = req.body;

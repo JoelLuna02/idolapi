@@ -3,10 +3,11 @@ import { Router, Response, Request } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import bodyParser from 'body-parser';
-const authdata = require('../api/authdata.json');
+import authdata from '../api/authdata.json';
 import User from '../models/User';
-const authrouter = Router();
 import { config } from 'dotenv';
+
+const authrouter = Router();
 config();
 
 const secret = process.env.TOKEN_SECRET;
