@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = __importDefault(require("../database/sequelize"));
 const sequelize_2 = require("sequelize");
-const Hashtag = require('./Hashtag');
-const Social = require('./Social');
-const Song = require('./Song');
-const Cover = require('./Cover');
+const Hashtag_1 = __importDefault(require("./Hashtag"));
+const Social_1 = __importDefault(require("./Social"));
+const Song_1 = __importDefault(require("./Song"));
+const Cover_1 = __importDefault(require("./Cover"));
 const VTuber = sequelize_1.default.define('VTuber', {
     id: { type: sequelize_2.DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     fullname: { type: sequelize_2.DataTypes.STRING, unique: true, allowNull: false },
@@ -33,12 +33,12 @@ const VTuber = sequelize_1.default.define('VTuber', {
     timestamps: false,
     tableName: 'VTuber'
 });
-VTuber.hasMany(Cover, { foreignKey: 'vtid', sourceKey: 'id' });
-Cover.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
-VTuber.hasOne(Hashtag, { foreignKey: 'vtid', sourceKey: 'id' });
-Hashtag.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
-VTuber.hasMany(Song, { foreignKey: 'vtid', sourceKey: 'id' });
-Song.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
-VTuber.hasMany(Social, { foreignKey: 'vtid', sourceKey: 'id' });
-Social.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
+VTuber.hasMany(Cover_1.default, { foreignKey: 'vtid', sourceKey: 'id' });
+Cover_1.default.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
+VTuber.hasOne(Hashtag_1.default, { foreignKey: 'vtid', sourceKey: 'id' });
+Hashtag_1.default.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
+VTuber.hasMany(Song_1.default, { foreignKey: 'vtid', sourceKey: 'id' });
+Song_1.default.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
+VTuber.hasMany(Social_1.default, { foreignKey: 'vtid', sourceKey: 'id' });
+Social_1.default.belongsTo(VTuber, { foreignKey: 'vtid', targetKey: 'id' });
 exports.default = VTuber;

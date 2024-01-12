@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Includeable } from 'sequelize';
 import sequelize from '../database/sequelize';
 
 const OriginalSong = sequelize.define('OriginalSong', {
@@ -11,4 +11,5 @@ const OriginalSong = sequelize.define('OriginalSong', {
 	timestamps: true,
 	modelName: 'OriginalSong'
 });
-module.exports = OriginalSong;
+
+export default OriginalSong;

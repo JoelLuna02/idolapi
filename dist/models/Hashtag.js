@@ -15,4 +15,4 @@ const Hashtag = sequelize_1.default.define('Hashtag', {
     timestamps: false,
     tableName: 'Hashtag'
 });
-module.exports = Hashtag;
+exports.default = Hashtag;

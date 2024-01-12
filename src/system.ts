@@ -2,14 +2,14 @@ import express, {Express, Request, Response} from 'express'; // Express.JS
 
 import path from 'path';
 import morgan from 'morgan'; // Morgan middleware
-//const vtrouter = require('./routes/vtuber.routes.js');
+import vtrouter from './routes/vtuber.routes';
 const myCustomFormat = require('./settings');
 const versions = require('./lib_info');
 import { bold, whiteBright, green, greenBright, redBright, yellowBright } from 'colorette';
-// const main_routes = require('./routes/api.routes.js');
-// const { authrouter } = require('./routes/jwt.routes.js');
-// const assets = require('./routes/assets.routes.js');
-// const covers = require('./routes/cover.routes.js');
+import main_routes from './routes/api.routes';
+import { authrouter } from './routes/jwt.routes';
+import assets from './routes/assets.routes';
+import covers from './routes/cover.routes';
 //const cheerio = require('cheerio');
 import { config } from 'dotenv';
 //const fs = require('fs');
@@ -38,11 +38,11 @@ apli.use(morgan(myCustomFormat));
 apli.set('view engine', 'ejs');
 apli.set('views', path.join(__dirname, 'views'));
 apli.use(express.static('./views/public'));
-/* apli.use('/api', vtrouter);
-apli.use('/api', main_routes);
-apli.use('/api/assets', assets);
 apli.use('/api/auth', authrouter);
-apli.use('/api/cover', covers); */
+apli.use('/api/assets', assets);
+apli.use('/api', vtrouter);
+apli.use('/api/cover', covers);
+apli.use('/api', main_routes);
 
 /* 
 function getRandomInt(min, max) {

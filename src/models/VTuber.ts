@@ -1,10 +1,10 @@
 import sequelize from '../database/sequelize';
 import { DataTypes } from 'sequelize';
 
-const Hashtag = require('./Hashtag');
-const Social = require('./Social');
-const Song = require('./Song');
-const Cover = require('./Cover');
+import Hashtag from './Hashtag';
+import Social from './Social';
+import Song from './Song';
+import Cover from './Cover';
 
 const VTuber = sequelize.define('VTuber', {
 	id:        { type: DataTypes.INTEGER,                  primaryKey: true, autoIncrement: true },

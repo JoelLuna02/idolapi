@@ -15,14 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express")); // Express.JS
 const path_1 = __importDefault(require("path"));
 const morgan_1 = __importDefault(require("morgan")); // Morgan middleware
-//const vtrouter = require('./routes/vtuber.routes.js');
+const vtuber_routes_1 = __importDefault(require("./routes/vtuber.routes"));
 const myCustomFormat = require('./settings');
 const versions = require('./lib_info');
 const colorette_1 = require("colorette");
-// const main_routes = require('./routes/api.routes.js');
-// const { authrouter } = require('./routes/jwt.routes.js');
-// const assets = require('./routes/assets.routes.js');
-// const covers = require('./routes/cover.routes.js');
+const api_routes_1 = __importDefault(require("./routes/api.routes"));
+const jwt_routes_1 = require("./routes/jwt.routes");
+const assets_routes_1 = __importDefault(require("./routes/assets.routes"));
+const cover_routes_1 = __importDefault(require("./routes/cover.routes"));
 //const cheerio = require('cheerio');
 const dotenv_1 = require("dotenv");
 //const fs = require('fs');
@@ -47,11 +47,11 @@ apli.use((0, morgan_1.default)(myCustomFormat));
 apli.set('view engine', 'ejs');
 apli.set('views', path_1.default.join(__dirname, 'views'));
 apli.use(express_1.default.static('./views/public'));
-/* apli.use('/api', vtrouter);
-apli.use('/api', main_routes);
-apli.use('/api/assets', assets);
-apli.use('/api/auth', authrouter);
-apli.use('/api/cover', covers); */
+apli.use('/api/auth', jwt_routes_1.authrouter);
+apli.use('/api/assets', assets_routes_1.default);
+apli.use('/api', vtuber_routes_1.default);
+apli.use('/api/cover', cover_routes_1.default);
+apli.use('/api', api_routes_1.default);
 /*
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;

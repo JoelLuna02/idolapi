@@ -13,4 +13,4 @@ const Social = sequelize_1.default.define('Social', {
     timestamps: false,
     tableName: 'Social',
 });
-module.exports = Social;
+exports.default = Social;

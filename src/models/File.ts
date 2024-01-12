@@ -12,4 +12,4 @@ const File = sequelize.define('File', {
 	tableName: 'File'
 });
 
-module.exports = File;
+export default File;

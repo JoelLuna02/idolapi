@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const bodyParser = require('body-parser');
+import { Router, Response, Request } from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import bodyParser from 'body-parser';
 const authdata = require('../api/authdata.json');
-const User = require('../models/User');
-const authrouter = express.Router();
-require('dotenv').config();
+import User from '../models/User';
+const authrouter = Router();
+import { config } from 'dotenv';
+config();
 
 const secret = process.env.TOKEN_SECRET;
 
@@ -27,21 +28,21 @@ function verify_Token (req, res, next) {
 			next();
 		});
 	} catch (error) {
-		return res.status(401).json({ message: 'Unauthorized: Token not provided' });
+		return res.status(401).json({ Unauthorized: 'Token not provided' });
 	}
 }
 
 authrouter.use(bodyParser.json());
 
-authrouter.get('/', (req, res) => {
+authrouter.get('/', (req: Request, res: Response) => {
 	return res.status(200).json(authdata);
 });
 
-authrouter.post('/signup', async (req, res) => {
+authrouter.post('/signup', async (req: Request, res:Response) => {
 	const form = req.body;
 	const hashpass = await bcrypt.hash(form.password, 12);
 	try {
-		const user = await User.create({
+		const user:any = await User.create({
 			firstname: form.firstname,
 			lastname: form.lastname,
 			phone: parseInt(form.phone, 10),
@@ -59,10 +60,10 @@ authrouter.post('/signup', async (req, res) => {
 	}
 });
 
-authrouter.post('/login', async (req, res) => {
+authrouter.post('/login', async (req: Request, res: Response) => {
 	const form = req.body;
 	try {
-		const user = await User.findOne({where: { username: form.username } });
+		const user:any = await User.findOne({where: { username: form.username } });
 		if (!user) { return res.status(401).json({ message: 'Access denied: The username does not exists'}); }
 		const passwd = await bcrypt.compare(form.password, user.password);
 		if (!user || !passwd) {
@@ -79,5 +80,5 @@ authrouter.post('/login', async (req, res) => {
 		});
 	}
 });
-
-module.exports = { authrouter, verify_Token };
+export { authrouter };
+export default verify_Token;

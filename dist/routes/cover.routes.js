@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,42 +8,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const Cover = require('../models/Cover');
-const VTuber = require('../models/VTuber');
-const { Router } = require('express');
-const OriginalSong = require('../models/OriginalSong');
-const { verify_Token } = require('./jwt.routes');
-const cover_routes = Router();
-cover_routes.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    const covers = yield Cover.findAll({
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Cover_1 = __importDefault(require("../models/Cover"));
+const VTuber_1 = __importDefault(require("../models/VTuber"));
+const express_1 = require("express");
+const OriginalSong_1 = __importDefault(require("../models/OriginalSong"));
+const jwt_routes_1 = __importDefault(require("./jwt.routes"));
+const cover_routes = (0, express_1.Router)();
+cover_routes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const covers = yield Cover_1.default.findAll({
         attributes: ['id', 'vtid', 'name', 'musicVideo', 'illustration', 'mix'],
-        include: { model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre'] }
+        include: { model: OriginalSong_1.default, attributes: ['artist', 'album', 'release', 'genre'] }
     });
     if (covers.length === 0) {
         return res.status(204).json();
     }
     return res.status(200).json(covers);
 }));
-cover_routes.get('/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
+cover_routes.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const cover_id = parseInt(req.params.id);
-    const cover = yield Cover.findByPk(cover_id);
+    const cover = yield Cover_1.default.findByPk(cover_id);
     if (!cover)
         return res.status(404).json({ message: 'Cover not found' });
     return res.status(200).json(cover);
 }));
-cover_routes.post('/add/:vtid', verify_Token, (req, res) => __awaiter(this, void 0, void 0, function* () {
+cover_routes.post('/add/:vtid', jwt_routes_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const vtid = parseInt(req.params.vtid);
     const form = req.body;
     try {
-        const vtuber = yield VTuber.findByPk(vtid);
+        const vtuber = yield VTuber_1.default.findByPk(vtid);
         if (!vtuber)
             return res.status(404).json({ message: 'VTuber not found' });
-        const newcover = yield Cover.create({
+        const newcover = yield Cover_1.default.create({
             name: form.name, musicVideo: form.musicVideo,
             illustration: form.illustration, mix: form.mix,
             vtid: vtid
         });
-        yield OriginalSong.create({
+        yield OriginalSong_1.default.create({
             artist: form.originalSong.artist, album: form.originalSong.album,
             release: form.originalSong.release, genre: form.originalSong.genre,
             cover_id: newcover.id
@@ -54,11 +59,11 @@ cover_routes.post('/add/:vtid', verify_Token, (req, res) => __awaiter(this, void
         return res.status(500).json({ message: 'Unable to add cover. See the console for more information' });
     }
 }));
-cover_routes.delete('/:coverid', verify_Token, (req, res) => __awaiter(this, void 0, void 0, function* () {
+cover_routes.delete('/:coverid', jwt_routes_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const cover_id = parseInt(req.params.coverid);
     try {
-        const cover = yield Cover.findByPk(cover_id);
-        yield OriginalSong.destroy({ where: { cover_id: cover.id } });
+        const cover = yield Cover_1.default.findByPk(cover_id);
+        yield OriginalSong_1.default.destroy({ where: { cover_id: cover.id } });
         yield cover.destroy();
         return res.status(204).json();
     }
@@ -68,4 +73,4 @@ cover_routes.delete('/:coverid', verify_Token, (req, res) => __awaiter(this, voi
         return res.status(500).json({ message: 'Unable to delete cover. See the console for more information' });
     }
 }));
-module.exports = cover_routes;
+exports.default = cover_routes;

@@ -14,4 +14,4 @@ const Song = sequelize.define('Song', {
 	tableName: 'Song'
 });
 
-module.exports = Song;
+export default Song;

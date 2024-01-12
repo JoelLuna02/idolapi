@@ -1,8 +1,8 @@
-const Cover = require('../models/Cover');
-const VTuber = require('../models/VTuber');
-const { Router } = require('express');
-const OriginalSong = require('../models/OriginalSong');
-const { verify_Token } = require('./jwt.routes');
+import Cover from '../models/Cover';
+import VTuber from '../models/VTuber';
+import { Router } from 'express';
+import OriginalSong from '../models/OriginalSong';
+import verify_Token from './jwt.routes';
 
 const cover_routes = Router();
 
@@ -28,7 +28,7 @@ cover_routes.post('/add/:vtid', verify_Token, async (req, res) => {
 	try {
 		const vtuber = await VTuber.findByPk(vtid);
 		if (!vtuber) return res.status(404).json({ message: 'VTuber not found' });
-		const newcover = await Cover.create({
+		const newcover:any = await Cover.create({
 			name: form.name, musicVideo: form.musicVideo, 
 			illustration: form.illustration, mix: form.mix,
 			vtid: vtid
@@ -48,7 +48,7 @@ cover_routes.post('/add/:vtid', verify_Token, async (req, res) => {
 cover_routes.delete('/:coverid', verify_Token, async (req, res) => {
 	const cover_id = parseInt(req.params.coverid);
 	try {
-		const cover = await Cover.findByPk(cover_id);
+		const cover:any = await Cover.findByPk(cover_id);
 		await OriginalSong.destroy({ where: { cover_id: cover.id }});
 		await cover.destroy();
 		return res.status(204).json();
@@ -59,4 +59,4 @@ cover_routes.delete('/:coverid', verify_Token, async (req, res) => {
 	}
 });
 
-module.exports = cover_routes;
+export default cover_routes;

@@ -1,13 +1,13 @@
-const { Router } = require('express');
-const multer = require('multer');
-const { verify_Token } = require('./jwt.routes.js');
-const File = require('../models/File.js');
+import { Router, Request, Response } from 'express';
+import multer from 'multer';
+import verify_Token from './jwt.routes';
+import File from '../models/File';
 
-const assets = Router();
+export const assets = Router();
 const store = multer.memoryStorage();
 const upload = multer({ storage: store });
 
-assets.post('/upload', upload.single('file'), verify_Token, async (req, res) => {
+assets.post('/upload', upload.single('file'), verify_Token, async (req:any, res: Response) => {
 	if (!req.file) {
 		return res.status(400).json({ message: 'Error: you must specify the file to upload' });
 	}
@@ -24,7 +24,7 @@ assets.post('/upload', upload.single('file'), verify_Token, async (req, res) => 
 });
 
 assets.get('/', async (req, res) => {
-	const files = await File.findAll({
+	const files:any = await File.findAll({
 		attributes: ['id', 'filename', 'mimetype', 'size', 'createdAt']
 	});
 	return res.status(200).json(files);
@@ -33,7 +33,7 @@ assets.get('/', async (req, res) => {
 assets.get('/:file', async (req, res) => {
 	const filename = req.params.file;
 	try {
-		const file = await File.findOne({ where: { filename } });
+		const file:any = await File.findOne({ where: { filename } });
 		if (!file) {
 			return res.status(404).json({ message: 'Error: file not found' });
 		}
@@ -51,7 +51,7 @@ assets.get('/:file', async (req, res) => {
 assets.delete('/:file', verify_Token, async (req, res) => {
 	const filename = req.params.file;
 	try {
-		const file = await File.findOne({ where: { filename } });
+		const file:any = await File.findOne({ where: { filename } });
 		if (!file) {
 			return res.status(404).json({ message: 'Error: file not found' });
 		}
@@ -63,4 +63,4 @@ assets.delete('/:file', verify_Token, async (req, res) => {
 	}
 });
 
-module.exports = assets;
+export default assets;

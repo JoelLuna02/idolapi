@@ -5,12 +5,17 @@
         "es2021": true,
         "node": true
     },
-    "extends": ["eslint:recommended", "eslint-config-prettier", "plugin:node/recommended"],
+    "extends": [
+        "eslint:recommended",
+        "eslint-plugin-prettier",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest"
     },
     "plugins": [
-        "ejs-js"
+        "@typescript-eslint"
     ],
     "rules": {
         "indent": [

@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,17 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-/* eslint-disable no-self-assign */
-const express = require('express');
-const { Op } = require('sequelize');
-const VTuber = require('../models/VTuber');
-const Social = require('../models/Social');
-const Hashtag = require('../models/Hashtag');
-const Song = require('../models/Song');
-const { verify_Token } = require('./jwt.routes');
-const Cover = require('../models/Cover');
-const OriginalSong = require('../models/OriginalSong');
-const vtrouter = express.Router();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const sequelize_1 = require("sequelize");
+const VTuber_1 = __importDefault(require("../models/VTuber"));
+const Social_1 = __importDefault(require("../models/Social"));
+const Hashtag_1 = __importDefault(require("../models/Hashtag"));
+const Song_1 = __importDefault(require("../models/Song"));
+const jwt_routes_1 = __importDefault(require("./jwt.routes"));
+const Cover_1 = __importDefault(require("../models/Cover"));
+const OriginalSong_1 = __importDefault(require("../models/OriginalSong"));
+const vtrouter = (0, express_1.Router)();
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -28,27 +32,27 @@ function shuffleArray(array, numb) {
     }
     return array.slice(0, numb);
 }
-vtrouter.get('/vtuber', (req, res) => __awaiter(this, void 0, void 0, function* () {
+vtrouter.get('/vtuber', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { branch, unit, graduated } = req.query;
     const VTFilter = {};
     if (branch) {
-        VTFilter.branch = { [Op.iLike]: `%${branch.toString()}%` };
+        VTFilter.branch = { [sequelize_1.Op.iLike]: `%${branch.toString()}%` };
     }
     if (unit) {
-        VTFilter.unit = { [Op.iLike]: `%${unit.toString()}%` };
+        VTFilter.unit = { [sequelize_1.Op.iLike]: `%${unit.toString()}%` };
     }
     if (graduated !== undefined) {
-        VTFilter.graduated = { [Op.eq]: (graduated.toLowerCase() === 'true') };
+        VTFilter.graduated = { [sequelize_1.Op.eq]: (graduated === 'true') };
     }
-    const vtubers = yield VTuber.findAll({
-        where: VTFilter, orderBy: { id: 'asc' },
+    const vtubers = yield VTuber_1.default.findAll({
+        where: VTFilter,
         include: [
-            { model: Cover, attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
-                    model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
-                } },
-            { model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes'] },
-            { model: Song, attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics'] },
-            { model: Social, attributes: ['id', 'application', 'socialurl'] }
+            { model: Cover_1.default, attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: [{
+                        model: OriginalSong_1.default, attributes: ['artist', 'album', 'release', 'genre']
+                    }] },
+            { model: Hashtag_1.default, attributes: ['general', 'stream', 'fanart', 'memes'] },
+            { model: Song_1.default, attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics'] },
+            { model: Social_1.default, attributes: ['id', 'application', 'socialurl'] }
         ]
     });
     if (vtubers.length === 0) {
@@ -57,17 +61,17 @@ vtrouter.get('/vtuber', (req, res) => __awaiter(this, void 0, void 0, function* 
     return res.json(vtubers);
 }));
 /* Get 6 randomly vtubers */
-vtrouter.get('/vtuber/random-vtubers', (req, res) => __awaiter(this, void 0, void 0, function* () {
+vtrouter.get('/vtuber/random-vtubers', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const vtList = 6;
-        const vtubers = yield VTuber.findAll({
+        const vtubers = yield VTuber_1.default.findAll({
             include: [
-                { model: Cover, attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
-                        model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
-                    } },
-                { model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes'] },
-                { model: Song, attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics'] },
-                { model: Social, attributes: ['id', 'application', 'socialurl'] }
+                { model: Cover_1.default, attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: [{
+                            model: OriginalSong_1.default, attributes: ['artist', 'album', 'release', 'genre']
+                        }] },
+                { model: Hashtag_1.default, attributes: ['general', 'stream', 'fanart', 'memes'] },
+                { model: Song_1.default, attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics'] },
+                { model: Social_1.default, attributes: ['id', 'application', 'socialurl'] }
             ]
         });
         if (vtubers.length < vtList) {
@@ -81,33 +85,17 @@ vtrouter.get('/vtuber/random-vtubers', (req, res) => __awaiter(this, void 0, voi
         return res.status(500).json(error);
     }
 }));
-/* Get a random VTuber */
-vtrouter.get('/vtuber/random', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    const vtuber = yield VTuber.findOne({
-        orderBy: { id: 'asc', },
-        skip: Math.floor(Math.random() * (yield VTuber.count())),
-        include: [
-            { model: Cover, attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
-                    model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
-                } },
-            { model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes'] },
-            { model: Song, attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics'] },
-            { model: Social, attributes: ['id', 'application', 'socialurl'] }
-        ]
-    });
-    return res.status(200).json(vtuber);
-}));
-vtrouter.get('/vtuber/:id', (req, res) => __awaiter(this, void 0, void 0, function* () {
+vtrouter.get('/vtuber/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const vtid = req.params.id;
-    const vtuber = yield VTuber.findOne({
+    const vtuber = yield VTuber_1.default.findOne({
         where: { id: parseInt(vtid, 10) },
         include: [
-            { model: Cover, attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
-                    model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
-                } },
-            { model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes'] },
-            { model: Song, attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics'] },
-            { model: Social, attributes: ['id', 'application', 'socialurl'] }
+            { model: Cover_1.default, attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: [{
+                        model: OriginalSong_1.default, attributes: ['artist', 'album', 'release', 'genre']
+                    }] },
+            { model: Hashtag_1.default, attributes: ['general', 'stream', 'fanart', 'memes'] },
+            { model: Song_1.default, attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics'] },
+            { model: Social_1.default, attributes: ['id', 'application', 'socialurl'] }
         ]
     });
     if (vtuber === null) {
@@ -117,13 +105,13 @@ vtrouter.get('/vtuber/:id', (req, res) => __awaiter(this, void 0, void 0, functi
     res.status(200);
     return res.json(vtuber);
 }));
-vtrouter.delete('/vtuber/:id', verify_Token, (req, res) => __awaiter(this, void 0, void 0, function* () {
+vtrouter.delete('/vtuber/:id', jwt_routes_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const vtid = req.params.id;
     try {
-        yield Song.destroy({ where: { vtid: parseInt(vtid, 10) } });
-        yield Social.destroy({ where: { vtid: parseInt(vtid, 10) } });
-        yield Hashtag.destroy({ where: { vtid: parseInt(vtid, 10) } });
-        yield VTuber.destroy({ where: { id: parseInt(vtid, 10) } });
+        yield Song_1.default.destroy({ where: { vtid: parseInt(vtid, 10) } });
+        yield Social_1.default.destroy({ where: { vtid: parseInt(vtid, 10) } });
+        yield Hashtag_1.default.destroy({ where: { vtid: parseInt(vtid, 10) } });
+        yield VTuber_1.default.destroy({ where: { id: parseInt(vtid, 10) } });
         return res.status(204).json({ message: 'Successfully deleted VTuber!' });
     }
     catch (error) {
@@ -132,11 +120,11 @@ vtrouter.delete('/vtuber/:id', verify_Token, (req, res) => __awaiter(this, void 
     }
 }));
 /* Create a new Vtuber */
-vtrouter.post('/vtuber/create', verify_Token, (req, res) => __awaiter(this, void 0, void 0, function* () {
+vtrouter.post('/vtuber/create', jwt_routes_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let cont_songs = 0;
     let social_media = 0;
     const form = yield req.body;
-    const newvtuber = yield VTuber.create({
+    const newvtuber = yield VTuber_1.default.create({
         fullname: form.fullname, fanname: form.fanname, phrase: form.phrase,
         debut: form.debut, branch: form.branch, unit: form.unit,
         aliases: form.aliases, likes: form.likes, dislikes: form.dislikes,
@@ -144,7 +132,7 @@ vtrouter.post('/vtuber/create', verify_Token, (req, res) => __awaiter(this, void
         graduated: form.graduated || false, gender: form.gender, age: parseInt(form.age, 10),
         birthday: form.birthday, zodiac: form.zodiac, height: parseFloat(form.height)
     });
-    yield Hashtag.create({
+    yield Hashtag_1.default.create({
         general: form.hashtag.general,
         stream: form.hashtag.stream,
         fanart: form.hashtag.fanart,
@@ -152,7 +140,7 @@ vtrouter.post('/vtuber/create', verify_Token, (req, res) => __awaiter(this, void
         vtid: newvtuber.id
     });
     for (const song of form.songs) {
-        yield Song.create({
+        yield Song_1.default.create({
             name: song.name, album: song.album,
             releasedate: song.releasedate,
             compositor: song.compositor,
@@ -162,7 +150,7 @@ vtrouter.post('/vtuber/create', verify_Token, (req, res) => __awaiter(this, void
         cont_songs += 1;
     }
     for (const social of form.social) {
-        yield Social.create({ application: social.application, socialurl: social.socialurl, vtid: newvtuber.id });
+        yield Social_1.default.create({ application: social.application, socialurl: social.socialurl, vtid: newvtuber.id });
         social_media += 1;
     }
     res.status(201);
@@ -173,11 +161,11 @@ vtrouter.post('/vtuber/create', verify_Token, (req, res) => __awaiter(this, void
         message: 'Successfully created vtuber!'
     });
 }));
-vtrouter.patch('/vtuber/update/:id', verify_Token, (req, res) => __awaiter(this, void 0, void 0, function* () {
+vtrouter.patch('/vtuber/update/:id', jwt_routes_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const form = yield req.body;
     const vtid = req.params.id;
     try {
-        const updatevtuber = yield VTuber.findByPk(vtid);
+        const updatevtuber = yield VTuber_1.default.findByPk(vtid);
         if (!updatevtuber) {
             return res.status(404).json({ message: 'VTuber not found' });
         }
@@ -203,7 +191,7 @@ vtrouter.patch('/vtuber/update/:id', verify_Token, (req, res) => __awaiter(this,
         updatevtuber.zodiac = form.zodiac || updatevtuber.zodiac;
         updatevtuber.height = parseFloat(form.height) || updatevtuber.height;
         if (form.hashtag) {
-            let hashtag = yield Hashtag.findOne({ where: { vtid: parseInt(vtid) } });
+            let hashtag = yield Hashtag_1.default.findOne({ where: { vtid: parseInt(vtid) } });
             if (hashtag) {
                 hashtag.general = form.hashtag.general || hashtag.general;
                 hashtag.stream = form.hashtag.stream || hashtag.stream;
@@ -211,7 +199,7 @@ vtrouter.patch('/vtuber/update/:id', verify_Token, (req, res) => __awaiter(this,
                 hashtag.memes = form.hashtag.memes || hashtag.memes;
             }
             else {
-                hashtag = yield Hashtag.create({
+                hashtag = yield Hashtag_1.default.create({
                     general: form.hashtag.general,
                     stream: form.hashtag.stream,
                     fanart: form.hashtag.fanart,
@@ -236,4 +224,4 @@ vtrouter.patch('/vtuber/update/:id', verify_Token, (req, res) => __awaiter(this,
         return res.json({ message: 'Unable to update vtuber. See the console for more information' });
     }
 }));
-module.exports = vtrouter;
+exports.default = vtrouter;

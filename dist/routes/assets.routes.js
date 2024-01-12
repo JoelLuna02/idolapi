@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,20 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const { Router } = require('express');
-const multer = require('multer');
-const { verify_Token } = require('./jwt.routes.js');
-const File = require('../models/File.js');
-const assets = Router();
-const store = multer.memoryStorage();
-const upload = multer({ storage: store });
-assets.post('/upload', upload.single('file'), verify_Token, (req, res) => __awaiter(this, void 0, void 0, function* () {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.assets = void 0;
+const express_1 = require("express");
+const multer_1 = __importDefault(require("multer"));
+const jwt_routes_1 = __importDefault(require("./jwt.routes"));
+const File_1 = __importDefault(require("../models/File"));
+exports.assets = (0, express_1.Router)();
+const store = multer_1.default.memoryStorage();
+const upload = (0, multer_1.default)({ storage: store });
+exports.assets.post('/upload', upload.single('file'), jwt_routes_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.file) {
         return res.status(400).json({ message: 'Error: you must specify the file to upload' });
     }
     const newfile = req.file;
     const bytes = newfile.buffer;
-    yield File.create({
+    yield File_1.default.create({
         filename: newfile.originalname,
         mimetype: newfile.mimetype,
         size: newfile.size,
@@ -28,16 +34,16 @@ assets.post('/upload', upload.single('file'), verify_Token, (req, res) => __awai
     });
     return res.status(200).json({ message: 'Successfully file stored' });
 }));
-assets.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
-    const files = yield File.findAll({
+exports.assets.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const files = yield File_1.default.findAll({
         attributes: ['id', 'filename', 'mimetype', 'size', 'createdAt']
     });
     return res.status(200).json(files);
 }));
-assets.get('/:file', (req, res) => __awaiter(this, void 0, void 0, function* () {
+exports.assets.get('/:file', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const filename = req.params.file;
     try {
-        const file = yield File.findOne({ where: { filename } });
+        const file = yield File_1.default.findOne({ where: { filename } });
         if (!file) {
             return res.status(404).json({ message: 'Error: file not found' });
         }
@@ -52,10 +58,10 @@ assets.get('/:file', (req, res) => __awaiter(this, void 0, void 0, function* () 
         return res.status(500).json({ message: 'Error while finding file, see the console for more details' });
     }
 }));
-assets.delete('/:file', verify_Token, (req, res) => __awaiter(this, void 0, void 0, function* () {
+exports.assets.delete('/:file', jwt_routes_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const filename = req.params.file;
     try {
-        const file = yield File.findOne({ where: { filename } });
+        const file = yield File_1.default.findOne({ where: { filename } });
         if (!file) {
             return res.status(404).json({ message: 'Error: file not found' });
         }
@@ -67,4 +73,4 @@ assets.delete('/:file', verify_Token, (req, res) => __awaiter(this, void 0, void
         return res.status(500).json({ message: 'Error while finding file, see the console for more details' });
     }
 }));
-module.exports = assets;
+exports.default = exports.assets;

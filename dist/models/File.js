@@ -15,4 +15,4 @@ const File = sequelize_2.default.define('File', {
     timestamps: true,
     tableName: 'File'
 });
-module.exports = File;
+exports.default = File;

@@ -12,4 +12,4 @@ const Hashtag = sequelize.define('Hashtag', {
 	tableName: 'Hashtag'
 });
 
-module.exports = Hashtag;
+export default Hashtag;

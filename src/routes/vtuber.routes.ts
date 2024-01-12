@@ -1,15 +1,14 @@
-/* eslint-disable no-self-assign */
-const express = require('express');
-const {Op} = require('sequelize');
-const VTuber = require('../models/VTuber');
-const Social = require('../models/Social');
-const Hashtag = require('../models/Hashtag');
-const Song = require('../models/Song');
-const { verify_Token } = require('./jwt.routes');
-const Cover = require('../models/Cover');
-const OriginalSong = require('../models/OriginalSong');
+import { Router, Request, Response } from "express";
+import { Op } from  'sequelize';
+import VTuber from '../models/VTuber';
+import Social from '../models/Social';
+import Hashtag from '../models/Hashtag';
+import Song from '../models/Song';
+import verify_Token from './jwt.routes';
+import Cover from '../models/Cover';
+import OriginalSong from '../models/OriginalSong';
 
-const vtrouter = express.Router();
+const vtrouter = Router();
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -23,19 +22,19 @@ function shuffleArray(array, numb) {
 	return array.slice(0, numb);
 }
 
-vtrouter.get('/vtuber', async (req, res) => {
+vtrouter.get('/vtuber', async (req: Request, res: Response) => {
 	const { branch, unit, graduated } = req.query;
-	const VTFilter = {};
+	const VTFilter:any = {};
 	if (branch) { VTFilter.branch = { [Op.iLike]: `%${branch.toString()}%` }; }
 	if (unit) { VTFilter.unit = { [Op.iLike]: `%${unit.toString()}%` }; }
-	if (graduated !== undefined) { VTFilter.graduated = { [Op.eq]: (graduated.toLowerCase() === 'true') };}
+	if (graduated !== undefined) { VTFilter.graduated = { [Op.eq]: (graduated === 'true') };}
 	
-	const vtubers = await VTuber.findAll({
-		where: VTFilter, orderBy: { id: 'asc' },
+	const vtubers:any = await VTuber.findAll({
+		where: VTFilter,
 		include: [
-			{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
+			{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: [{
 				model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
-			}},
+			}]},
 			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
 			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
 			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
@@ -49,14 +48,14 @@ vtrouter.get('/vtuber', async (req, res) => {
 
 /* Get 6 randomly vtubers */
 
-vtrouter.get('/vtuber/random-vtubers', async (req, res) => {
+vtrouter.get('/vtuber/random-vtubers', async (req: Request, res: Response) => {
 	try {
 		const vtList = 6;
 		const vtubers = await VTuber.findAll({
 			include: [
-				{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
+				{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: [{
 					model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
-				}},
+				}]},
 				{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
 				{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
 				{ model: Social,  attributes: ['id', 'application', 'socialurl']}
@@ -73,32 +72,14 @@ vtrouter.get('/vtuber/random-vtubers', async (req, res) => {
 	}
 });
 
-/* Get a random VTuber */
-
-vtrouter.get('/vtuber/random', async (req, res) => {
-	const vtuber = await VTuber.findOne({
-		orderBy: { id: 'asc', },
-		skip: Math.floor(Math.random() * (await VTuber.count())),
-		include: [
-			{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
-				model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
-			}},
-			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
-			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
-			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
-		]
-	});
-	return res.status(200).json(vtuber);
-});
-
-vtrouter.get('/vtuber/:id', async (req, res) => {
+vtrouter.get('/vtuber/:id', async (req: Request, res: Response) => {
 	const vtid = req.params.id;
 	const vtuber = await VTuber.findOne({
 		where: { id: parseInt(vtid, 10) },
 		include: [
-			{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: {
+			{ model: Cover,   attributes: ['id', 'name', 'musicVideo', 'illustration', 'mix'], include: [{
 				model: OriginalSong, attributes: ['artist', 'album', 'release', 'genre']
-			}},
+			}]},
 			{ model: Hashtag, attributes: ['general', 'stream', 'fanart', 'memes']}, 
 			{ model: Song,    attributes: ['id', 'name', 'album', 'releasedate', 'compositor', 'mixing', 'lyrics']},
 			{ model: Social,  attributes: ['id', 'application', 'socialurl']}
@@ -112,7 +93,7 @@ vtrouter.get('/vtuber/:id', async (req, res) => {
 	return res.json(vtuber);
 });
 
-vtrouter.delete('/vtuber/:id', verify_Token, async (req, res) => {
+vtrouter.delete('/vtuber/:id', verify_Token, async (req: Request, res: Response) => {
 	const vtid = req.params.id;
 	try {
 		await Song.destroy({ where: { vtid: parseInt(vtid, 10)}});
@@ -128,11 +109,11 @@ vtrouter.delete('/vtuber/:id', verify_Token, async (req, res) => {
 
 /* Create a new Vtuber */
 
-vtrouter.post('/vtuber/create', verify_Token, async (req, res) => {
+vtrouter.post('/vtuber/create', verify_Token, async (req: Request, res: Response) => {
 	let cont_songs = 0;
 	let social_media = 0;
 	const form = await req.body;
-	const newvtuber = await VTuber.create({
+	const newvtuber:any = await VTuber.create({
 		fullname: form.fullname,   fanname: form.fanname,    phrase: form.phrase,
 		debut: form.debut,         branch: form.branch,      unit: form.unit,
 		aliases: form.aliases,     likes: form.likes,        dislikes: form.dislikes,
@@ -171,11 +152,11 @@ vtrouter.post('/vtuber/create', verify_Token, async (req, res) => {
 });
 
 
-vtrouter.patch('/vtuber/update/:id', verify_Token, async (req, res) => {
+vtrouter.patch('/vtuber/update/:id', verify_Token, async (req: Request, res: Response) => {
 	const form = await req.body;
 	const vtid = req.params.id;
 	try {
-		const updatevtuber = await VTuber.findByPk(vtid);
+		const updatevtuber:any = await VTuber.findByPk(vtid);
 		if (!updatevtuber) { return res.status(404).json({ message: 'VTuber not found'}); }
 		const vtbefore = updatevtuber;
 		updatevtuber.fullname = form.fullname || updatevtuber.fullname;
@@ -198,7 +179,7 @@ vtrouter.patch('/vtuber/update/:id', verify_Token, async (req, res) => {
 		updatevtuber.height = parseFloat(form.height) || updatevtuber.height;
 
 		if (form.hashtag) {
-			let hashtag = await Hashtag.findOne({ where: { vtid: parseInt(vtid)} });
+			let hashtag:any = await Hashtag.findOne({ where: { vtid: parseInt(vtid)} });
 			if (hashtag) {
 				hashtag.general = form.hashtag.general || hashtag.general;
 				hashtag.stream = form.hashtag.stream || hashtag.stream;
@@ -229,4 +210,4 @@ vtrouter.patch('/vtuber/update/:id', verify_Token, async (req, res) => {
 	}
 });
 
-module.exports = vtrouter;
+export default vtrouter;
