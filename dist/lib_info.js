@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,32 +8,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const { magentaBright, greenBright, cyanBright } = require('colorette');
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const colorette_1 = require("colorette");
 const ver_express = require('express/package').version;
 const ver_project = require('../package').version;
-const os = require('os');
-const platform = os.platform();
+const os_1 = __importDefault(require("os"));
+const platform = os_1.default.platform();
 function versions() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(`[${magentaBright('START')}]` +
-            `\n[${magentaBright('START')}]\t Express.js Version: ${greenBright(ver_express)}` +
-            `\n[${magentaBright('START')}]\t IdolAPI Version: ${greenBright(ver_project)}`);
+        console.log(`[${(0, colorette_1.magentaBright)('START')}]` +
+            `\n[${(0, colorette_1.magentaBright)('START')}]\t Express.js Version: ${(0, colorette_1.greenBright)(ver_express)}` +
+            `\n[${(0, colorette_1.magentaBright)('START')}]\t IdolAPI Version: ${(0, colorette_1.greenBright)(ver_project)}`);
         switch (platform) {
             case 'win32':
-                console.log(`[${magentaBright('START')}]\t Running on ${cyanBright('Windows')}`);
+                console.log(`[${(0, colorette_1.magentaBright)('START')}]\t Running on ${(0, colorette_1.cyanBright)('Windows')}`);
                 break;
             case 'linux':
-                console.log(`[${magentaBright('START')}]\t Running on ${'Linux'}`);
+                console.log(`[${(0, colorette_1.magentaBright)('START')}]\t Running on ${'Linux'}`);
                 break;
             case 'darwin':
-                console.log(`[${magentaBright('START')}]\t Running on ${'MacOS'}`);
+                console.log(`[${(0, colorette_1.magentaBright)('START')}]\t Running on ${'MacOS'}`);
                 break;
             case 'android':
-                console.log(`[${magentaBright('START')}]\t Running on ${greenBright('Android')}`);
+                console.log(`[${(0, colorette_1.magentaBright)('START')}]\t Running on ${(0, colorette_1.greenBright)('Android')}`);
                 break;
         }
-        console.log(`[${magentaBright('START')}]`);
+        console.log(`[${(0, colorette_1.magentaBright)('START')}]`);
     });
 }
 ;
-module.exports = versions;
+exports.default = versions;

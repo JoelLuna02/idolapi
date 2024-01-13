@@ -1,7 +1,7 @@
-const { magentaBright, greenBright, cyanBright } = require('colorette');
+import { magentaBright, greenBright, cyanBright } from 'colorette';
 const ver_express = require('express/package').version;
 const ver_project = require('../package').version;
-const os = require('os');
+import os from 'os';
 
 const platform = os.platform();
 
@@ -47,4 +47,4 @@ async function versions() {
 	console.log(`[${magentaBright('START')}]`);
 };
 
-module.exports = versions;
+export default versions;

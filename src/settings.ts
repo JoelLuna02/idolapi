@@ -1,12 +1,13 @@
-const { yellowBright, bold, cyan, whiteBright } = require('colorette');
-const http = require('http');
+import { yellowBright, bold, cyan, whiteBright } from 'colorette';
+import http, { IncomingMessage, ServerResponse } from 'http';
+import { TokenIndexer } from 'morgan';
 
-const myCustomFormat = (tokens, req, res) => {
+const myCustomFormat = (tokens: TokenIndexer, req: IncomingMessage, res: ServerResponse) => {
 	const status = tokens.status(req, res);
 	const statusdesc = http.STATUS_CODES[status] || 'Unknown';
-	const colorizedStatus = status >= 500 ? `\x1b[31m${status} ${statusdesc}\x1b[0m` :
-		status >= 400 ? `\x1b[33m${status} ${statusdesc}\x1b[0m` :
-			status >= 300 ? `\x1b[36m${status} ${statusdesc}\x1b[0m` :
+	const colorizedStatus = parseInt(status) >= 500 ? `\x1b[31m${status} ${statusdesc}\x1b[0m` :
+		parseInt(status) >= 400 ? `\x1b[33m${status} ${statusdesc}\x1b[0m` :
+			parseInt(status) >= 300 ? `\x1b[36m${status} ${statusdesc}\x1b[0m` :
 				`\x1b[32m${status} ${statusdesc}\x1b[0m`;
 	return [
 		`[${cyan('INFO')}]\t`,
@@ -17,4 +18,4 @@ const myCustomFormat = (tokens, req, res) => {
 	].join(' ');
 };
 
-module.exports = myCustomFormat;
+export default myCustomFormat;
