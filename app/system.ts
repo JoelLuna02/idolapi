@@ -1,5 +1,6 @@
-import engine from 'react-engine';
+import { renderToString } from 'react-dom/server';
 import express, {Express, Request, Response} from 'express'; // Express.JS
+import React from 'react';
 
 import path from 'path';
 import morgan from 'morgan'; // Morgan middleware
@@ -15,6 +16,13 @@ import covers from './routes/cover.routes';
 import { config } from 'dotenv';
 //const fs = require('fs');
 config()
+
+require('@babel/register')({
+	presets: [
+		'@babel/preset-react',
+	  	['@babel/preset-typescript', { allExtensions: true }],
+	],
+});
 
 import sequelize from './database/sequelize';
 //const VTuber = require('./models/VTuber.js');
@@ -35,18 +43,23 @@ const apli: Express = express();
 apli.use(express.json());
 
 apli.use(morgan(myCustomFormat));
-apli.engine(".js", engine.server.create())
-apli.set("views", path.join(__dirname, "views"));
+apli.set('views', path.join(__dirname, 'views'));
 apli.use(express.static(path.join(__dirname, "./views/public")));
 apli.use('/api/auth', authrouter);
 apli.use('/api/assets', assets);
 apli.use('/api', vtrouter);
 apli.use('/api/cover', covers);
 apli.use('/api', main_routes);
-apli.set("view engine", "js");
-apli.set("view", engine.expressView);
-apli.set('view options', { jsx: engine.react, js: engine.react }); 
-
+apli.set('view engine','js');
+apli.engine('js', (filePath: string, options: any, callback: Function) => {
+	try {
+		const component = require(filePath).default;
+		const html = renderToString(React.createElement(component, options));
+		return callback(null, html);
+	} catch (error) {
+		return callback(error);
+	}
+});
 
 apli.get('/', (_req: Request, res: Response) => {
 	res.status(200).render('Index');
