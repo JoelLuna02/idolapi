@@ -1,3 +1,4 @@
+import engine from 'react-engine';
 import express, {Express, Request, Response} from 'express'; // Express.JS
 
 import path from 'path';
@@ -22,7 +23,7 @@ import sequelize from './database/sequelize';
 //const Social = require('./models/Social.js');
 import './models/VTuber';
 import './models/Hashtag';
-import './models/Social';
+import './models/Social';	
 import './models/Song';
 import './models/File';
 import './models/User';
@@ -34,18 +35,21 @@ const apli: Express = express();
 apli.use(express.json());
 
 apli.use(morgan(myCustomFormat));
-
-apli.set('view engine', 'ejs');
-apli.set('views', path.join(__dirname, 'views'));
-apli.use(express.static('./views/public'));
+apli.engine(".js", engine.server.create())
+apli.set("views", path.join(__dirname, "views"));
+apli.use(express.static(path.join(__dirname, "./views/public")));
 apli.use('/api/auth', authrouter);
 apli.use('/api/assets', assets);
 apli.use('/api', vtrouter);
 apli.use('/api/cover', covers);
 apli.use('/api', main_routes);
+apli.set("view engine", "js");
+apli.set("view", engine.expressView);
+apli.set('view options', { jsx: engine.react, js: engine.react }); 
 
-apli.get('*', (_req: Request, res: Response) => {
-	return res.status(503).render('503');
+
+apli.get('/', (_req: Request, res: Response) => {
+	res.status(200).render('Index');
 });
 
 async function initialize(): Promise<void> {

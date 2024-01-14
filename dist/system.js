@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const react_engine_1 = __importDefault(require("react-engine"));
 const express_1 = __importDefault(require("express")); // Express.JS
 const path_1 = __importDefault(require("path"));
 const morgan_1 = __importDefault(require("morgan")); // Morgan middleware
@@ -44,16 +45,19 @@ const PORT = process.env.PORT || 3000;
 const apli = (0, express_1.default)();
 apli.use(express_1.default.json());
 apli.use((0, morgan_1.default)(settings_1.default));
-apli.set('view engine', 'ejs');
-apli.set('views', path_1.default.join(__dirname, 'views'));
-apli.use(express_1.default.static('./views/public'));
+apli.engine(".js", react_engine_1.default.server.create());
+apli.set("views", path_1.default.join(__dirname, "views"));
+apli.use(express_1.default.static(path_1.default.join(__dirname, "./views/public")));
 apli.use('/api/auth', jwt_routes_1.authrouter);
 apli.use('/api/assets', assets_routes_1.default);
 apli.use('/api', vtuber_routes_1.default);
 apli.use('/api/cover', cover_routes_1.default);
 apli.use('/api', api_routes_1.default);
-apli.get('*', (_req, res) => {
-    return res.status(503).render('503');
+apli.set("view engine", "js");
+apli.set("view", react_engine_1.default.expressView);
+apli.set('view options', { jsx: react_engine_1.default.react, js: react_engine_1.default.react });
+apli.get('/', (_req, res) => {
+    res.status(200).render('Index');
 });
 function initialize() {
     return __awaiter(this, void 0, void 0, function* () {

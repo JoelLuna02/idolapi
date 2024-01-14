@@ -9,7 +9,7 @@
     ],
     "routes": [
         { "handle": "filesystem" },
-        { "src": "src/views/public/(.*)", "dest": "src/views/public/$1" },
+        { "src": "app/views/public/(.*)", "dest": "app/views/public/$1" },
         { "src": "/(.*)", "dest": "dist/system.js" }
     ]
 }
