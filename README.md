@@ -1,6 +1,6 @@
 # IdolAPI
 
-[![IdolAPI](https://idolapi.vercel.app/api/assets/Screenshot_20231129_000020.png)](https://idolapi.vercel.app)
+<!-- [![IdolAPI](https://idolapi.vercel.app/api/assets/Screenshot_20231129_000020.png)](https://idolapi.vercel.app) -->
 
 ![GitHub forks](https://img.shields.io/github/forks/JoelLuna02/idolapi.svg)
 ![GitHub Repo stars](https://img.shields.io/github/stars/JoelLuna02/idolapi.svg?color=00ff00)
