@@ -1,0 +1,52 @@
+# About this Project!
+---
+
+**IdolAPI is a RESTful API based on the VTuber israeli agency Idol Corp. Here you will have access
+to information about your favorite vtubers, staff, songs, etc., in addition to having access to
+images. Remember that for more information you can consult the documentation, where you can access
+how this API works and its available methods.**
+
+### **What's an API?**
+
+*A REST API (also known as RESTful API) is an application programming interface (API or web API) 
+that conforms to the constraints of REST architectural style and allows for interaction with
+RESTful web services. REST stands for representational state transfer and was created by
+computer scientist Roy Fielding.*
+
+An API is a set of definitions and protocols for building and integrating application software. 
+It’s sometimes referred to as a contract between an information provider and an information 
+user—establishing the content required from the consumer (the call) and the content required by
+the producer (the response). For example, the API design for a weather service could specify that 
+the user supply a zip code and that the producer reply with a 2-part answer, the first being the
+high temperature, and the second being the low.  
+
+In other words, if you want to interact with a computer or system to retrieve information or perform
+a function, an API helps you communicate what you want to that system so it can understand and fulfill
+the request.
+
+[More information here](https://www.redhat.com/en/topics/api/what-is-a-rest-api)
+
+### **Developing tools**
+
+This project uses [Next.Js](https://nextjs.org/) and [Express.JS](https://expressjs.com/) 
+with [Node](https://nodejs.org/) for both client and server side creation. Its deployments are 
+hosted in [Vercel](https://vercel.com/) and have a [PostgreSQL](https://www.postgresql.org/) database.
+
+### **How can I contribute?**
+
+_Too easy:_
+1) You can clone this repository to your local workspace.
+2) Once the necessary commits have been made, you must fork the repository.
+3) Push your code and open a new pull request. Once reviewed, we will accept your changes 
+4) **Last and most important:** Remember to read the documentation for more details on how this API works.
+
+#### Do you have any suggestion?
+
+Do not hesitate to send us any suggestions to the [suggestions](https://github.com/JoelLuna02/IdolAPI/issues/1) section in Issues
+
+### **Copyright**
+
+Idol and all images, characters and names are trademarks of [Idol Virtual Talents Ltd](https://www.idol-company.com/).
+This project follows the [derivative works guidelines](https://www.idol-company.com/tos) set out in the terms and
+conditions. If there is any irregularity, contact the administrator. Its use for commercial purposes is prohibited.
+​

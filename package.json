@@ -6,8 +6,8 @@
     "main": "system.ts",
     "type": "commonjs",
     "scripts": {
-        "build": "rimraf dist && tsc && copyfiles -u 1 app/views/**/* dist/",
-        "dev": "ts-node-dev app/server.ts",
+        "build": "rimraf dist && tsc && copyfiles -u 1 src/views/**/* dist/",
+        "dev": "ts-node-dev src/server.ts",
         "start": "cross-env NODE_ENV=production node dist/server.js",
         "ts.check": "tsc --project tsconfig.json",
         "add-build": "git add -f dist"
