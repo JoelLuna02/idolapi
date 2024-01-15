@@ -31,7 +31,7 @@ import path from 'path';
 
 const PORT = process.env.PORT || 3000;
 
-async function initialize(apli: Express): Promise<void> {
+async function initialize(): Promise<void> {
 	await versions();
 	if (process.env.NODE_ENV) {
 		console.log(`[${greenBright('INFO')}]\t Starting server in ${redBright('Production')} mode...`);
@@ -68,12 +68,12 @@ apli.use('/api/cover', covers);
 apli.use('/api', main_routes);
 apli.set('view engine', 'ejs');
 apli.set('views', path.join(__dirname, 'views'));
-apli.use(express.static(path.join(__dirname, './views/public')));
+apli.use('/static', express.static(path.join(__dirname, 'views','public')));
 
 apli.all('/', (req: Request, res: Response) => {
 	return res.status(200).render('index', { title: "Comming soon..."});
 });
 
-initialize(apli);
+initialize();
 
 export default apli;

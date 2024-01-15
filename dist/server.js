@@ -41,19 +41,6 @@ require("./models/Cover");
 require("./models/OriginalSong");
 const path_1 = __importDefault(require("path"));
 const PORT = process.env.PORT || 3000;
-const apli = (0, express_1.default)();
-apli.use(express_1.default.json());
-apli.use((0, morgan_1.default)(settings_1.default));
-apli.use('/api/auth', jwt_routes_1.authrouter);
-apli.use('/api/assets', assets_routes_1.default);
-apli.use('/api', vtuber_routes_1.default);
-apli.use('/api/cover', cover_routes_1.default);
-apli.use('/api', api_routes_1.default);
-apli.set('view engine', 'ejs');
-apli.set('views', path_1.default.join(__dirname, 'views'));
-apli.get('/', (req, res) => {
-    return res.status(200).render('index', { title: 'Comming soon...' });
-});
 function initialize() {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, lib_info_1.default)();
@@ -75,12 +62,25 @@ function initialize() {
         }
     });
 }
-;
 process.on('SIGINT', () => {
     console.log(`[${(0, colorette_1.greenBright)('INFO')}]\t Server ${(0, colorette_1.redBright)('Terminated!')}\n` +
         `[${(0, colorette_1.greenBright)('INFO')}]\t Have a nice day!\n`);
     // eslint-disable-next-line no-process-exit
     process.exit();
+});
+const apli = (0, express_1.default)();
+apli.use(express_1.default.json());
+apli.use((0, morgan_1.default)(settings_1.default));
+apli.use('/api/auth', jwt_routes_1.authrouter);
+apli.use('/api/assets', assets_routes_1.default);
+apli.use('/api', vtuber_routes_1.default);
+apli.use('/api/cover', cover_routes_1.default);
+apli.use('/api', api_routes_1.default);
+apli.set('view engine', 'ejs');
+apli.set('views', path_1.default.join(__dirname, 'views'));
+apli.use('/static', express_1.default.static(path_1.default.join(__dirname, 'views', 'public')));
+apli.all('/', (req, res) => {
+    return res.status(200).render('index', { title: "Comming soon..." });
 });
 initialize();
 exports.default = apli;
