@@ -10,6 +10,6 @@
     "routes": [
         { "handle": "filesystem" },
         { "src": "app/views/public/(.*)", "dest": "app/views/public/$1" },
-        { "src": "/(.*)", "dest": "dist/system.js" }
+        { "src": "/(.*)", "dest": "dist/server.js" }
     ]
 }
