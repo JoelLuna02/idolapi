@@ -15,10 +15,10 @@ exports.sequelize = new sequelize_1.Sequelize({
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     host: process.env.POSTGRES_HOST,
-    port: 5432, /*
+    port: 5432,
     dialectOptions: {
         ssl: { require: true }
-    }, */
+    },
     dialectModule: pg_1.default,
     logging: false,
 });
