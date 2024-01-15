@@ -68,7 +68,7 @@ apli.use('/api/cover', covers);
 apli.use('/api', main_routes);
 apli.set('view engine', 'ejs');
 apli.set('views', path.join(__dirname, 'views'));
-apli.use(express.static(path.join(__dirname, './views/static')));
+apli.use(express.static(path.join(__dirname, './views/public')));
 
 apli.all('/', (req: Request, res: Response) => {
 	return res.status(200).render('index', { title: "Comming soon..."});
