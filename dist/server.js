@@ -12,10 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = require("react-dom/server");
 const express_1 = __importDefault(require("express")); // Express.JS
-const react_1 = __importDefault(require("react"));
-const path_1 = __importDefault(require("path"));
 const morgan_1 = __importDefault(require("morgan")); // Morgan middleware
 const vtuber_routes_1 = __importDefault(require("./routes/vtuber.routes"));
 const settings_1 = __importDefault(require("./settings"));
@@ -29,12 +26,6 @@ const cover_routes_1 = __importDefault(require("./routes/cover.routes"));
 const dotenv_1 = require("dotenv");
 //const fs = require('fs');
 (0, dotenv_1.config)();
-require('@babel/register')({
-    presets: [
-        '@babel/preset-react',
-        ['@babel/preset-typescript', { allExtensions: true }],
-    ],
-});
 const sequelize_1 = __importDefault(require("./database/sequelize"));
 //const VTuber = require('./models/VTuber.js');
 //const Hashtag = require('./models/Hashtag.js');
@@ -48,30 +39,20 @@ require("./models/File");
 require("./models/User");
 require("./models/Cover");
 require("./models/OriginalSong");
+const path_1 = __importDefault(require("path"));
 const PORT = process.env.PORT || 3000;
 const apli = (0, express_1.default)();
 apli.use(express_1.default.json());
 apli.use((0, morgan_1.default)(settings_1.default));
-apli.set('views', path_1.default.join(__dirname, 'views'));
-apli.use(express_1.default.static(path_1.default.join(__dirname, "./views/public")));
 apli.use('/api/auth', jwt_routes_1.authrouter);
 apli.use('/api/assets', assets_routes_1.default);
 apli.use('/api', vtuber_routes_1.default);
 apli.use('/api/cover', cover_routes_1.default);
 apli.use('/api', api_routes_1.default);
-apli.set('view engine', 'js');
-apli.engine('js', (filePath, options, callback) => {
-    try {
-        const component = require(filePath).default;
-        const html = (0, server_1.renderToString)(react_1.default.createElement(component, options));
-        return callback(null, html);
-    }
-    catch (error) {
-        return callback(error);
-    }
-});
-apli.get('/', (_req, res) => {
-    res.status(200).render('Index');
+apli.set('view engine', 'ejs');
+apli.set('views', path_1.default.join(__dirname, 'views'));
+apli.get('/', (req, res) => {
+    return res.status(200).render('index', { title: 'Comming soon...' });
 });
 function initialize() {
     return __awaiter(this, void 0, void 0, function* () {

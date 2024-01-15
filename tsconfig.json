@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "lib": ["es6", "DOM"],                               /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "commonjs",                                /* Specify what module code is generated. */
     "rootDir": "app",                                    /* Specify the root folder within your source files. */
     "resolveJsonModule": true,                           /* Enable importing .json files. */
@@ -13,5 +13,7 @@
     "strict": false,                                     /* Enable all strict type-checking options. */
     "noImplicitAny": false,                              /* Enable error reporting for expressions and declarations with an implied 'any' type. */
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
-  }
+  },
+  "include": ["app/**/*.ts", "app/**/*.tsx"],
+  "exclude": ["node_modules"]
 }
