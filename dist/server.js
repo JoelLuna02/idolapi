@@ -40,6 +40,9 @@ require("./models/User");
 require("./models/Cover");
 require("./models/OriginalSong");
 const path_1 = __importDefault(require("path"));
+const Cover_1 = __importDefault(require("./models/Cover"));
+const VTuber_1 = __importDefault(require("./models/VTuber"));
+const Song_1 = __importDefault(require("./models/Song"));
 const PORT = process.env.PORT || 3000;
 function initialize() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -79,8 +82,27 @@ apli.use('/api', api_routes_1.default);
 apli.set('view engine', 'ejs');
 apli.set('views', path_1.default.join(__dirname, 'views'));
 apli.use('/static', express_1.default.static(path_1.default.join(__dirname, 'views', 'public')));
-apli.all('/', (req, res) => {
-    return res.status(200).render('index', { title: "Comming soon..." });
-});
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function shuffleArray(array, numb) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = getRandomInt(0, i);
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array.slice(0, numb);
+}
+apli.all('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const vtList = 6;
+    const covers = yield Cover_1.default.findAll();
+    const vtubers = yield VTuber_1.default.findAll();
+    const randomVT = shuffleArray(vtubers, vtList);
+    const songs = yield Song_1.default.findAll();
+    return res.status(200).render('index', {
+        title: "Comming soon...",
+        listcovers: covers, listvt: vtubers,
+        listsongs: songs, sixvt: randomVT
+    });
+}));
 initialize();
 exports.default = apli;

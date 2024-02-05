@@ -1,3 +1,29 @@
 body {
     font-family: 'Inter', sans-serif;
 }
+
+.font01 { font-family: 'JetBrains Mono', monospace; }
+.font02 { font-family: 'Outfit', sans-serif; }
+.font03 { font-family: 'Playfair Display', serif; }
+.bg-class { background-color: rgb(17, 18, 19); }
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #aaa;
+}
+
+#fit {
+	object-fit: cover;
+	object-position: center;
+}
+#img {
+	width: 100px;
+}
+@media (max-width: 415px) {
+	#img {
+		width: 80px;
+	}
+}

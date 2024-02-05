@@ -28,6 +28,9 @@ import './models/User';
 import './models/Cover';
 import './models/OriginalSong';
 import path from 'path';
+import Cover from './models/Cover';
+import VTuber from './models/VTuber';
+import Song from './models/Song';
 
 const PORT = process.env.PORT || 3000;
 
@@ -70,8 +73,30 @@ apli.set('view engine', 'ejs');
 apli.set('views', path.join(__dirname, 'views'));
 apli.use('/static', express.static(path.join(__dirname, 'views','public')));
 
-apli.all('/', (req: Request, res: Response) => {
-	return res.status(200).render('index', { title: "Comming soon..."});
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function shuffleArray(array, numb) {
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = getRandomInt(0, i);
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+	return array.slice(0, numb);
+}
+
+apli.all('/', async (req: Request, res: Response) => {
+	const vtList = 6;
+	const covers = await Cover.findAll();
+	const vtubers = await VTuber.findAll();
+	const randomVT = shuffleArray(vtubers, vtList);
+
+	const songs = await Song.findAll();
+	return res.status(200).render('index', {
+		title: "Comming soon...", 
+		listcovers: covers, listvt: vtubers,
+		listsongs: songs, sixvt: randomVT
+	});
 });
 
 initialize();

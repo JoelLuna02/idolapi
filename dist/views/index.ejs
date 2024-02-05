@@ -5,15 +5,84 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700&family=JetBrains+Mono&family=Outfit:wght@200;400;600;800&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/mdb.min.css">
+        <link rel="stylesheet" href="/static/css/fonts/remixicon.css">
         <link rel="stylesheet" href="/static/css/styles.css">
 		<title><%= title %></title>
 	</head>
 
 	<body>
+        <%- include("include/header.ejs") %>
         <h1 class="fw-bold"><%= title %></h1>
+        <main class="font02">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f3f4f5" fill-opacity="1" d="M0,224L34.3,224C68.6,224,137,224,206,192C274.3,160,343,96,411,58.7C480,21,549,11,617,42.7C685.7,75,754,149,823,192C891.4,235,960,245,1029,224C1097.1,203,1166,149,1234,154.7C1302.9,160,1371,224,1406,256L1440,288L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path>
+            </svg>
+            <div style="background-color: #f3f4f5;">
+                <div class="container-xl">
+                    <div class="divider d-flex align-items-center py-4">
+                        <h1 class="text-center mx-3 mb-0 display-3 fw-bold">List of Vtubers</h1>
+                    </div>
+                    <div class="row gx-3">
+                        <% sixvt.forEach(vtuber => { %>
+                            <div class="col-md-6">
+                                <div class="card mb-1 mt-1 shadow rounded-fill">
+                                    <div class="row g-0">
+                                        <div class="col-sm-6 col-md-6">
+                                            <img src=<%= vtuber.avatarurl %> width="730" height="730" class="v-100 h-100 img-fluid rounded-start" id="fit" />
+                                        </div>
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="card-header">
+                                                <h4 class="card-title fw-bold">
+                                                    <%= vtuber.emoji %>
+                                                        <%= vtuber.fullname %>
+                                                </h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <% if (vtuber.phrase === '') { %>
+                                                    <p><strong>No description</strong></p>
+                                                <% } else { %>
+                                                    <p style="line-height: 1; font-size: 0.9rem">
+                                                        <%= vtuber.phrase %>
+                                                    </p>
+                                                <% } %>
+                                                <p style="line-height: 1.2; font-size: 0.9rem">
+                                                    <% if (vtuber.graduated) { %>
+                                                        <span><i class="fa-solid fa-circle text-danger ms-1 me-1"></i>Graduated</span>
+                                                    <% } else { %>
+                                                        <span><i class="fa-solid fa-circle text-success ms-1 me-1"></i>Active</span>
+                                                    <% } %>
+                                                    <br>
+                                                    <span class="fw-bold">Debut date:</span>
+                                                    <%= new Date(vtuber.debut).toDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) %><br>
+                                                    <span class="fw-bold">Branch</span>: <%= vtuber.branch %><br>
+                                                    <span class="fw-bold">Unit</span>: <%= vtuber.unit %><br>
+                                                    <span class="fw-bold">Fanname</span>: <%= vtuber.fanname %><br>
+                                                    <span class="fw-bold">Zodiac sign</span>: <%= vtuber.zodiac %><br>
+                                                </p>
+                                                <a role="button" class="btn btn-light" href="/api/vtuber/<%= vtuber.id %>" target="_blank">View in JSON</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
+                    <div class="text-center pt-3">
+                        <a role="button" class="btn btn-dark" href="/api/vtuber" target="_blank">View Full list in JSON</a>
+                    </div>
+                </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f3f4f5" fill-opacity="1" d="M0,64L24,101.3C48,139,96,213,144,245.3C192,277,240,267,288,256C336,245,384,235,432,224C480,213,528,203,576,181.3C624,160,672,128,720,138.7C768,149,816,203,864,192C912,181,960,107,1008,69.3C1056,32,1104,32,1152,48C1200,64,1248,96,1296,96C1344,96,1392,64,1416,48L1440,32L1440,0L1416,0C1392,0,1344,0,1296,0C1248,0,1200,0,1152,0C1104,0,1056,0,1008,0C960,0,912,0,864,0C816,0,768,0,720,0C672,0,624,0,576,0C528,0,480,0,432,0C384,0,336,0,288,0C240,0,192,0,144,0C96,0,48,0,24,0L0,0Z"></path>
+            </svg>
+        </main>
         <script src="/static/js/popper.js"></script>
         <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/mdb.umd.min.js"></script>
+        <script src="/static/js/scripts.js"></script>
+        <%- include("include/footer.ejs") %>
     </body>
 </html>
